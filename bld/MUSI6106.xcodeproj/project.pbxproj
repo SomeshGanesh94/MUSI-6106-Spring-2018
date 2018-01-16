@@ -1,0 +1,1205 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXAggregateTarget section */
+		17FFCB3C4DF944C4B223C0BF /* ALL_BUILD */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = C74C0B6B98FE41B981564BCE /* Build configuration list for PBXAggregateTarget "ALL_BUILD" */;
+			buildPhases = (
+				9CFF01503BE1473284D4DB6D /* CMake Rules */,
+			);
+			dependencies = (
+				A150C6B6D651460C84CDE313 /* PBXTargetDependency */,
+				9703DAB865E348CCBA28D803 /* PBXTargetDependency */,
+				51118D5E212142E0957C4049 /* PBXTargetDependency */,
+				3B6BA2EB7960474A985A8D0C /* PBXTargetDependency */,
+			);
+			name = ALL_BUILD;
+			productName = ALL_BUILD;
+		};
+		6C7524537C1548C5ABE2D2E3 /* ZERO_CHECK */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 40B8E71681BB486A9A052FE2 /* Build configuration list for PBXAggregateTarget "ZERO_CHECK" */;
+			buildPhases = (
+				7D8B1557278842B9B3B0B3CE /* CMake Rules */,
+			);
+			dependencies = (
+			);
+			name = ZERO_CHECK;
+			productName = ZERO_CHECK;
+		};
+/* End PBXAggregateTarget section */
+
+/* Begin PBXBuildFile section */
+		0A13DB9C5C42436B8D953056 /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/3rdparty/sndlib/xen.h */ = {isa = PBXBuildFile; fileRef = 617183DFD2054554BED0D237 /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/3rdparty/sndlib/xen.h */; };
+		0B2A123CF0404FC49A2BCBA6 /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/3rdparty/sndlib/unix-config.h */ = {isa = PBXBuildFile; fileRef = 52228711029A4503B8D30837 /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/3rdparty/sndlib/unix-config.h */; };
+		0EAB056B38034A219C297AA6 /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/3rdparty/sndlib/clm-strings.h */ = {isa = PBXBuildFile; fileRef = 02C3FBDD56CA4D61B79FA1DC /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/3rdparty/sndlib/clm-strings.h */; };
+		23760FBD3B0541498B2812B4 /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/3rdparty/sndlib/clm2xen.h */ = {isa = PBXBuildFile; fileRef = 36027060D8914C5FA2AA660D /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/3rdparty/sndlib/clm2xen.h */; };
+		33932437DE4F403C8772A537 /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/3rdparty/sndlib/clm.h */ = {isa = PBXBuildFile; fileRef = 0C0FB49542E841E6A84BDFBB /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/3rdparty/sndlib/clm.h */; };
+		3EA882D44692428E8B3B0444 /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/3rdparty/sndlib/xen.c */ = {isa = PBXBuildFile; fileRef = E7DAE0D8240B4ADFA86D90E4 /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/3rdparty/sndlib/xen.c */; };
+		4412CD23CD684BD892BA57E7 /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/3rdparty/sndlib/headers.c */ = {isa = PBXBuildFile; fileRef = 09828A34311A4DF38257A098 /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/3rdparty/sndlib/headers.c */; };
+		45F0E046FEB142A1B6FBE582 /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/3rdparty/sndlib/vct.c */ = {isa = PBXBuildFile; fileRef = 03BEAA1D02674F6D9691F0A2 /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/3rdparty/sndlib/vct.c */; };
+		46B9F98D7AD743D6B5BD74B2 /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/src/MUSI6106Exec/CMakeLists.txt */ = {isa = PBXBuildFile; fileRef = 75353D63E61543F7B9212465 /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/src/MUSI6106Exec/CMakeLists.txt */; };
+		55C4D2D327F6493581DCD750 /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/src/MUSI6106Exec/MUSI6106Exec.cpp */ = {isa = PBXBuildFile; fileRef = 29083D4978994B94B182A3BC /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/src/MUSI6106Exec/MUSI6106Exec.cpp */; };
+		5DFB899FF1C4455EABA290FC /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/3rdparty/sndlib/CMakeLists.txt */ = {isa = PBXBuildFile; fileRef = 42A3240122E841FB8D32A93F /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/3rdparty/sndlib/CMakeLists.txt */; };
+		63A5C185A06B41F780173345 /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/src/inc/AudioFileIf.h */ = {isa = PBXBuildFile; fileRef = 0A7E2E093ACC4EE5AEED37E6 /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/src/inc/AudioFileIf.h */; };
+		63FB100D4C9844099D3E007F /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/3rdparty/sndlib/s7.c */ = {isa = PBXBuildFile; fileRef = BCDC702FD7064648A87AB0FD /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/3rdparty/sndlib/s7.c */; };
+		65E9F2CABE0C41E3A7F02DFC /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/src/inc/Vector.h */ = {isa = PBXBuildFile; fileRef = D86ED94340B94F6AAFF47675 /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/src/inc/Vector.h */; };
+		6CD12AC0988943BEB5C41998 /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/3rdparty/sndlib/sndlib2xen.c */ = {isa = PBXBuildFile; fileRef = A836C8C42D8541D0A75DB77D /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/3rdparty/sndlib/sndlib2xen.c */; };
+		72FBDFEBC9C8410FAC833394 /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/3rdparty/sndlib/s7.h */ = {isa = PBXBuildFile; fileRef = B005B851A84048BA891CF539 /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/3rdparty/sndlib/s7.h */; };
+		772E98BC330C4C0B950F61EB /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/src/AudioFileIO/AudioFileIf.cpp */ = {isa = PBXBuildFile; fileRef = 46E2D96E5DF14DB490E4D0C4 /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/src/AudioFileIO/AudioFileIf.cpp */; };
+		802CC2694B154E7ABA15F6A0 /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/3rdparty/sndlib/mus-config.h */ = {isa = PBXBuildFile; fileRef = 906C7781D04243889CD38E60 /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/3rdparty/sndlib/mus-config.h */; };
+		865D4548322B4298A55BB91E /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/3rdparty/sndlib/io.c */ = {isa = PBXBuildFile; fileRef = D27BF07EC56A470AAD0A7B71 /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/3rdparty/sndlib/io.c */; };
+		8F20E904F8894974AEFC0DDC /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/3rdparty/sndlib/clm2xen.c */ = {isa = PBXBuildFile; fileRef = BC972EA418EF479BA6CE6A42 /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/3rdparty/sndlib/clm2xen.c */; };
+		A38DED2E28AF4EC7BFA30474 /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/src/AudioFileIO/CMakeLists.txt */ = {isa = PBXBuildFile; fileRef = 731A47831C0C4AA485D8BB05 /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/src/AudioFileIO/CMakeLists.txt */; };
+		AB142D2CA62E48D8970015FE /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/3rdparty/sndlib/sndlib.h */ = {isa = PBXBuildFile; fileRef = 5C6C0DD09254420584CDEE5E /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/3rdparty/sndlib/sndlib.h */; };
+		B2B296D879884340AB935DEE /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/3rdparty/sndlib/clm.c */ = {isa = PBXBuildFile; fileRef = 7AB0614A29B54C9383D617D4 /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/3rdparty/sndlib/clm.c */; };
+		B94B55121A2D4A31B700094C /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/3rdparty/sndlib/sndlib-strings.h */ = {isa = PBXBuildFile; fileRef = 72AFEB4702D94613B4DCE2FE /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/3rdparty/sndlib/sndlib-strings.h */; };
+		C03FA5594BF142AC986302DC /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/3rdparty/sndlib/audio.c */ = {isa = PBXBuildFile; fileRef = 71FC7F79671B4BC790D0EF6C /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/3rdparty/sndlib/audio.c */; };
+		D1D392C656584D8B9DB2A1E0 /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/3rdparty/sndlib/sound.c */ = {isa = PBXBuildFile; fileRef = 8E4E650E6E484FF0A238A5D0 /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/3rdparty/sndlib/sound.c */; };
+		D9EF6D1B75E5460A8F44811F /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/src/inc/Util.h */ = {isa = PBXBuildFile; fileRef = D4EDF1C4486D497984931BA1 /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/src/inc/Util.h */; };
+		DF55041C97FB445582C260A2 /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/3rdparty/sndlib/_sndlib.h */ = {isa = PBXBuildFile; fileRef = 3964A41493714C908BD7D193 /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/3rdparty/sndlib/_sndlib.h */; };
+		E31C49F90869474592659288 /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/src/AudioFileIO/AudioFile.h */ = {isa = PBXBuildFile; fileRef = 1C2BC57395D14C429FBC954F /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/src/AudioFileIO/AudioFile.h */; };
+		E3667CF3D56840C1889A6FF3 /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/3rdparty/sndlib/vct.h */ = {isa = PBXBuildFile; fileRef = 160AA2E6A31049F4851E6FC6 /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/3rdparty/sndlib/vct.h */; };
+		E6DA6FC26B6F4224BEFB9E0D /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/src/AudioFileIO/AudioFile.cpp */ = {isa = PBXBuildFile; fileRef = 8C9C2C148B2E418DA6D5D54F /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/src/AudioFileIO/AudioFile.cpp */; };
+		ED330143E1D745C1A051CF52 /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/3rdparty/sndlib/sndlib2xen.h */ = {isa = PBXBuildFile; fileRef = 0FEC45EF3A50464C81ED1DAB /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/3rdparty/sndlib/sndlib2xen.h */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXBuildStyle section */
+		6E5E6A32A4714133A94A7051 /* MinSizeRel */ = {
+			isa = PBXBuildStyle;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+			};
+			name = MinSizeRel;
+		};
+		766B4D41EDFF46D4B5158B31 = {
+			isa = PBXBuildStyle;
+		};
+		AA289E3219C94CF5A29FADEA /* RelWithDebInfo */ = {
+			isa = PBXBuildStyle;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+			};
+			name = RelWithDebInfo;
+		};
+		DEC5157B15BE4C2D941EC85D /* Debug */ = {
+			isa = PBXBuildStyle;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+			};
+			name = Debug;
+		};
+		E54F474515FE415BAF9C868B /* Release */ = {
+			isa = PBXBuildStyle;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+			};
+			name = Release;
+		};
+/* End PBXBuildStyle section */
+
+/* Begin PBXContainerItemProxy section */
+		0510AFC275BE40F2B2177219 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7BEF2002F5A04EA1B2624B0D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 6C7524537C1548C5ABE2D2E3;
+			remoteInfo = ZERO_CHECK;
+		};
+		1CAF3B3A1FFF4F5CB284429D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7BEF2002F5A04EA1B2624B0D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 6440A64C67764465B9364B53;
+			remoteInfo = AudioFileIO;
+		};
+		2A9FAD9C2157439381831B9D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7BEF2002F5A04EA1B2624B0D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 2714F201E67D43239638023C;
+			remoteInfo = MUSI6106Exec;
+		};
+		33C11902FB05411CB2C23AE4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7BEF2002F5A04EA1B2624B0D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 6C7524537C1548C5ABE2D2E3;
+			remoteInfo = ZERO_CHECK;
+		};
+		590FBDA44D024CFBA3E0F6CB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7BEF2002F5A04EA1B2624B0D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 6C7524537C1548C5ABE2D2E3;
+			remoteInfo = ZERO_CHECK;
+		};
+		9E5B6C248EC04DE3814760D8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7BEF2002F5A04EA1B2624B0D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 6C7524537C1548C5ABE2D2E3;
+			remoteInfo = ZERO_CHECK;
+		};
+		A9D8D9D6A4E6484293BCAD24 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7BEF2002F5A04EA1B2624B0D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 6440A64C67764465B9364B53;
+			remoteInfo = AudioFileIO;
+		};
+		B364DF356ADA44448A2C697C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7BEF2002F5A04EA1B2624B0D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A21ED9D2C5FE4A01961ED8B3;
+			remoteInfo = sndlib;
+		};
+		BC221AB8709B40B4A7947609 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7BEF2002F5A04EA1B2624B0D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A21ED9D2C5FE4A01961ED8B3;
+			remoteInfo = sndlib;
+		};
+		C8C084D0FBF544029BA56F90 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7BEF2002F5A04EA1B2624B0D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A21ED9D2C5FE4A01961ED8B3;
+			remoteInfo = sndlib;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		02C3FBDD56CA4D61B79FA1DC /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/3rdparty/sndlib/clm-strings.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = "clm-strings.h"; path = "3rdparty/sndlib/clm-strings.h"; sourceTree = SOURCE_ROOT; };
+		03BEAA1D02674F6D9691F0A2 /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/3rdparty/sndlib/vct.c */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.c; fileEncoding = 4; name = vct.c; path = 3rdparty/sndlib/vct.c; sourceTree = SOURCE_ROOT; };
+		09828A34311A4DF38257A098 /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/3rdparty/sndlib/headers.c */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.c; fileEncoding = 4; name = headers.c; path = 3rdparty/sndlib/headers.c; sourceTree = SOURCE_ROOT; };
+		0A7E2E093ACC4EE5AEED37E6 /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/src/inc/AudioFileIf.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = AudioFileIf.h; path = src/inc/AudioFileIf.h; sourceTree = SOURCE_ROOT; };
+		0C0FB49542E841E6A84BDFBB /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/3rdparty/sndlib/clm.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = clm.h; path = 3rdparty/sndlib/clm.h; sourceTree = SOURCE_ROOT; };
+		0FEC45EF3A50464C81ED1DAB /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/3rdparty/sndlib/sndlib2xen.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = sndlib2xen.h; path = 3rdparty/sndlib/sndlib2xen.h; sourceTree = SOURCE_ROOT; };
+		160AA2E6A31049F4851E6FC6 /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/3rdparty/sndlib/vct.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = vct.h; path = 3rdparty/sndlib/vct.h; sourceTree = SOURCE_ROOT; };
+		1A5C73C63E804023950C9C4D /* sndlib */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libsndlib.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		1C2BC57395D14C429FBC954F /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/src/AudioFileIO/AudioFile.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = AudioFile.h; path = src/AudioFileIO/AudioFile.h; sourceTree = SOURCE_ROOT; };
+		1D568EFD725C40DDA8624071 /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/CMakeLists.txt */ = {isa = PBXFileReference; explicitFileType = sourcecode.text; fileEncoding = 4; name = CMakeLists.txt; path = CMakeLists.txt; sourceTree = SOURCE_ROOT; };
+		29083D4978994B94B182A3BC /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/src/MUSI6106Exec/MUSI6106Exec.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = MUSI6106Exec.cpp; path = src/MUSI6106Exec/MUSI6106Exec.cpp; sourceTree = SOURCE_ROOT; };
+		36027060D8914C5FA2AA660D /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/3rdparty/sndlib/clm2xen.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = clm2xen.h; path = 3rdparty/sndlib/clm2xen.h; sourceTree = SOURCE_ROOT; };
+		3964A41493714C908BD7D193 /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/3rdparty/sndlib/_sndlib.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = _sndlib.h; path = 3rdparty/sndlib/_sndlib.h; sourceTree = SOURCE_ROOT; };
+		42A3240122E841FB8D32A93F /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/3rdparty/sndlib/CMakeLists.txt */ = {isa = PBXFileReference; explicitFileType = sourcecode.text; fileEncoding = 4; name = CMakeLists.txt; path = 3rdparty/sndlib/CMakeLists.txt; sourceTree = SOURCE_ROOT; };
+		46E2D96E5DF14DB490E4D0C4 /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/src/AudioFileIO/AudioFileIf.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = AudioFileIf.cpp; path = src/AudioFileIO/AudioFileIf.cpp; sourceTree = SOURCE_ROOT; };
+		52228711029A4503B8D30837 /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/3rdparty/sndlib/unix-config.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = "unix-config.h"; path = "3rdparty/sndlib/unix-config.h"; sourceTree = SOURCE_ROOT; };
+		5C6C0DD09254420584CDEE5E /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/3rdparty/sndlib/sndlib.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = sndlib.h; path = 3rdparty/sndlib/sndlib.h; sourceTree = SOURCE_ROOT; };
+		617183DFD2054554BED0D237 /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/3rdparty/sndlib/xen.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = xen.h; path = 3rdparty/sndlib/xen.h; sourceTree = SOURCE_ROOT; };
+		71FC7F79671B4BC790D0EF6C /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/3rdparty/sndlib/audio.c */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.c; fileEncoding = 4; name = audio.c; path = 3rdparty/sndlib/audio.c; sourceTree = SOURCE_ROOT; };
+		72AFEB4702D94613B4DCE2FE /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/3rdparty/sndlib/sndlib-strings.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = "sndlib-strings.h"; path = "3rdparty/sndlib/sndlib-strings.h"; sourceTree = SOURCE_ROOT; };
+		731A47831C0C4AA485D8BB05 /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/src/AudioFileIO/CMakeLists.txt */ = {isa = PBXFileReference; explicitFileType = sourcecode.text; fileEncoding = 4; name = CMakeLists.txt; path = src/AudioFileIO/CMakeLists.txt; sourceTree = SOURCE_ROOT; };
+		75353D63E61543F7B9212465 /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/src/MUSI6106Exec/CMakeLists.txt */ = {isa = PBXFileReference; explicitFileType = sourcecode.text; fileEncoding = 4; name = CMakeLists.txt; path = src/MUSI6106Exec/CMakeLists.txt; sourceTree = SOURCE_ROOT; };
+		7AB0614A29B54C9383D617D4 /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/3rdparty/sndlib/clm.c */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.c; fileEncoding = 4; name = clm.c; path = 3rdparty/sndlib/clm.c; sourceTree = SOURCE_ROOT; };
+		8C9C2C148B2E418DA6D5D54F /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/src/AudioFileIO/AudioFile.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = AudioFile.cpp; path = src/AudioFileIO/AudioFile.cpp; sourceTree = SOURCE_ROOT; };
+		8E4E650E6E484FF0A238A5D0 /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/3rdparty/sndlib/sound.c */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.c; fileEncoding = 4; name = sound.c; path = 3rdparty/sndlib/sound.c; sourceTree = SOURCE_ROOT; };
+		906C7781D04243889CD38E60 /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/3rdparty/sndlib/mus-config.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = "mus-config.h"; path = "3rdparty/sndlib/mus-config.h"; sourceTree = SOURCE_ROOT; };
+		A836C8C42D8541D0A75DB77D /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/3rdparty/sndlib/sndlib2xen.c */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.c; fileEncoding = 4; name = sndlib2xen.c; path = 3rdparty/sndlib/sndlib2xen.c; sourceTree = SOURCE_ROOT; };
+		B005B851A84048BA891CF539 /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/3rdparty/sndlib/s7.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = s7.h; path = 3rdparty/sndlib/s7.h; sourceTree = SOURCE_ROOT; };
+		BC972EA418EF479BA6CE6A42 /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/3rdparty/sndlib/clm2xen.c */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.c; fileEncoding = 4; name = clm2xen.c; path = 3rdparty/sndlib/clm2xen.c; sourceTree = SOURCE_ROOT; };
+		BCDC702FD7064648A87AB0FD /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/3rdparty/sndlib/s7.c */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.c; fileEncoding = 4; name = s7.c; path = 3rdparty/sndlib/s7.c; sourceTree = SOURCE_ROOT; };
+		CF3544D2668F4C22B49F11A7 /* AudioFileIO */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libAudioFileIO.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		D27BF07EC56A470AAD0A7B71 /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/3rdparty/sndlib/io.c */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.c; fileEncoding = 4; name = io.c; path = 3rdparty/sndlib/io.c; sourceTree = SOURCE_ROOT; };
+		D3F0A6C134E94AEEA96DA530 /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/CMakeLists.txt */ = {isa = PBXFileReference; explicitFileType = sourcecode.text; fileEncoding = 4; name = CMakeLists.txt; path = CMakeLists.txt; sourceTree = SOURCE_ROOT; };
+		D4EDF1C4486D497984931BA1 /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/src/inc/Util.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = Util.h; path = src/inc/Util.h; sourceTree = SOURCE_ROOT; };
+		D86ED94340B94F6AAFF47675 /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/src/inc/Vector.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = Vector.h; path = src/inc/Vector.h; sourceTree = SOURCE_ROOT; };
+		E7DAE0D8240B4ADFA86D90E4 /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/3rdparty/sndlib/xen.c */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.c; fileEncoding = 4; name = xen.c; path = 3rdparty/sndlib/xen.c; sourceTree = SOURCE_ROOT; };
+		FA94355BA825467B8216F3CB /* MUSI6106Exec */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; path = MUSI6106Exec; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		0928E6058BFD42B2861F8884 /* CMake Rules */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "CMake Rules";
+			sourceTree = "<group>";
+		};
+		1A86DB9089584D68B1502024 /* sndlib */ = {
+			isa = PBXGroup;
+			children = (
+				6C4612042704467388DDC4E6 /* Source Files */,
+				29F95F65E25B40008BF8946F /* Header Files */,
+				42A3240122E841FB8D32A93F /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/3rdparty/sndlib/CMakeLists.txt */,
+			);
+			name = sndlib;
+			sourceTree = "<group>";
+		};
+		1E171B097AD4483BBD9CD6A0 /* CMake Rules */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "CMake Rules";
+			sourceTree = "<group>";
+		};
+		20C8766F63824232922EF687 /* ZERO_CHECK */ = {
+			isa = PBXGroup;
+			children = (
+				1E171B097AD4483BBD9CD6A0 /* CMake Rules */,
+				1D568EFD725C40DDA8624071 /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/CMakeLists.txt */,
+			);
+			name = ZERO_CHECK;
+			sourceTree = "<group>";
+		};
+		237266F5E75A49D7A478F81D /* AudioFileIO */ = {
+			isa = PBXGroup;
+			children = (
+				BB4C52507507431B9986AFAC /* Source Files */,
+				D4AC90FBC1F0461BA2668A71 /* Header Files */,
+				731A47831C0C4AA485D8BB05 /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/src/AudioFileIO/CMakeLists.txt */,
+			);
+			name = AudioFileIO;
+			sourceTree = "<group>";
+		};
+		29F95F65E25B40008BF8946F /* Header Files */ = {
+			isa = PBXGroup;
+			children = (
+				3964A41493714C908BD7D193 /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/3rdparty/sndlib/_sndlib.h */,
+				02C3FBDD56CA4D61B79FA1DC /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/3rdparty/sndlib/clm-strings.h */,
+				0C0FB49542E841E6A84BDFBB /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/3rdparty/sndlib/clm.h */,
+				36027060D8914C5FA2AA660D /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/3rdparty/sndlib/clm2xen.h */,
+				906C7781D04243889CD38E60 /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/3rdparty/sndlib/mus-config.h */,
+				B005B851A84048BA891CF539 /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/3rdparty/sndlib/s7.h */,
+				72AFEB4702D94613B4DCE2FE /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/3rdparty/sndlib/sndlib-strings.h */,
+				5C6C0DD09254420584CDEE5E /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/3rdparty/sndlib/sndlib.h */,
+				0FEC45EF3A50464C81ED1DAB /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/3rdparty/sndlib/sndlib2xen.h */,
+				52228711029A4503B8D30837 /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/3rdparty/sndlib/unix-config.h */,
+				160AA2E6A31049F4851E6FC6 /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/3rdparty/sndlib/vct.h */,
+				617183DFD2054554BED0D237 /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/3rdparty/sndlib/xen.h */,
+			);
+			name = "Header Files";
+			sourceTree = "<group>";
+		};
+		3603D3E00DE64FDD9B140B6A /* MUSI6106Exec */ = {
+			isa = PBXGroup;
+			children = (
+				60361476F6274ED792390136 /* Source Files */,
+				B1E18CE1EB984987BAF301FD /* Header Files */,
+				75353D63E61543F7B9212465 /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/src/MUSI6106Exec/CMakeLists.txt */,
+			);
+			name = MUSI6106Exec;
+			sourceTree = "<group>";
+		};
+		53A77F4E64534D0083ADD339 /* ALL_BUILD */ = {
+			isa = PBXGroup;
+			children = (
+				0928E6058BFD42B2861F8884 /* CMake Rules */,
+				D3F0A6C134E94AEEA96DA530 /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/CMakeLists.txt */,
+			);
+			name = ALL_BUILD;
+			sourceTree = "<group>";
+		};
+		60361476F6274ED792390136 /* Source Files */ = {
+			isa = PBXGroup;
+			children = (
+				29083D4978994B94B182A3BC /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/src/MUSI6106Exec/MUSI6106Exec.cpp */,
+			);
+			name = "Source Files";
+			sourceTree = "<group>";
+		};
+		6C4612042704467388DDC4E6 /* Source Files */ = {
+			isa = PBXGroup;
+			children = (
+				71FC7F79671B4BC790D0EF6C /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/3rdparty/sndlib/audio.c */,
+				7AB0614A29B54C9383D617D4 /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/3rdparty/sndlib/clm.c */,
+				BC972EA418EF479BA6CE6A42 /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/3rdparty/sndlib/clm2xen.c */,
+				09828A34311A4DF38257A098 /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/3rdparty/sndlib/headers.c */,
+				D27BF07EC56A470AAD0A7B71 /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/3rdparty/sndlib/io.c */,
+				BCDC702FD7064648A87AB0FD /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/3rdparty/sndlib/s7.c */,
+				A836C8C42D8541D0A75DB77D /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/3rdparty/sndlib/sndlib2xen.c */,
+				8E4E650E6E484FF0A238A5D0 /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/3rdparty/sndlib/sound.c */,
+				03BEAA1D02674F6D9691F0A2 /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/3rdparty/sndlib/vct.c */,
+				E7DAE0D8240B4ADFA86D90E4 /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/3rdparty/sndlib/xen.c */,
+			);
+			name = "Source Files";
+			sourceTree = "<group>";
+		};
+		6ED1415C673A4197AF31ED7F /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		B1E18CE1EB984987BAF301FD /* Header Files */ = {
+			isa = PBXGroup;
+			children = (
+				0A7E2E093ACC4EE5AEED37E6 /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/src/inc/AudioFileIf.h */,
+				D4EDF1C4486D497984931BA1 /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/src/inc/Util.h */,
+				D86ED94340B94F6AAFF47675 /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/src/inc/Vector.h */,
+			);
+			name = "Header Files";
+			sourceTree = "<group>";
+		};
+		BB4C52507507431B9986AFAC /* Source Files */ = {
+			isa = PBXGroup;
+			children = (
+				8C9C2C148B2E418DA6D5D54F /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/src/AudioFileIO/AudioFile.cpp */,
+				46E2D96E5DF14DB490E4D0C4 /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/src/AudioFileIO/AudioFileIf.cpp */,
+			);
+			name = "Source Files";
+			sourceTree = "<group>";
+		};
+		D4AC90FBC1F0461BA2668A71 /* Header Files */ = {
+			isa = PBXGroup;
+			children = (
+				1C2BC57395D14C429FBC954F /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/src/AudioFileIO/AudioFile.h */,
+			);
+			name = "Header Files";
+			sourceTree = "<group>";
+		};
+		DC16103AC3CF4E72B4808BBE = {
+			isa = PBXGroup;
+			children = (
+				F5FB7BAC91E84C768F9EAD8E /* Sources */,
+				6ED1415C673A4197AF31ED7F /* Resources */,
+				EA8392A260504A71B365D835 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		EA8392A260504A71B365D835 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				FA94355BA825467B8216F3CB /* MUSI6106Exec */,
+				CF3544D2668F4C22B49F11A7 /* AudioFileIO */,
+				1A5C73C63E804023950C9C4D /* sndlib */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F5FB7BAC91E84C768F9EAD8E /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				53A77F4E64534D0083ADD339 /* ALL_BUILD */,
+				20C8766F63824232922EF687 /* ZERO_CHECK */,
+				3603D3E00DE64FDD9B140B6A /* MUSI6106Exec */,
+				237266F5E75A49D7A478F81D /* AudioFileIO */,
+				1A86DB9089584D68B1502024 /* sndlib */,
+			);
+			name = Sources;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		2714F201E67D43239638023C /* MUSI6106Exec */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4117FE2846D1404699860A4A /* Build configuration list for PBXNativeTarget "MUSI6106Exec" */;
+			buildPhases = (
+				4A4C6287CA714E1B8EC9EBF5 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				1A2DD83495BA4A7AA413E93F /* PBXTargetDependency */,
+				4F1BDDEBA663442AAF0BC940 /* PBXTargetDependency */,
+				4700421BD02A4A5089D7A4F4 /* PBXTargetDependency */,
+			);
+			name = MUSI6106Exec;
+			productName = MUSI6106Exec;
+			productReference = FA94355BA825467B8216F3CB /* MUSI6106Exec */;
+			productType = "com.apple.product-type.tool";
+		};
+		6440A64C67764465B9364B53 /* AudioFileIO */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C583BF575AEC46789DEA2E2F /* Build configuration list for PBXNativeTarget "AudioFileIO" */;
+			buildPhases = (
+				E3AAC5794C31469A8BDF7513 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B49BEA79BC624D40A120316B /* PBXTargetDependency */,
+				3B770A346D774AFA94F5F9B2 /* PBXTargetDependency */,
+			);
+			name = AudioFileIO;
+			productName = AudioFileIO;
+			productReference = CF3544D2668F4C22B49F11A7 /* AudioFileIO */;
+			productType = "com.apple.product-type.library.static";
+		};
+		A21ED9D2C5FE4A01961ED8B3 /* sndlib */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 10CF9F63EBA047499BF52D7B /* Build configuration list for PBXNativeTarget "sndlib" */;
+			buildPhases = (
+				09A85F57CB2C4537946B54CC /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B7648CE900714AE48FDAB38B /* PBXTargetDependency */,
+			);
+			name = sndlib;
+			productName = sndlib;
+			productReference = 1A5C73C63E804023950C9C4D /* sndlib */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		7BEF2002F5A04EA1B2624B0D /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 0820;
+			};
+			buildConfigurationList = 3FB061B847434EE285EDED91 /* Build configuration list for PBXProject "MUSI6106" */;
+			buildSettings = {
+			};
+			buildStyles = (
+				DEC5157B15BE4C2D941EC85D /* Debug */,
+				E54F474515FE415BAF9C868B /* Release */,
+				6E5E6A32A4714133A94A7051 /* MinSizeRel */,
+				AA289E3219C94CF5A29FADEA /* RelWithDebInfo */,
+			);
+			compatibilityVersion = "Xcode 3.2";
+			hasScannedForEncodings = 0;
+			mainGroup = DC16103AC3CF4E72B4808BBE;
+			projectDirPath = "/Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master";
+			projectRoot = "";
+			targets = (
+				17FFCB3C4DF944C4B223C0BF /* ALL_BUILD */,
+				6C7524537C1548C5ABE2D2E3 /* ZERO_CHECK */,
+				2714F201E67D43239638023C /* MUSI6106Exec */,
+				6440A64C67764465B9364B53 /* AudioFileIO */,
+				A21ED9D2C5FE4A01961ED8B3 /* sndlib */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		48FE08E82E51436DAD85766F = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# shell script goes here
+exit 0";
+			showEnvVarsInLog = 0;
+		};
+		71849E96F0AB4EC2958FD141 = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# shell script goes here
+exit 0";
+			showEnvVarsInLog = 0;
+		};
+		7D8B1557278842B9B3B0B3CE /* CMake Rules */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			name = "CMake Rules";
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "make -C /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/bld -f /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/bld/CMakeScripts/ZERO_CHECK_cmakeRulesBuildPhase.make$CONFIGURATION all";
+			showEnvVarsInLog = 0;
+		};
+		9CFF01503BE1473284D4DB6D /* CMake Rules */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			name = "CMake Rules";
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "make -C /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/bld -f /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/bld/CMakeScripts/ALL_BUILD_cmakeRulesBuildPhase.make$CONFIGURATION all";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		09A85F57CB2C4537946B54CC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C03FA5594BF142AC986302DC /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/3rdparty/sndlib/audio.c */,
+				B2B296D879884340AB935DEE /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/3rdparty/sndlib/clm.c */,
+				8F20E904F8894974AEFC0DDC /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/3rdparty/sndlib/clm2xen.c */,
+				4412CD23CD684BD892BA57E7 /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/3rdparty/sndlib/headers.c */,
+				865D4548322B4298A55BB91E /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/3rdparty/sndlib/io.c */,
+				63FB100D4C9844099D3E007F /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/3rdparty/sndlib/s7.c */,
+				6CD12AC0988943BEB5C41998 /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/3rdparty/sndlib/sndlib2xen.c */,
+				D1D392C656584D8B9DB2A1E0 /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/3rdparty/sndlib/sound.c */,
+				45F0E046FEB142A1B6FBE582 /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/3rdparty/sndlib/vct.c */,
+				3EA882D44692428E8B3B0444 /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/3rdparty/sndlib/xen.c */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4A4C6287CA714E1B8EC9EBF5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				55C4D2D327F6493581DCD750 /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/src/MUSI6106Exec/MUSI6106Exec.cpp */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E3AAC5794C31469A8BDF7513 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E6DA6FC26B6F4224BEFB9E0D /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/src/AudioFileIO/AudioFile.cpp */,
+				772E98BC330C4C0B950F61EB /* /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/src/AudioFileIO/AudioFileIf.cpp */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		1A2DD83495BA4A7AA413E93F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A21ED9D2C5FE4A01961ED8B3 /* sndlib */;
+			targetProxy = B364DF356ADA44448A2C697C /* PBXContainerItemProxy */;
+		};
+		3B6BA2EB7960474A985A8D0C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 6440A64C67764465B9364B53 /* AudioFileIO */;
+			targetProxy = 1CAF3B3A1FFF4F5CB284429D /* PBXContainerItemProxy */;
+		};
+		3B770A346D774AFA94F5F9B2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 6C7524537C1548C5ABE2D2E3 /* ZERO_CHECK */;
+			targetProxy = 33C11902FB05411CB2C23AE4 /* PBXContainerItemProxy */;
+		};
+		4700421BD02A4A5089D7A4F4 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 6440A64C67764465B9364B53 /* AudioFileIO */;
+			targetProxy = A9D8D9D6A4E6484293BCAD24 /* PBXContainerItemProxy */;
+		};
+		4F1BDDEBA663442AAF0BC940 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 6C7524537C1548C5ABE2D2E3 /* ZERO_CHECK */;
+			targetProxy = 590FBDA44D024CFBA3E0F6CB /* PBXContainerItemProxy */;
+		};
+		51118D5E212142E0957C4049 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 6C7524537C1548C5ABE2D2E3 /* ZERO_CHECK */;
+			targetProxy = 0510AFC275BE40F2B2177219 /* PBXContainerItemProxy */;
+		};
+		9703DAB865E348CCBA28D803 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 2714F201E67D43239638023C /* MUSI6106Exec */;
+			targetProxy = 2A9FAD9C2157439381831B9D /* PBXContainerItemProxy */;
+		};
+		A150C6B6D651460C84CDE313 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A21ED9D2C5FE4A01961ED8B3 /* sndlib */;
+			targetProxy = BC221AB8709B40B4A7947609 /* PBXContainerItemProxy */;
+		};
+		B49BEA79BC624D40A120316B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A21ED9D2C5FE4A01961ED8B3 /* sndlib */;
+			targetProxy = C8C084D0FBF544029BA56F90 /* PBXContainerItemProxy */;
+		};
+		B7648CE900714AE48FDAB38B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 6C7524537C1548C5ABE2D2E3 /* ZERO_CHECK */;
+			targetProxy = 9E5B6C248EC04DE3814760D8 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		09712D2DEF464ECDB044E5D4 /* MinSizeRel */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ZERO_CHECK;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/bld";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
+			};
+			name = MinSizeRel;
+		};
+		0E179F9BBEB4478CAC242BCF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ZERO_CHECK;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/bld";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
+			};
+			name = Debug;
+		};
+		1F9E7092EBA5416085D375A8 /* RelWithDebInfo */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ZERO_CHECK;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/bld";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
+			};
+			name = RelWithDebInfo;
+		};
+		2004DBB942AB4F4591147452 /* RelWithDebInfo */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk;
+				SYMROOT = "/Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/bld/build";
+			};
+			name = RelWithDebInfo;
+		};
+		24DE69677E5E41A3BCCAE9E5 /* MinSizeRel */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				CONFIGURATION_BUILD_DIR = "/Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/lib/MinSizeRel";
+				EXECUTABLE_PREFIX = lib;
+				EXECUTABLE_SUFFIX = .a;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = s;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = ("/Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/inc","/Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/src/inc","/Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/bld/inc","/Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/3rdparty/sndlib");
+				INSTALL_PATH = "";
+				LIBRARY_STYLE = STATIC;
+				OTHER_CPLUSPLUSFLAGS = "    -DNDEBUG  ";
+				OTHER_LIBTOOLFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = AudioFileIO;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/bld/AudioFileIO";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
+			};
+			name = MinSizeRel;
+		};
+		2856ECB35B084A1DBCA9D16A /* MinSizeRel */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				CONFIGURATION_BUILD_DIR = "/Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/bin/MinSizeRel";
+				EXECUTABLE_PREFIX = "";
+				EXECUTABLE_SUFFIX = "";
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = s;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = ("/Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/inc","/Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/src/inc","/Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/bld/inc");
+				INSTALL_PATH = "";
+				LIBRARY_SEARCH_PATHS = "";
+				OTHER_CPLUSPLUSFLAGS = "    -DNDEBUG  ";
+				OTHER_LDFLAGS = " -Wl,-search_paths_first -Wl,-headerpad_max_install_names  /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/lib/MinSizeRel/libAudioFileIO.a /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/lib/MinSizeRel/libsndlib.a";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = MUSI6106Exec;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/bld/MUSI6106Exec";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
+			};
+			name = MinSizeRel;
+		};
+		43FED648F27C46E68983E705 /* RelWithDebInfo */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				CONFIGURATION_BUILD_DIR = "/Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/bin/relwithdebinfo";
+				EXECUTABLE_PREFIX = "";
+				EXECUTABLE_SUFFIX = "";
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 2;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = ("/Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/inc","/Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/src/inc","/Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/bld/inc");
+				INSTALL_PATH = "";
+				LIBRARY_SEARCH_PATHS = "";
+				OTHER_CPLUSPLUSFLAGS = "       -DNDEBUG  ";
+				OTHER_LDFLAGS = " -Wl,-search_paths_first -Wl,-headerpad_max_install_names  /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/lib/relwithdebinfo/libAudioFileIO.a /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/lib/relwithdebinfo/libsndlib.a";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = MUSI6106Exec;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/bld/MUSI6106Exec";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
+			};
+			name = RelWithDebInfo;
+		};
+		44F1E32231F5496E9C04DD82 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ZERO_CHECK;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/bld";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
+			};
+			name = Release;
+		};
+		487247F1AAEB4BB38226F24A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				CONFIGURATION_BUILD_DIR = "/Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/bin/debug";
+				EXECUTABLE_PREFIX = "";
+				EXECUTABLE_SUFFIX = "";
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = ("/Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/inc","/Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/src/inc","/Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/bld/inc");
+				INSTALL_PATH = "";
+				LIBRARY_SEARCH_PATHS = "";
+				OTHER_CPLUSPLUSFLAGS = "    ";
+				OTHER_LDFLAGS = " -Wl,-search_paths_first -Wl,-headerpad_max_install_names  /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/lib/debug/libAudioFileIO.a /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/lib/debug/libsndlib.a";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = MUSI6106Exec;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/bld/MUSI6106Exec";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
+			};
+			name = Debug;
+		};
+		4ACBD630B45F4EE99D2D6923 /* RelWithDebInfo */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				CONFIGURATION_BUILD_DIR = "/Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/lib/relwithdebinfo";
+				EXECUTABLE_PREFIX = lib;
+				EXECUTABLE_SUFFIX = .a;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 2;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = ("/Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/inc","/Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/src/inc","/Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/bld/inc","/Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/3rdparty/sndlib");
+				INSTALL_PATH = "";
+				LIBRARY_STYLE = STATIC;
+				OTHER_CPLUSPLUSFLAGS = "       -DNDEBUG  ";
+				OTHER_LIBTOOLFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = AudioFileIO;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/bld/AudioFileIO";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
+			};
+			name = RelWithDebInfo;
+		};
+		4D43F2EAC0AD4E1CAE80119B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				CONFIGURATION_BUILD_DIR = "/Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/lib/debug";
+				EXECUTABLE_PREFIX = lib;
+				EXECUTABLE_SUFFIX = .a;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = ("/Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/3rdparty/sndlib");
+				INSTALL_PATH = "";
+				LIBRARY_STYLE = STATIC;
+				OTHER_CFLAGS = "   -w  ";
+				OTHER_LIBTOOLFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = sndlib;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/bld/AudioFileIO/sndlib";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
+			};
+			name = Debug;
+		};
+		6E2E45D9AC1C42ECBEF04E58 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk;
+				SYMROOT = "/Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/bld/build";
+			};
+			name = Debug;
+		};
+		80E91634703943C59F728718 /* MinSizeRel */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				CONFIGURATION_BUILD_DIR = "/Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/lib/MinSizeRel";
+				EXECUTABLE_PREFIX = lib;
+				EXECUTABLE_SUFFIX = .a;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = s;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = ("/Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/3rdparty/sndlib");
+				INSTALL_PATH = "";
+				LIBRARY_STYLE = STATIC;
+				OTHER_CFLAGS = "    -DNDEBUG -w  ";
+				OTHER_LIBTOOLFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = sndlib;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/bld/AudioFileIO/sndlib";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
+			};
+			name = MinSizeRel;
+		};
+		81ADD027AD954A14999966B0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				CONFIGURATION_BUILD_DIR = "/Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/lib/debug";
+				EXECUTABLE_PREFIX = lib;
+				EXECUTABLE_SUFFIX = .a;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = ("/Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/inc","/Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/src/inc","/Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/bld/inc","/Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/3rdparty/sndlib");
+				INSTALL_PATH = "";
+				LIBRARY_STYLE = STATIC;
+				OTHER_CPLUSPLUSFLAGS = "    ";
+				OTHER_LIBTOOLFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = AudioFileIO;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/bld/AudioFileIO";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
+			};
+			name = Debug;
+		};
+		886CB3B8A642429087CD6DAC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ALL_BUILD;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/bld";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
+			};
+			name = Debug;
+		};
+		894A2D004CD744B6B84D646A /* MinSizeRel */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk;
+				SYMROOT = "/Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/bld/build";
+			};
+			name = MinSizeRel;
+		};
+		9560DB93B4964C71B319FD68 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				CONFIGURATION_BUILD_DIR = "/Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/lib/release";
+				EXECUTABLE_PREFIX = lib;
+				EXECUTABLE_SUFFIX = .a;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 3;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = ("/Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/3rdparty/sndlib");
+				INSTALL_PATH = "";
+				LIBRARY_STYLE = STATIC;
+				OTHER_CFLAGS = "    -DNDEBUG -w  ";
+				OTHER_LIBTOOLFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = sndlib;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/bld/AudioFileIO/sndlib";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
+			};
+			name = Release;
+		};
+		9DF4B12B43E1440EB9D4754F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				CONFIGURATION_BUILD_DIR = "/Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/bin/release";
+				EXECUTABLE_PREFIX = "";
+				EXECUTABLE_SUFFIX = "";
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 3;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = ("/Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/inc","/Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/src/inc","/Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/bld/inc");
+				INSTALL_PATH = "";
+				LIBRARY_SEARCH_PATHS = "";
+				OTHER_CPLUSPLUSFLAGS = "    -DNDEBUG  ";
+				OTHER_LDFLAGS = " -Wl,-search_paths_first -Wl,-headerpad_max_install_names  /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/lib/release/libAudioFileIO.a /Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/lib/release/libsndlib.a";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = MUSI6106Exec;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/bld/MUSI6106Exec";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
+			};
+			name = Release;
+		};
+		CEC1F21E7AC943FCAD95B8EB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				CONFIGURATION_BUILD_DIR = "/Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/lib/release";
+				EXECUTABLE_PREFIX = lib;
+				EXECUTABLE_SUFFIX = .a;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 3;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = ("/Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/inc","/Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/src/inc","/Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/bld/inc","/Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/3rdparty/sndlib");
+				INSTALL_PATH = "";
+				LIBRARY_STYLE = STATIC;
+				OTHER_CPLUSPLUSFLAGS = "    -DNDEBUG  ";
+				OTHER_LIBTOOLFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = AudioFileIO;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/bld/AudioFileIO";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
+			};
+			name = Release;
+		};
+		D037A3FF553A42C8902976B2 /* MinSizeRel */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ALL_BUILD;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/bld";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
+			};
+			name = MinSizeRel;
+		};
+		D7013F152F3B44CC94F0ECCA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk;
+				SYMROOT = "/Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/bld/build";
+			};
+			name = Release;
+		};
+		DE58B907C8DB441089782BA7 /* RelWithDebInfo */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				CONFIGURATION_BUILD_DIR = "/Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/lib/relwithdebinfo";
+				EXECUTABLE_PREFIX = lib;
+				EXECUTABLE_SUFFIX = .a;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 2;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = ("/Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/2018-MUSI6106-master/3rdparty/sndlib");
+				INSTALL_PATH = "";
+				LIBRARY_STYLE = STATIC;
+				OTHER_CFLAGS = "       -DNDEBUG -w  ";
+				OTHER_LIBTOOLFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = sndlib;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/bld/AudioFileIO/sndlib";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
+			};
+			name = RelWithDebInfo;
+		};
+		E0D25708896E466ABBA29F2A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ALL_BUILD;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/bld";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
+			};
+			name = Release;
+		};
+		E75D839738FD40C7B5C8A06A /* RelWithDebInfo */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ALL_BUILD;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/bld";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
+			};
+			name = RelWithDebInfo;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		10CF9F63EBA047499BF52D7B /* Build configuration list for PBXNativeTarget "sndlib" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4D43F2EAC0AD4E1CAE80119B /* Debug */,
+				9560DB93B4964C71B319FD68 /* Release */,
+				80E91634703943C59F728718 /* MinSizeRel */,
+				DE58B907C8DB441089782BA7 /* RelWithDebInfo */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		3FB061B847434EE285EDED91 /* Build configuration list for PBXProject "MUSI6106" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6E2E45D9AC1C42ECBEF04E58 /* Debug */,
+				D7013F152F3B44CC94F0ECCA /* Release */,
+				894A2D004CD744B6B84D646A /* MinSizeRel */,
+				2004DBB942AB4F4591147452 /* RelWithDebInfo */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		40B8E71681BB486A9A052FE2 /* Build configuration list for PBXAggregateTarget "ZERO_CHECK" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0E179F9BBEB4478CAC242BCF /* Debug */,
+				44F1E32231F5496E9C04DD82 /* Release */,
+				09712D2DEF464ECDB044E5D4 /* MinSizeRel */,
+				1F9E7092EBA5416085D375A8 /* RelWithDebInfo */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		4117FE2846D1404699860A4A /* Build configuration list for PBXNativeTarget "MUSI6106Exec" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				487247F1AAEB4BB38226F24A /* Debug */,
+				9DF4B12B43E1440EB9D4754F /* Release */,
+				2856ECB35B084A1DBCA9D16A /* MinSizeRel */,
+				43FED648F27C46E68983E705 /* RelWithDebInfo */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		C583BF575AEC46789DEA2E2F /* Build configuration list for PBXNativeTarget "AudioFileIO" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				81ADD027AD954A14999966B0 /* Debug */,
+				CEC1F21E7AC943FCAD95B8EB /* Release */,
+				24DE69677E5E41A3BCCAE9E5 /* MinSizeRel */,
+				4ACBD630B45F4EE99D2D6923 /* RelWithDebInfo */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		C74C0B6B98FE41B981564BCE /* Build configuration list for PBXAggregateTarget "ALL_BUILD" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				886CB3B8A642429087CD6DAC /* Debug */,
+				E0D25708896E466ABBA29F2A /* Release */,
+				D037A3FF553A42C8902976B2 /* MinSizeRel */,
+				E75D839738FD40C7B5C8A06A /* RelWithDebInfo */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 7BEF2002F5A04EA1B2624B0D /* Project object */;
+}

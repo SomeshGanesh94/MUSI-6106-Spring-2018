@@ -1,0 +1,5 @@
+/Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/bld/CMakeFiles/ALL_BUILD.dir
+/Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/bld/CMakeFiles/ZERO_CHECK.dir
+/Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/bld/MUSI6106Exec/CMakeFiles/MUSI6106Exec.dir
+/Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/bld/AudioFileIO/CMakeFiles/AudioFileIO.dir
+/Users/someshganesh/Documents/GitHub/MUSI-6106-Spring-2018/bld/AudioFileIO/sndlib/CMakeFiles/sndlib.dir
