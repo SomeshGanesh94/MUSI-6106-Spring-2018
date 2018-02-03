@@ -19,7 +19,7 @@ PluginContainer::~PluginContainer()
     delete pluginInstance;
     delete newProcessor;
 }
-
+//Setters
 void PluginContainer::setPluginInstance(AudioProcessor& plugin)
 {
     pluginInstance = &plugin;
@@ -35,6 +35,7 @@ void PluginContainer::setParameter(int index, float value)
     pluginInstance -> setParameter(index, value);
 }
 
+//Getters
 String PluginContainer::getParameterName(int index)
 {
     return (pluginInstance -> getParameterName(index));

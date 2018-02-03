@@ -17,10 +17,16 @@ class PluginContainer
 public:
     PluginContainer();
     ~PluginContainer();
-    void setPluginInstance (AudioProcessor& pluginInstance);
-    void setProcessor (AudioProcessor& processor);
-    void setParameter (int parameterIndex, float newValue);
-    String getParameterName (int parameterIndex);
+    
+    //Setters
+    void setPluginInstance(AudioProcessor& pluginInstance);
+    void setProcessor(AudioProcessor& processor);
+    void setParameter(int parameterIndex, float newValue);
+    
+    //Getters
+    int getNumberOfParameters();
+    String getParameterName(int parameterIndex);
+    
 private:
     AudioProcessor* pluginInstance;
     AudioProcessor* newProcessor;
