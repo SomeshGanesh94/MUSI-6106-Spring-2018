@@ -29,6 +29,7 @@
 #include "FilterGraph.h"
 #include "InternalFilters.h"
 #include "GraphEditorPanel.h"
+#include "PluginContainer.h"
 
 
 //==============================================================================
@@ -120,6 +121,7 @@ void FilterGraph::addFilterCallback (AudioPluginInstance* instance, const String
     }
     else
     {
+        
         instance->enableAllBuses();
 
         if (auto* node = graph.addNode (instance))
@@ -127,6 +129,18 @@ void FilterGraph::addFilterCallback (AudioPluginInstance* instance, const String
             node->properties.set ("x", pos.x);
             node->properties.set ("y", pos.y);
             changed();
+        }
+        
+        static int count = 0;
+        count++;
+        //This is to manipulate parameters of the plugin - the first three inputs are MIDI and Audio input and Audio Output already present in the plugin host
+        if(count > 3)
+        {
+            auto* processor = dynamic_cast<AudioProcessor*> (instance);
+            auto* container = new PluginContainer();
+            container -> setPluginInstance(*processor);
+            container -> setParameter(1, 1.0f);
+            //std::cout << "This is the plugin: " << container->getParameterName(1) << std::endl;
         }
     }
 }

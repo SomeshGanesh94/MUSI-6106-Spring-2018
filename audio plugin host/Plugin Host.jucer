@@ -159,6 +159,10 @@
           file="Source/MainHostWindow.cpp"/>
     <FILE id="h1kpxyzHi" name="MainHostWindow.h" compile="0" resource="0"
           file="Source/MainHostWindow.h"/>
+    <FILE id="ex7fFm" name="PluginContainer.cpp" compile="1" resource="0"
+          file="Source/PluginContainer.cpp"/>
+    <FILE id="JCAgvb" name="PluginContainer.h" compile="0" resource="0"
+          file="Source/PluginContainer.h"/>
   </MAINGROUP>
   <JUCEOPTIONS JUCE_WASAPI="enabled" JUCE_DIRECTSOUND="enabled" JUCE_ALSA="enabled"
                JUCE_QUICKTIME="disabled" JUCE_USE_FLAC="disabled" JUCE_USE_OGGVORBIS="disabled"
