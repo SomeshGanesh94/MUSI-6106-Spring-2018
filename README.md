@@ -8,6 +8,7 @@ Agneya A. Kerure
 ## Requirements
 * JUCE - https://github.com/WeAreROLI/JUCE
 * VST SDK - https://www.steinberg.net/en/company/developers.html
+* Essentia - https://github.com/MTG/essentia
 
 ## Instructions
 * Clone Repository
