@@ -1,3 +1,5 @@
 # JUCE library code and build files
 /audio\ plugin\ host/JuceLibraryCode/
 /audio\ plugin\ host/Builds/
+
+testProjectsAndCode
