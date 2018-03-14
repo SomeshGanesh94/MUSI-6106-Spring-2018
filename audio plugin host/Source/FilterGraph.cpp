@@ -129,8 +129,12 @@ void FilterGraph::addFilterCallback (AudioPluginInstance* instance, const String
             auto* processor = dynamic_cast<AudioProcessor*> (instance);
             auto* container = new PluginContainer();
             container -> setPluginInstance(*processor);
-            container -> setParameter(1, 0.0f);
-            //std::cout << "This is the plugin: " << container->getParameterName(1) << std::endl;
+            container -> setParameter(1, 1.0f);
+            int numParams = container -> getNumberOfParameters();
+            //String name = container->getParameterName(1);
+            std::cout << "Number of Parameters in this plugin: " << numParams << std::endl;
+            //std::cout << "Name of Parameter 0 is : " << name << std::endl;
+            container->generateParameterTextFiles(numParams, 0.25, "");
         }
     }
 }

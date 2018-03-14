@@ -9,6 +9,8 @@
  */
 
 #pragma once
+#include <iostream>
+#include <fstream>
 
 #include "../JuceLibraryCode/JuceHeader.h"
 
@@ -27,9 +29,16 @@ public:
     int getNumberOfParameters();
     String getParameterName(int parameterIndex);
     
+    //run through parameters
+    //print them in a file
+    void generateParameterTextFiles(int numParams, double step, const String &prefix);    
+    
 private:
     AudioProcessor* pluginInstance;
     AudioProcessor* newProcessor;
+    std::ofstream file;
+    int fileNum;
+    
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (PluginContainer)
 };
 
