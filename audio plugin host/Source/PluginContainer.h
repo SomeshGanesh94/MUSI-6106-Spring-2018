@@ -31,13 +31,18 @@ public:
     
     //run through parameters
     //print them in a file
-    void generateParameterTextFiles(int numParams, double step, const String &prefix);    
+    void generateParameterTextFiles(int numParams, double step, const String &prefix);
+    
+    //connect midi input to midi source
+    //connect audio output to destination
+    void setConnections();
     
 private:
     AudioProcessor* pluginInstance;
     AudioProcessor* newProcessor;
     std::ofstream file;
     int fileNum;
+    Time t;
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (PluginContainer)
 };

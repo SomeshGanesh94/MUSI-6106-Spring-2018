@@ -71,9 +71,23 @@ void PluginContainer::generateParameterTextFiles(int numParams, double stepSize,
     else
     {
         std::cout << prefix << std::endl;
+        
+        //open txt file
+        //set parameter of synth
+        //connect synth input to midi input
+        //connect synth output to midi output
+        //simulate keypress
+        //wait for 1000ms
+        //write buffer to text file
+        //keyRelease
+        
         file.close();
         fileNum++;
         file.open("/Users/agneyakerure/Desktop/test/parameterFile" + std::to_string(fileNum) + ".txt");
     }
 }
 
+void setConnections()
+{
+    
+}
