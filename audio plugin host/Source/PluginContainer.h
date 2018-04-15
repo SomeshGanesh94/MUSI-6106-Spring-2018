@@ -31,7 +31,7 @@ public:
     
     //run through parameters
     //print them in a file
-    void generateParameterTextFiles(int numParams, double step, const String &prefix);
+    void generateParameterTextFiles(int iNumParams, double dStepSize, const String &prefix);
     
     //connect midi input to midi source
     //connect audio output to destination

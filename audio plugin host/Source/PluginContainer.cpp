@@ -49,9 +49,9 @@ int PluginContainer::getNumberOfParameters()
     return (pluginInstance->getNumParameters());
 }
 
-void PluginContainer::generateParameterTextFiles(int numParams, double stepSize, const String &prefix)
+void PluginContainer::generateParameterTextFiles(int iNumParams, double dStepSize, const String &prefix)
 {
-    if(numParams != 0)
+    if(iNumParams != 0)
     {
         if(!file.is_open())
         {
@@ -59,13 +59,13 @@ void PluginContainer::generateParameterTextFiles(int numParams, double stepSize,
             file.open("/Users/agneyakerure/Desktop/test/parameterFile" + std::to_string(fileNum) + ".txt");
 
         }
-        for( double x = 0; x <= 1; x = x + stepSize)
+        for( double dParamValue = 0; dParamValue <= 1; dParamValue = dParamValue + dStepSize)
         {
-            file << prefix << x << std::endl;
+            file << prefix << dParamValue << std::endl;
             std::ifstream ifs("/Users/agneyakerure/Desktop/test/parameterFile" + std::to_string(fileNum) + ".txt");
             std::string content( (std::istreambuf_iterator<char>(ifs) ),
                                 (std::istreambuf_iterator<char>()    ) );
-            generateParameterTextFiles(numParams - 1, stepSize, content);
+            generateParameterTextFiles(iNumParams - 1, dStepSize, content);
         }
     }
     else
