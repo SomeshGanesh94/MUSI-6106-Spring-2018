@@ -6,8 +6,7 @@
               displaySplashScreen="0" reportAppUsage="0" companyCopyright="ROLI Ltd.">
   <EXPORTFORMATS>
     <XCODE_MAC targetFolder="Builds/MacOSX" vstFolder="" rtasFolder="~/SDKs/PT_80_SDK"
-               objCExtraSuffix="M73TRi" vst3Folder="/Users/agneyakerure/Documents/JUCE/VST_SDK/VST3_SDK "
-               extraCompilerFlags="-Wall -Wshadow -Wstrict-aliasing -Wconversion -Wsign-compare -Woverloaded-virtual -Wextra-semi">
+               objCExtraSuffix="M73TRi" vst3Folder="" extraCompilerFlags="-Wall -Wshadow -Wstrict-aliasing -Wconversion -Wsign-compare -Woverloaded-virtual -Wextra-semi">
       <CONFIGURATIONS>
         <CONFIGURATION name="Debug" isDebug="1" targetName="Plugin Host"/>
         <CONFIGURATION name="Release" isDebug="0" optimisation="2" targetName="Plugin Host"/>
@@ -122,6 +121,143 @@
     </VS2017>
   </EXPORTFORMATS>
   <MAINGROUP id="YdWL7hi7p" name="Plugin Host">
+    <GROUP id="{B74A44C7-EC52-17AC-00CB-0FC322ED95BA}" name="essentia">
+      <GROUP id="{F7659D29-CE37-C572-4C99-F0A17FDED96F}" name="scheduler">
+        <FILE id="jODj5S" name="graphutils.h" compile="0" resource="0" file="Source/essentia/scheduler/graphutils.h"/>
+        <FILE id="yaL5C3" name="network.h" compile="0" resource="0" file="Source/essentia/scheduler/network.h"/>
+        <FILE id="pSE5yO" name="networkparser.h" compile="0" resource="0" file="Source/essentia/scheduler/networkparser.h"/>
+      </GROUP>
+      <GROUP id="{4063BC0B-3A2C-06EA-7F92-0C56BD056AB9}" name="streaming">
+        <GROUP id="{48380278-90E5-0ADF-C811-9DF010393A52}" name="algorithms">
+          <FILE id="rffwFe" name="copy.h" compile="0" resource="0" file="Source/essentia/streaming/algorithms/copy.h"/>
+          <FILE id="CTeuTZ" name="devnull.h" compile="0" resource="0" file="Source/essentia/streaming/algorithms/devnull.h"/>
+          <FILE id="YcrdQO" name="diskwriter.h" compile="0" resource="0" file="Source/essentia/streaming/algorithms/diskwriter.h"/>
+          <FILE id="Y7vpXe" name="fileoutput.h" compile="0" resource="0" file="Source/essentia/streaming/algorithms/fileoutput.h"/>
+          <FILE id="RjoZi9" name="poolstorage.h" compile="0" resource="0" file="Source/essentia/streaming/algorithms/poolstorage.h"/>
+          <FILE id="RlzeNf" name="ringbufferinput.h" compile="0" resource="0"
+                file="Source/essentia/streaming/algorithms/ringbufferinput.h"/>
+          <FILE id="Uv8zlI" name="ringbufferoutput.h" compile="0" resource="0"
+                file="Source/essentia/streaming/algorithms/ringbufferoutput.h"/>
+          <FILE id="bFgD4d" name="ringbuffervectoroutput.h" compile="0" resource="0"
+                file="Source/essentia/streaming/algorithms/ringbuffervectoroutput.h"/>
+          <FILE id="npXk59" name="vectorinput.h" compile="0" resource="0" file="Source/essentia/streaming/algorithms/vectorinput.h"/>
+          <FILE id="IwAX64" name="vectoroutput.h" compile="0" resource="0" file="Source/essentia/streaming/algorithms/vectoroutput.h"/>
+        </GROUP>
+        <FILE id="tomEEf" name="accumulatoralgorithm.h" compile="0" resource="0"
+              file="Source/essentia/streaming/accumulatoralgorithm.h"/>
+        <FILE id="yjBpXd" name="multiratebuffer.h" compile="0" resource="0"
+              file="Source/essentia/streaming/multiratebuffer.h"/>
+        <FILE id="iloDIR" name="phantombuffer.h" compile="0" resource="0" file="Source/essentia/streaming/phantombuffer.h"/>
+        <FILE id="Sq4tKq" name="phantombuffer_impl.h" compile="0" resource="0"
+              file="Source/essentia/streaming/phantombuffer_impl.h"/>
+        <FILE id="HcDR0o" name="sink.h" compile="0" resource="0" file="Source/essentia/streaming/sink.h"/>
+        <FILE id="LfzifZ" name="sinkbase.h" compile="0" resource="0" file="Source/essentia/streaming/sinkbase.h"/>
+        <FILE id="quGUVt" name="sinkproxy.h" compile="0" resource="0" file="Source/essentia/streaming/sinkproxy.h"/>
+        <FILE id="xB1j9f" name="source.h" compile="0" resource="0" file="Source/essentia/streaming/source.h"/>
+        <FILE id="KiWF1a" name="sourcebase.h" compile="0" resource="0" file="Source/essentia/streaming/sourcebase.h"/>
+        <FILE id="iroif3" name="sourceproxy.h" compile="0" resource="0" file="Source/essentia/streaming/sourceproxy.h"/>
+        <FILE id="xXuDKt" name="streamingalgorithm.h" compile="0" resource="0"
+              file="Source/essentia/streaming/streamingalgorithm.h"/>
+        <FILE id="KpdGp6" name="streamingalgorithmcomposite.h" compile="0"
+              resource="0" file="Source/essentia/streaming/streamingalgorithmcomposite.h"/>
+        <FILE id="BcJhJ7" name="streamingalgorithmwrapper.h" compile="0" resource="0"
+              file="Source/essentia/streaming/streamingalgorithmwrapper.h"/>
+      </GROUP>
+      <GROUP id="{DBA5D8C7-3B97-3E71-EDF4-F450BBF1CCDC}" name="utils">
+        <GROUP id="{F60A7541-2220-00A7-5737-EDBE7B37761D}" name="tnt">
+          <FILE id="GUdUQF" name="jama_cholesky.h" compile="0" resource="0" file="Source/essentia/utils/tnt/jama_cholesky.h"/>
+          <FILE id="ccsaC2" name="jama_eig.h" compile="0" resource="0" file="Source/essentia/utils/tnt/jama_eig.h"/>
+          <FILE id="KJA32V" name="jama_lu.h" compile="0" resource="0" file="Source/essentia/utils/tnt/jama_lu.h"/>
+          <FILE id="uRUKU6" name="jama_qr.h" compile="0" resource="0" file="Source/essentia/utils/tnt/jama_qr.h"/>
+          <FILE id="FND9AK" name="jama_svd.h" compile="0" resource="0" file="Source/essentia/utils/tnt/jama_svd.h"/>
+          <FILE id="YG3DLZ" name="tnt.h" compile="0" resource="0" file="Source/essentia/utils/tnt/tnt.h"/>
+          <FILE id="EdgZ8C" name="tnt_array1d.h" compile="0" resource="0" file="Source/essentia/utils/tnt/tnt_array1d.h"/>
+          <FILE id="fBWYej" name="tnt_array1d_utils.h" compile="0" resource="0"
+                file="Source/essentia/utils/tnt/tnt_array1d_utils.h"/>
+          <FILE id="sTXZ0m" name="tnt_array2d.h" compile="0" resource="0" file="Source/essentia/utils/tnt/tnt_array2d.h"/>
+          <FILE id="poZiNJ" name="tnt_array2d_utils.h" compile="0" resource="0"
+                file="Source/essentia/utils/tnt/tnt_array2d_utils.h"/>
+          <FILE id="OkubXX" name="tnt_array3d.h" compile="0" resource="0" file="Source/essentia/utils/tnt/tnt_array3d.h"/>
+          <FILE id="jEjtL0" name="tnt_array3d_utils.h" compile="0" resource="0"
+                file="Source/essentia/utils/tnt/tnt_array3d_utils.h"/>
+          <FILE id="dSFuiV" name="tnt_cmat.h" compile="0" resource="0" file="Source/essentia/utils/tnt/tnt_cmat.h"/>
+          <FILE id="RyA6Gs" name="tnt_fortran_array1d.h" compile="0" resource="0"
+                file="Source/essentia/utils/tnt/tnt_fortran_array1d.h"/>
+          <FILE id="MGt9Um" name="tnt_fortran_array1d_utils.h" compile="0" resource="0"
+                file="Source/essentia/utils/tnt/tnt_fortran_array1d_utils.h"/>
+          <FILE id="zhOKhj" name="tnt_fortran_array2d.h" compile="0" resource="0"
+                file="Source/essentia/utils/tnt/tnt_fortran_array2d.h"/>
+          <FILE id="T9ftGg" name="tnt_fortran_array2d_utils.h" compile="0" resource="0"
+                file="Source/essentia/utils/tnt/tnt_fortran_array2d_utils.h"/>
+          <FILE id="qzmNsQ" name="tnt_fortran_array3d.h" compile="0" resource="0"
+                file="Source/essentia/utils/tnt/tnt_fortran_array3d.h"/>
+          <FILE id="yTicxt" name="tnt_fortran_array3d_utils.h" compile="0" resource="0"
+                file="Source/essentia/utils/tnt/tnt_fortran_array3d_utils.h"/>
+          <FILE id="lvQgq6" name="tnt_i_refvec.h" compile="0" resource="0" file="Source/essentia/utils/tnt/tnt_i_refvec.h"/>
+          <FILE id="gSLUuL" name="tnt_math_utils.h" compile="0" resource="0"
+                file="Source/essentia/utils/tnt/tnt_math_utils.h"/>
+          <FILE id="Rje8y0" name="tnt_sparse_matrix_csr.h" compile="0" resource="0"
+                file="Source/essentia/utils/tnt/tnt_sparse_matrix_csr.h"/>
+          <FILE id="RAE0v0" name="tnt_stopwatch.h" compile="0" resource="0" file="Source/essentia/utils/tnt/tnt_stopwatch.h"/>
+          <FILE id="ESDcSf" name="tnt_subscript.h" compile="0" resource="0" file="Source/essentia/utils/tnt/tnt_subscript.h"/>
+          <FILE id="rGKGMM" name="tnt_vec.h" compile="0" resource="0" file="Source/essentia/utils/tnt/tnt_vec.h"/>
+          <FILE id="UtXJ13" name="tnt_version.h" compile="0" resource="0" file="Source/essentia/utils/tnt/tnt_version.h"/>
+          <FILE id="npSpng" name="tnt2essentiautils.h" compile="0" resource="0"
+                file="Source/essentia/utils/tnt/tnt2essentiautils.h"/>
+          <FILE id="fMzijC" name="tnt2vector.h" compile="0" resource="0" file="Source/essentia/utils/tnt/tnt2vector.h"/>
+        </GROUP>
+        <FILE id="N0uCCQ" name="asciidag.h" compile="0" resource="0" file="Source/essentia/utils/asciidag.h"/>
+        <FILE id="y7QDME" name="asciidagparser.h" compile="0" resource="0"
+              file="Source/essentia/utils/asciidagparser.h"/>
+        <FILE id="m7qlKY" name="atomic.h" compile="0" resource="0" file="Source/essentia/utils/atomic.h"/>
+        <FILE id="cfk3aB" name="audiocontext.h" compile="0" resource="0" file="Source/essentia/utils/audiocontext.h"/>
+        <FILE id="IkGPIK" name="betools.h" compile="0" resource="0" file="Source/essentia/utils/betools.h"/>
+        <FILE id="F8V90z" name="bpfutil.h" compile="0" resource="0" file="Source/essentia/utils/bpfutil.h"/>
+        <FILE id="rFL1Us" name="bpmutil.h" compile="0" resource="0" file="Source/essentia/utils/bpmutil.h"/>
+        <FILE id="jZl7k8" name="ffmpegapi.h" compile="0" resource="0" file="Source/essentia/utils/ffmpegapi.h"/>
+        <FILE id="BrY8ul" name="jsonconvert.h" compile="0" resource="0" file="Source/essentia/utils/jsonconvert.h"/>
+        <FILE id="mgiftv" name="MersenneTwister.h" compile="0" resource="0"
+              file="Source/essentia/utils/MersenneTwister.h"/>
+        <FILE id="K0WARH" name="metadatautils.h" compile="0" resource="0" file="Source/essentia/utils/metadatautils.h"/>
+        <FILE id="QyH6fd" name="output.h" compile="0" resource="0" file="Source/essentia/utils/output.h"/>
+        <FILE id="ztUR7c" name="peak.h" compile="0" resource="0" file="Source/essentia/utils/peak.h"/>
+        <FILE id="clBZkI" name="ringbufferimpl.h" compile="0" resource="0"
+              file="Source/essentia/utils/ringbufferimpl.h"/>
+        <FILE id="A2ddUM" name="synth_utils.h" compile="0" resource="0" file="Source/essentia/utils/synth_utils.h"/>
+        <FILE id="vXBNGJ" name="yamlast.h" compile="0" resource="0" file="Source/essentia/utils/yamlast.h"/>
+      </GROUP>
+      <FILE id="xfm2Fe" name="algorithm.h" compile="0" resource="0" file="Source/essentia/algorithm.h"/>
+      <FILE id="gF3Lm9" name="algorithmfactory.h" compile="0" resource="0"
+            file="Source/essentia/algorithmfactory.h"/>
+      <FILE id="w7RbgJ" name="algorithmfactory_impl.h" compile="0" resource="0"
+            file="Source/essentia/algorithmfactory_impl.h"/>
+      <FILE id="s5X9J3" name="config.h" compile="0" resource="0" file="Source/essentia/config.h"/>
+      <FILE id="vhVQoW" name="configurable.h" compile="0" resource="0" file="Source/essentia/configurable.h"/>
+      <FILE id="GeHxJl" name="connector.h" compile="0" resource="0" file="Source/essentia/connector.h"/>
+      <FILE id="PQgui2" name="debugging.h" compile="0" resource="0" file="Source/essentia/debugging.h"/>
+      <FILE id="GZu3DY" name="essentia.h" compile="0" resource="0" file="Source/essentia/essentia.h"/>
+      <FILE id="f6y71W" name="essentiamath.h" compile="0" resource="0" file="Source/essentia/essentiamath.h"/>
+      <FILE id="eRbYpX" name="essentiautil.h" compile="0" resource="0" file="Source/essentia/essentiautil.h"/>
+      <FILE id="Tc4jgT" name="iotypewrappers.h" compile="0" resource="0"
+            file="Source/essentia/iotypewrappers.h"/>
+      <FILE id="UPGzku" name="iotypewrappers_impl.h" compile="0" resource="0"
+            file="Source/essentia/iotypewrappers_impl.h"/>
+      <FILE id="hz0LHW" name="parameter.h" compile="0" resource="0" file="Source/essentia/parameter.h"/>
+      <FILE id="HKKRTy" name="pool.h" compile="0" resource="0" file="Source/essentia/pool.h"/>
+      <FILE id="xZEm5x" name="range.h" compile="0" resource="0" file="Source/essentia/range.h"/>
+      <FILE id="hTVMAu" name="roguevector.h" compile="0" resource="0" file="Source/essentia/roguevector.h"/>
+      <FILE id="M1zOdO" name="streamconnector.h" compile="0" resource="0"
+            file="Source/essentia/streamconnector.h"/>
+      <FILE id="GVSrXh" name="streamutil.h" compile="0" resource="0" file="Source/essentia/streamutil.h"/>
+      <FILE id="eGmKJo" name="stringutil.h" compile="0" resource="0" file="Source/essentia/stringutil.h"/>
+      <FILE id="QXaERh" name="threading.h" compile="0" resource="0" file="Source/essentia/threading.h"/>
+      <FILE id="I1JbyP" name="types.h" compile="0" resource="0" file="Source/essentia/types.h"/>
+      <FILE id="q6ROmI" name="version.h" compile="0" resource="0" file="Source/essentia/version.h"/>
+    </GROUP>
+    <FILE id="rIGIYr" name="FeatureExtraction.cpp" compile="1" resource="0"
+          file="Source/FeatureExtraction.cpp"/>
+    <FILE id="tfwDEn" name="FeatureExtraction.h" compile="0" resource="0"
+          file="Source/FeatureExtraction.h"/>
     <FILE id="8tLeuntR4" name="FilterGraph.cpp" compile="1" resource="0"
           file="Source/FilterGraph.cpp"/>
     <FILE id="auGSxnlTU" name="FilterGraph.h" compile="0" resource="0"
