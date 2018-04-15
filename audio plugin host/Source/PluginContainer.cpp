@@ -51,18 +51,20 @@ int PluginContainer::getNumberOfParameters()
 
 void PluginContainer::generateParameterTextFiles(int iNumParams, double dStepSize, const String &prefix)
 {
+    std::string sTestFilePath = "/Users/someshganesh/Documents/GitHub/SynthIO/audio plugin host/Source/test/parameterFile";
+    
     if(iNumParams != 0)
     {
         if(!file.is_open())
         {
             fileNum = 1;
-            file.open("/test/parameterFile" + std::to_string(fileNum) + ".txt");
+            file.open(sTestFilePath + std::to_string(fileNum) + ".txt");
 
         }
         for( double dParamValue = 0; dParamValue <= 1; dParamValue = dParamValue + dStepSize)
         {
             file << prefix << dParamValue << std::endl;
-            std::ifstream ifs("/test/parameterFile" + std::to_string(fileNum) + ".txt");
+            std::ifstream ifs(sTestFilePath + std::to_string(fileNum) + ".txt");
             std::string content( (std::istreambuf_iterator<char>(ifs) ),
                                 (std::istreambuf_iterator<char>()    ) );
             generateParameterTextFiles(iNumParams - 1, dStepSize, content);
@@ -83,7 +85,7 @@ void PluginContainer::generateParameterTextFiles(int iNumParams, double dStepSiz
         
         file.close();
         fileNum++;
-        file.open("/test/parameterFile" + std::to_string(fileNum) + ".txt");
+        file.open(sTestFilePath + std::to_string(fileNum) + ".txt");
     }
 }
 
