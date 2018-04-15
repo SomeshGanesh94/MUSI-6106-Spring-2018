@@ -56,13 +56,13 @@ void PluginContainer::generateParameterTextFiles(int iNumParams, double dStepSiz
         if(!file.is_open())
         {
             fileNum = 1;
-            file.open("/Users/agneyakerure/Desktop/test/parameterFile" + std::to_string(fileNum) + ".txt");
+            file.open("../../test/parameterFile" + std::to_string(fileNum) + ".txt");
 
         }
         for( double dParamValue = 0; dParamValue <= 1; dParamValue = dParamValue + dStepSize)
         {
             file << prefix << dParamValue << std::endl;
-            std::ifstream ifs("/Users/agneyakerure/Desktop/test/parameterFile" + std::to_string(fileNum) + ".txt");
+            std::ifstream ifs("../../test/parameterFile" + std::to_string(fileNum) + ".txt");
             std::string content( (std::istreambuf_iterator<char>(ifs) ),
                                 (std::istreambuf_iterator<char>()    ) );
             generateParameterTextFiles(iNumParams - 1, dStepSize, content);
@@ -70,7 +70,7 @@ void PluginContainer::generateParameterTextFiles(int iNumParams, double dStepSiz
     }
     else
     {
-        std::cout << prefix << std::endl;
+//        std::cout << prefix << std::endl;
         
         //open txt file
         //set parameter of synth
@@ -83,7 +83,7 @@ void PluginContainer::generateParameterTextFiles(int iNumParams, double dStepSiz
         
         file.close();
         fileNum++;
-        file.open("/Users/agneyakerure/Desktop/test/parameterFile" + std::to_string(fileNum) + ".txt");
+        file.open("../../test/parameterFile" + std::to_string(fileNum) + ".txt");
     }
 }
 
