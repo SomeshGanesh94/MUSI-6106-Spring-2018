@@ -6,10 +6,12 @@
               displaySplashScreen="0" reportAppUsage="0" companyCopyright="ROLI Ltd.">
   <EXPORTFORMATS>
     <XCODE_MAC targetFolder="Builds/MacOSX" vstFolder="" rtasFolder="~/SDKs/PT_80_SDK"
-               objCExtraSuffix="M73TRi" vst3Folder="" extraCompilerFlags="-Wall -Wshadow -Wstrict-aliasing -Wconversion -Wsign-compare -Woverloaded-virtual -Wextra-semi">
+               objCExtraSuffix="M73TRi" vst3Folder="" extraCompilerFlags="-Wall -Wshadow -Wstrict-aliasing -Wconversion -Wsign-compare -Woverloaded-virtual -Wextra-semi"
+               extraLinkerFlags=" -lessentia -lyaml -lavcodec -lavformat -lavutil -lsamplerate -ltag -lswresample -lfftw3f">
       <CONFIGURATIONS>
-        <CONFIGURATION name="Debug" isDebug="1" targetName="Plugin Host"/>
-        <CONFIGURATION name="Release" isDebug="0" optimisation="2" targetName="Plugin Host"/>
+        <CONFIGURATION name="Debug" isDebug="1" targetName="Plugin Host" libraryPath="/usr/local/lib"/>
+        <CONFIGURATION name="Release" isDebug="0" optimisation="2" targetName="Plugin Host"
+                       libraryPath="/usr/local/lib"/>
       </CONFIGURATIONS>
       <MODULEPATHS>
         <MODULEPATH id="juce_video" path="../../../../Documents/JUCE-5.2.1/JUCE/JUCE/modules"/>
