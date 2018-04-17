@@ -175,16 +175,30 @@ void CFeatureExtraction::doFeatureExtract(string sInputFilePath, string sOutputF
         AharmonicAmp->compute();
         Amfcc->compute();
         
-        pPool.add("rms", rRms);
-        pPool.add("zcr", rZcr);
-        pPool.add("specCent", rSpecCent);
-        pPool.add("rollOff", rRollOff);
-        pPool.add("flux", rFlux);
-        pPool.add("specPeak", vrSpecPeakAmp);
-        pPool.add("specContrast", vrSpecContrastCoeff);
-        pPool.add("harmonicAmpMag", vrHarmonicAmpMag);
-        pPool.add("harmonicAmpFreq", vrHarmonicAmpFreq);
-        pPool.add("mfcc", vrMfccCoeff);
+        std::vector<Real> vrFeatureVector;
+        vrFeatureVector.insert(vrFeatureVector.end(), rRms);
+        vrFeatureVector.insert(vrFeatureVector.end(), rZcr);
+        vrFeatureVector.insert(vrFeatureVector.end(), rSpecCent);
+        vrFeatureVector.insert(vrFeatureVector.end(), rRollOff);
+        vrFeatureVector.insert(vrFeatureVector.end(), rFlux);
+        vrFeatureVector.insert(vrFeatureVector.end(), vrSpecPeakAmp.begin(), vrSpecPeakAmp.end());
+        vrFeatureVector.insert(vrFeatureVector.end(), vrSpecContrastCoeff.begin(), vrSpecContrastCoeff.end());
+        vrFeatureVector.insert(vrFeatureVector.end(), vrHarmonicAmpMag.begin(), vrHarmonicAmpMag.end());
+        vrFeatureVector.insert(vrFeatureVector.end(), vrHarmonicAmpFreq.begin(), vrHarmonicAmpFreq.end());
+        vrFeatureVector.insert(vrFeatureVector.end(), vrMfccCoeff.begin(), vrMfccCoeff.end());
+        
+        //        pPool.add("features", rRms);
+        //        pPool.add("features", rZcr);
+        //        pPool.add("features", rSpecCent);
+        //        pPool.add("features", rRollOff);
+        //        pPool.add("features", rFlux);
+        //        pPool.add("features", vrSpecPeakAmp);
+        //        pPool.add("features", vrSpecContrastCoeff);
+        //        pPool.add("features", vrHarmonicAmpMag);
+        //        pPool.add("features", vrHarmonicAmpFreq);
+        //        pPool.add("features", vrMfccCoeff);
+        pPool.add("features", vrFeatureVector);
+        
         
         cout << "New frame" << endl;
         //        cout << vrMfccCoeff << endl;
@@ -193,7 +207,7 @@ void CFeatureExtraction::doFeatureExtract(string sInputFilePath, string sOutputF
     cout << "Aggregating results" << endl;
     
     Pool pAggrPool;
-    const char* stats[] = {"mean", "var", "min", "max"};
+    const char* stats[] = {"mean", "var", "min", "max", "median", "skew", "kurt", "dmean", "dvar", "dmean2", "dvar2"};
     
     Algorithm* Aaggr = AlgorithmFactory::create("PoolAggregator", "defaultStats", arrayToVector<string>(stats));
     
@@ -201,11 +215,19 @@ void CFeatureExtraction::doFeatureExtract(string sInputFilePath, string sOutputF
     Aaggr->output("output").set(pAggrPool);
     Aaggr->compute();
     
-    //    cout << pAggrPool.getRealPool() << endl;
+    cout << pAggrPool.getRealPool() << endl;
+    
+    Pool pPCAPool;
+    
+    Algorithm* APCA = AlgorithmFactory::create("PCA", "dimensions", 10);
+    
+    //    APCA->input("poolIn").set(pAggrPool);
+    //    APCA->output("poolOut").set(pPCAPool);
+    //    APCA->compute();
     
     Algorithm* Aoutput = AlgorithmFactory::create("YamlOutput", "filename", sOutputFilePath);
     
-    Aoutput->input("pool").set(pAggrPool);
+    Aoutput->input("pool").set(pPool);
     Aoutput->compute();
     
     cout << "Done" << endl;
