@@ -282,6 +282,8 @@
           file="Source/MainHostWindow.cpp"/>
     <FILE id="h1kpxyzHi" name="MainHostWindow.h" compile="0" resource="0"
           file="Source/MainHostWindow.h"/>
+    <FILE id="lsR3CW" name="PCA.cpp" compile="1" resource="0" file="Source/PCA.cpp"/>
+    <FILE id="VIQ64V" name="PCA.h" compile="0" resource="0" file="Source/PCA.h"/>
     <FILE id="OHAtvk" name="PluginContainer.cpp" compile="1" resource="0"
           file="Source/PluginContainer.cpp"/>
     <FILE id="uLyu8F" name="PluginContainer.h" compile="0" resource="0"
