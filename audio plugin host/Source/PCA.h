@@ -9,3 +9,16 @@
 */
 
 #pragma once
+
+#include <stdio.h>
+#include <string>
+
+using namespace std;
+
+class dimensionRed
+{
+public:
+    
+    void doPCA(string sInputFilePath, string sOutputFilePath);
+    
+};
