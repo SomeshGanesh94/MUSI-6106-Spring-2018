@@ -102,7 +102,7 @@ public:
 
     ScopedPointer<GraphEditorPanel> graphPanel;
     ScopedPointer<MidiKeyboardComponent> keyboardComp;
-
+    
 private:
     //==============================================================================
     AudioDeviceManager& deviceManager;

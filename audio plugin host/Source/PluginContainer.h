@@ -14,7 +14,7 @@
 
 #include "../JuceLibraryCode/JuceHeader.h"
 
-class PluginContainer
+class PluginContainer: public Component
 {
 public:
     PluginContainer();
@@ -37,13 +37,17 @@ public:
     //connect audio output to destination
     void setConnections();
     
+    //run through parameters
+    //print them in a file
+    void generateAudioFiles(int iNumParams, double dStepSize);
+    
 private:
     AudioProcessor* pluginInstance;
     AudioProcessor* newProcessor;
+    //ScopedPointer<ConnectorComponent> connector;
     std::ofstream file;
     int fileNum;
     Time t;
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (PluginContainer)
 };
-

@@ -51,8 +51,8 @@ int PluginContainer::getNumberOfParameters()
 
 void PluginContainer::generateParameterTextFiles(int iNumParams, double dStepSize, const String &prefix)
 {
-//    std::string sTestFilePath = "/Users/agneyakerure/Desktop/Audio Software Engineering/SynthIO/test/parameterFile";
-    std::string sTestFilePath = "/Users/someshganesh/Documents/GitHub/SynthIO/audio plugin host/Source/test/parameterFile";
+    std::string sTestFilePath = "/Users/agneyakerure/Desktop/Audio Software Engineering/SynthIO/test/parameterFile";
+//    std::string sTestFilePath = "/Users/someshganesh/Documents/GitHub/SynthIO/audio plugin host/Source/test/parameterFile";
     
     if(iNumParams != 0)
     {
@@ -90,7 +90,16 @@ void PluginContainer::generateParameterTextFiles(int iNumParams, double dStepSiz
     }
 }
 
-void setConnections()
+//set connection with input and output
+void PluginContainer::setConnections()
+{
+    auto bus = pluginInstance->getBus(true, 0);
+    //pluginInstance->get
+    
+}
+
+//generateAudioFiles
+void PluginContainer::generateAudioFiles(int iNumParams, double dStepSize)
 {
     
 }

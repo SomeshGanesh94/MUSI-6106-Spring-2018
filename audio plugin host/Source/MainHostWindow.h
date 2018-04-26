@@ -90,7 +90,7 @@ public:
     void updatePrecisionMenuItem (ApplicationCommandInfo& info);
 
     ScopedPointer<GraphDocumentComponent> graphHolder;
-
+    
 private:
     //==============================================================================
     AudioDeviceManager deviceManager;

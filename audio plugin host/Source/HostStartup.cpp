@@ -128,6 +128,7 @@ private:
 static PluginHostApp& getApp()                      { return *dynamic_cast<PluginHostApp*>(JUCEApplication::getInstance()); }
 ApplicationCommandManager& getCommandManager()      { return getApp().commandManager; }
 ApplicationProperties& getAppProperties()           { return *getApp().appProperties; }
+//MainHostWindow& getMainWindow()                     { return *getApp().mainWindow; }
 
 
 // This kicks the whole thing off..

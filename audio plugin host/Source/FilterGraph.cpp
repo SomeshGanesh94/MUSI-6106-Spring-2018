@@ -30,6 +30,7 @@
 #include "InternalFilters.h"
 #include "GraphEditorPanel.h"
 #include "PluginContainer.h"
+//#include "HostStartup.cpp"
 
 
 //==============================================================================
@@ -124,17 +125,42 @@ void FilterGraph::addFilterCallback (AudioPluginInstance* instance, const String
         static int count = 0;
         count++;
         //This is to manipulate parameters of the plugin - the first three inputs are MIDI and Audio input and Audio Output already present in the plugin host
-        if(count > 3)
+        if(count == 4)
         {
             auto* processor = dynamic_cast<AudioProcessor*> (instance);
             auto* container = new PluginContainer();
+            
             container -> setPluginInstance(*processor);
-            container -> setParameter(1, 1.0f);
-            int numParams = container -> getNumberOfParameters();
-            //String name = container->getParameterName(1);
-            std::cout << "Number of Parameters in this plugin: " << numParams << std::endl;
-            //std::cout << "Name of Parameter 0 is : " << name << std::endl;
-            container->generateParameterTextFiles(numParams, 0.25, "");
+            
+            //int numParams = container -> getNumberOfParameters();
+            
+            //container->generateParameterTextFiles(numParams, 0.25, "");
+            
+            const unsigned int iHostMidiInputNodeID = graph.getNode(count-3)->nodeID; //1
+            const unsigned int iPluginNodeID = graph.getNode(count-1)->nodeID; //3
+            //const unsigned int iHostAudioOutputNodeID = graph.getNode(count-2)->nodeID; //2
+            const int iMidiChannelNumber = 4096;
+            //const int iLeftAudioChannelNumber = 0;
+            //const int iRightAudioChannelNumber = 1;
+            
+            //std::cout<<"Processor Name: "<<graph.getNode(2)->getProcessor()->getName()<<std::endl;
+            
+            //connect midi output of host to midi input of synth
+            AudioProcessorGraph::Connection connection1 { { iHostMidiInputNodeID, iMidiChannelNumber }, { iPluginNodeID, iMidiChannelNumber } };
+            
+            //connect audio output of host to plugin audio output
+            AudioProcessorGraph::Connection connection2 { { 4, 0 }, { 3, 0 } };
+            AudioProcessorGraph::Connection connection3 { { 4, 1 }, { 3, 1 } };
+            
+            graph.addConnection(connection1);
+            graph.addConnection(connection2);
+            graph.addConnection(connection3);
+            
+            //getMainWindow().graphHolder->keyState.noteOn(1, 77, 1);
+            //test.noteOn(1, 90, 1);
+            
+            
+            
         }
     }
 }
