@@ -101,6 +101,7 @@ void FilterGraph::addPlugin (const PluginDescription& desc, Point<double> p)
                                              graph.getSampleRate(),
                                              graph.getBlockSize(),
                                              new AsyncCallback (*this, p));
+    
 }
 
 void FilterGraph::addFilterCallback (AudioPluginInstance* instance, const String& error, Point<double> pos)
@@ -124,6 +125,7 @@ void FilterGraph::addFilterCallback (AudioPluginInstance* instance, const String
         
         static int count = 0;
         count++;
+        static int temp = 0;
         //This is to manipulate parameters of the plugin - the first three inputs are MIDI and Audio input and Audio Output already present in the plugin host
         if(count == 4)
         {
@@ -160,8 +162,12 @@ void FilterGraph::addFilterCallback (AudioPluginInstance* instance, const String
             //test.noteOn(1, 90, 1);
             
             
-            
         }
+        //this works but we dont want this to work
+//        if(count == 5)
+//        {
+//            GraphDocumentComponent::keyState.noteOn(1, 77, 1);
+//        }
     }
 }
 

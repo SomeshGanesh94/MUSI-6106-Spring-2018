@@ -102,12 +102,13 @@ public:
 
     ScopedPointer<GraphEditorPanel> graphPanel;
     ScopedPointer<MidiKeyboardComponent> keyboardComp;
+    static MidiKeyboardState keyState;
     
 private:
     //==============================================================================
     AudioDeviceManager& deviceManager;
     AudioProcessorPlayer graphPlayer;
-    MidiKeyboardState keyState;
+    
 
     struct TooltipBar;
     ScopedPointer<TooltipBar> statusBar;

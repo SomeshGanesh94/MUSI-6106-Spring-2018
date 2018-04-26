@@ -33,7 +33,6 @@
  #error "If you're building the audio plugin host, you probably want to enable VST and/or AU support"
 #endif
 
-
 //==============================================================================
 class PluginHostApp  : public JUCEApplication,
                        private AsyncUpdater
@@ -121,14 +120,14 @@ public:
     ApplicationCommandManager commandManager;
     ScopedPointer<ApplicationProperties> appProperties;
 
-private:
+//private:
     ScopedPointer<MainHostWindow> mainWindow;
 };
 
 static PluginHostApp& getApp()                      { return *dynamic_cast<PluginHostApp*>(JUCEApplication::getInstance()); }
 ApplicationCommandManager& getCommandManager()      { return getApp().commandManager; }
 ApplicationProperties& getAppProperties()           { return *getApp().appProperties; }
-//MainHostWindow& getMainWindow()                     { return *getApp().mainWindow; }
+MainHostWindow& getMainWindow()                     { return *getApp().mainWindow; }
 
 
 // This kicks the whole thing off..

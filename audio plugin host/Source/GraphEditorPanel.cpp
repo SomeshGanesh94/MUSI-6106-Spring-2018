@@ -789,6 +789,8 @@ struct GraphDocumentComponent::TooltipBar   : public Component,
 };
 
 //==============================================================================
+MidiKeyboardState GraphDocumentComponent::keyState;
+
 GraphDocumentComponent::GraphDocumentComponent (AudioPluginFormatManager& fm, AudioDeviceManager& dm)
     : graph (new FilterGraph (fm)), deviceManager (dm),
       graphPlayer (getAppProperties().getUserSettings()->getBoolValue ("doublePrecisionProcessing", false))
