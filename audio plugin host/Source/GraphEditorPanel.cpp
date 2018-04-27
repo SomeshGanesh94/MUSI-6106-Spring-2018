@@ -808,6 +808,14 @@ GraphDocumentComponent::GraphDocumentComponent (AudioPluginFormatManager& fm, Au
 
     deviceManager.addAudioCallback (&graphPlayer);
     deviceManager.addMidiInputCallback (String(), &graphPlayer.getMidiMessageCollector());
+    
+    m_bAudioOn.setButtonText("Start MIDI audio");
+    addAndMakeVisible(m_bAudioOn);
+    m_bAudioOn.addListener(this);
+    
+    m_bAudioOff.setButtonText("Stop MIDI audio");
+    addAndMakeVisible(m_bAudioOff);
+    m_bAudioOff.addListener(this);
 
     graphPanel->updateComponents();
 }
@@ -827,6 +835,9 @@ void GraphDocumentComponent::resized()
     graphPanel->setBounds (0, 0, getWidth(), getHeight() - keysHeight);
     statusBar->setBounds (0, getHeight() - keysHeight - statusHeight, getWidth(), statusHeight);
     keyboardComp->setBounds (0, getHeight() - keysHeight, getWidth(), keysHeight);
+    
+    m_bAudioOn.setBounds(10, 10, getWidth()/10, getHeight()/10);
+    m_bAudioOff.setBounds(10, 90, getWidth()/10, getHeight()/10);
 }
 
 void GraphDocumentComponent::createNewPlugin (const PluginDescription& desc, Point<int> pos)
@@ -865,4 +876,16 @@ void GraphDocumentComponent::setDoublePrecision (bool doublePrecision)
 bool GraphDocumentComponent::closeAnyOpenPluginWindows()
 {
     return graphPanel->graph.closeAnyOpenPluginWindows();
+}
+
+void GraphDocumentComponent::buttonClicked(Button *button)
+{
+    if (button == &m_bAudioOn)
+    {
+        keyState.noteOn(1, 77, 1);
+    }
+    if (button == &m_bAudioOff)
+    {
+        keyState.noteOff(1, 77, 1);
+    }
 }

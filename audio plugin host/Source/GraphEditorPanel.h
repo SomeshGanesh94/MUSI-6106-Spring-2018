@@ -81,7 +81,7 @@ private:
 
     It also manages the graph itself, and plays it.
 */
-class GraphDocumentComponent  : public Component
+class GraphDocumentComponent  : public Component, public Button::Listener
 {
 public:
     GraphDocumentComponent (AudioPluginFormatManager& formatManager,
@@ -103,6 +103,11 @@ public:
     ScopedPointer<GraphEditorPanel> graphPanel;
     ScopedPointer<MidiKeyboardComponent> keyboardComp;
     static MidiKeyboardState keyState;
+    
+    TextButton m_bAudioOn;
+    TextButton m_bAudioOff;
+    
+    void buttonClicked(Button* button) override;
     
 private:
     //==============================================================================
