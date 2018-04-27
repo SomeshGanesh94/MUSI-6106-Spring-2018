@@ -7,3 +7,10 @@ testProjectsAndCode
 pythonFiles/featureExtraction\.py
 
 test/
+
+# extra libraries
+armadillo-8.500.0/
+boost_1_67_0/
+dlib-19.10/
+mlpack-3.0.0/
+Shark-3.1.0
