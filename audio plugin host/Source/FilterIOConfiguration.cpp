@@ -509,7 +509,7 @@ void FilterIOConfigurationWindow::update()
             panel->updateComponents();
 }
 
-AudioProcessorGraph::NodeID FilterIOConfigurationWindow::getNodeID() const
+PluginContainerProcessor::NodeID FilterIOConfigurationWindow::getNodeID() const
 {
     if (auto* graph = getGraph())
         for (auto* node : graph->getNodes())
@@ -538,7 +538,7 @@ GraphDocumentComponent* FilterIOConfigurationWindow::getGraphEditor() const
     return nullptr;
 }
 
-AudioProcessorGraph* FilterIOConfigurationWindow::getGraph() const
+PluginContainerProcessor* FilterIOConfigurationWindow::getGraph() const
 {
     if (auto* graphEditor = getGraphEditor())
         if (auto* panel = graphEditor->graph.get())

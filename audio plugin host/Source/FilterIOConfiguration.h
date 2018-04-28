@@ -25,6 +25,7 @@
 */
 
 #pragma once
+#include "PluginContainerProcessor.h"
 
 class MainHostWindow;
 class GraphDocumentComponent;
@@ -53,8 +54,8 @@ private:
 
     MainHostWindow* getMainWindow() const;
     GraphDocumentComponent* getGraphEditor() const;
-    AudioProcessorGraph* getGraph() const;
-    AudioProcessorGraph::NodeID getNodeID() const;
+    PluginContainerProcessor* getGraph() const;
+    PluginContainerProcessor::NodeID getNodeID() const;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (FilterIOConfigurationWindow)
 };

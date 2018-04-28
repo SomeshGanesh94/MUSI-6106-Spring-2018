@@ -30,6 +30,7 @@
 #include "InternalFilters.h"
 #include "GraphEditorPanel.h"
 #include "PluginContainer.h"
+#include "PluginContainerProcessor.h"
 //#include "HostStartup.cpp"
 
 
@@ -71,7 +72,7 @@ void FilterGraph::changeListenerCallback (ChangeBroadcaster*)
             activePluginWindows.remove (i);
 }
 
-AudioProcessorGraph::Node::Ptr FilterGraph::getNodeForName (const String& name) const
+PluginContainerProcessor::Node::Ptr FilterGraph::getNodeForName (const String& name) const
 {
     for (auto* node : graph.getNodes())
         if (auto p = node->getProcessor())
@@ -148,16 +149,15 @@ void FilterGraph::addFilterCallback (AudioPluginInstance* instance, const String
             //std::cout<<"Processor Name: "<<graph.getNode(2)->getProcessor()->getName()<<std::endl;
             
             //connect midi output of host to midi input of synth
-            AudioProcessorGraph::Connection connection1 { { iHostMidiInputNodeID, iMidiChannelNumber }, { iPluginNodeID, iMidiChannelNumber } };
+            PluginContainerProcessor::Connection connection1 { { iHostMidiInputNodeID, iMidiChannelNumber }, { iPluginNodeID, iMidiChannelNumber } };
             
             //connect audio output of host to plugin audio output
-            AudioProcessorGraph::Connection connection2 { { 4, 0 }, { 3, 0 } };
-            AudioProcessorGraph::Connection connection3 { { 4, 1 }, { 3, 1 } };
+            PluginContainerProcessor::Connection connection2 { { 4, 0 }, { 3, 0 } };
+            PluginContainerProcessor::Connection connection3 { { 4, 1 }, { 3, 1 } };
             
             graph.addConnection(connection1);
             graph.addConnection(connection2);
             graph.addConnection(connection3);
-            
             
             //getMainWindow().graphHolder->keyState.noteOn(1, 77, 1);
             //test.noteOn(1, 90, 1);
@@ -171,7 +171,7 @@ void FilterGraph::addFilterCallback (AudioPluginInstance* instance, const String
 //            GraphDocumentComponent::keyState.noteOn(1, 77, 1);
 //            AudioBuffer<float> buffer;
 //            juce::MidiBuffer midiMessages;
-//            //instance->processBlock(buffer, midiMessages);
+//            instance->processBlock(buffer, midiMessages);
 //            instance->getBusBuffer(buffer, 0, 0);
 //            auto **input = (float **)buffer.getArrayOfReadPointers();
         
@@ -206,7 +206,7 @@ void FilterGraph::clear()
     changed();
 }
 
-PluginWindow* FilterGraph::getOrCreateWindowFor (AudioProcessorGraph::Node* node, PluginWindow::Type type)
+PluginWindow* FilterGraph::getOrCreateWindowFor (PluginContainerProcessor::Node* node, PluginWindow::Type type)
 {
     jassert (node != nullptr);
 
@@ -367,7 +367,7 @@ static XmlElement* createBusLayoutXml (const AudioProcessor::BusesLayout& layout
     return xml;
 }
 
-static XmlElement* createNodeXml (AudioProcessorGraph::Node* const node) noexcept
+static XmlElement* createNodeXml (PluginContainerProcessor::Node* const node) noexcept
 {
     if (auto* plugin = dynamic_cast<AudioPluginInstance*> (node->getProcessor()))
     {

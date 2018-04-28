@@ -27,32 +27,33 @@
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "InternalFilters.h"
 #include "FilterGraph.h"
+#include "PluginContainerProcessor.h"
 
 
 //==============================================================================
 InternalPluginFormat::InternalPluginFormat()
 {
     {
-        AudioProcessorGraph::AudioGraphIOProcessor p (AudioProcessorGraph::AudioGraphIOProcessor::audioOutputNode);
+        PluginContainerProcessor::AudioGraphIOProcessor p (PluginContainerProcessor::AudioGraphIOProcessor::audioOutputNode);
         p.fillInPluginDescription (audioOutDesc);
     }
 
     {
-        AudioProcessorGraph::AudioGraphIOProcessor p (AudioProcessorGraph::AudioGraphIOProcessor::audioInputNode);
+        PluginContainerProcessor::AudioGraphIOProcessor p (PluginContainerProcessor::AudioGraphIOProcessor::audioInputNode);
         p.fillInPluginDescription (audioInDesc);
     }
 
     {
-        AudioProcessorGraph::AudioGraphIOProcessor p (AudioProcessorGraph::AudioGraphIOProcessor::midiInputNode);
+        PluginContainerProcessor::AudioGraphIOProcessor p (PluginContainerProcessor::AudioGraphIOProcessor::midiInputNode);
         p.fillInPluginDescription (midiInDesc);
     }
 }
 
 AudioPluginInstance* InternalPluginFormat::createInstance (const String& name)
 {
-    if (name == audioOutDesc.name) return new AudioProcessorGraph::AudioGraphIOProcessor (AudioProcessorGraph::AudioGraphIOProcessor::audioOutputNode);
-    if (name == audioInDesc.name)  return new AudioProcessorGraph::AudioGraphIOProcessor (AudioProcessorGraph::AudioGraphIOProcessor::audioInputNode);
-    if (name == midiInDesc.name)   return new AudioProcessorGraph::AudioGraphIOProcessor (AudioProcessorGraph::AudioGraphIOProcessor::midiInputNode);
+    if (name == audioOutDesc.name) return new PluginContainerProcessor::AudioGraphIOProcessor (PluginContainerProcessor::AudioGraphIOProcessor::audioOutputNode);
+    if (name == audioInDesc.name)  return new PluginContainerProcessor::AudioGraphIOProcessor (PluginContainerProcessor::AudioGraphIOProcessor::audioInputNode);
+    if (name == midiInDesc.name)   return new PluginContainerProcessor::AudioGraphIOProcessor (PluginContainerProcessor::AudioGraphIOProcessor::midiInputNode);
 
     return nullptr;
 }

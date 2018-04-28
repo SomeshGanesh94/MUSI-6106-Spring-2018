@@ -27,6 +27,7 @@
 #pragma once
 
 #include "PluginWindow.h"
+#include "PluginContainerProcessor.h"
 
 
 //==============================================================================
@@ -43,11 +44,11 @@ public:
     ~FilterGraph();
 
     //==============================================================================
-    typedef AudioProcessorGraph::NodeID NodeID;
+    typedef PluginContainerProcessor::NodeID NodeID;
 
     void addPlugin (const PluginDescription&, Point<double>);
 
-    AudioProcessorGraph::Node::Ptr getNodeForName (const String& name) const;
+    PluginContainerProcessor::Node::Ptr getNodeForName (const String& name) const;
 
     void setNodePosition (NodeID, Point<double>);
     Point<double> getNodePosition (NodeID) const;
@@ -55,8 +56,8 @@ public:
     //==============================================================================
     void clear();
 
-    PluginWindow* getOrCreateWindowFor (AudioProcessorGraph::Node*, PluginWindow::Type);
-    void closeCurrentlyOpenWindowsFor (AudioProcessorGraph::NodeID);
+    PluginWindow* getOrCreateWindowFor (PluginContainerProcessor::Node*, PluginWindow::Type);
+    void closeCurrentlyOpenWindowsFor (PluginContainerProcessor::NodeID);
     bool closeAnyOpenPluginWindows();
 
     //==============================================================================
@@ -79,7 +80,7 @@ public:
     void setLastDocumentOpened (const File& file) override;
 
     //==============================================================================
-    AudioProcessorGraph graph;
+    PluginContainerProcessor graph;
 
 private:
     //==============================================================================

@@ -34,7 +34,7 @@
 struct GraphEditorPanel::PinComponent   : public Component,
                                           public SettableTooltipClient
 {
-    PinComponent (GraphEditorPanel& p, AudioProcessorGraph::NodeAndChannel pinToUse, bool isIn)
+    PinComponent (GraphEditorPanel& p, PluginContainerProcessor::NodeAndChannel pinToUse, bool isIn)
         : panel (p), graph (p.graph), pin (pinToUse), isInput (isIn)
     {
         if (auto node = graph.graph.getNodeForId (pin.nodeID))
@@ -82,7 +82,7 @@ struct GraphEditorPanel::PinComponent   : public Component,
 
     void mouseDown (const MouseEvent& e) override
     {
-        AudioProcessorGraph::NodeAndChannel dummy { 0, 0 };
+        PluginContainerProcessor::NodeAndChannel dummy { 0, 0 };
 
         panel.beginConnectorDrag (isInput ? dummy : pin,
                                   isInput ? pin : dummy,
@@ -101,7 +101,7 @@ struct GraphEditorPanel::PinComponent   : public Component,
 
     GraphEditorPanel& panel;
     FilterGraph& graph;
-    AudioProcessorGraph::NodeAndChannel pin;
+    PluginContainerProcessor::NodeAndChannel pin;
     const bool isInput;
     int busIdx = 0;
 
@@ -224,7 +224,7 @@ struct GraphEditorPanel::FilterComponent   : public Component
 
     void update()
     {
-        const AudioProcessorGraph::Node::Ptr f (graph.graph.getNodeForId (pluginID));
+        const PluginContainerProcessor::Node::Ptr f (graph.graph.getNodeForId (pluginID));
         jassert (f != nullptr);
 
         numIns = f->getProcessor()->getTotalNumInputChannels();
@@ -265,13 +265,13 @@ struct GraphEditorPanel::FilterComponent   : public Component
                 addAndMakeVisible (pins.add (new PinComponent (panel, { pluginID, i }, true)));
 
             if (f->getProcessor()->acceptsMidi())
-                addAndMakeVisible (pins.add (new PinComponent (panel, { pluginID, AudioProcessorGraph::midiChannelIndex }, true)));
+                addAndMakeVisible (pins.add (new PinComponent (panel, { pluginID, PluginContainerProcessor::midiChannelIndex }, true)));
 
             for (int i = 0; i < f->getProcessor()->getTotalNumOutputChannels(); ++i)
                 addAndMakeVisible (pins.add (new PinComponent (panel, { pluginID, i }, false)));
 
             if (f->getProcessor()->producesMidi())
-                addAndMakeVisible (pins.add (new PinComponent (panel, { pluginID, AudioProcessorGraph::midiChannelIndex }, false)));
+                addAndMakeVisible (pins.add (new PinComponent (panel, { pluginID, PluginContainerProcessor::midiChannelIndex }, false)));
 
             resized();
         }
@@ -330,7 +330,7 @@ struct GraphEditorPanel::FilterComponent   : public Component
 
     GraphEditorPanel& panel;
     FilterGraph& graph;
-    const AudioProcessorGraph::NodeID pluginID;
+    const PluginContainerProcessor::NodeID pluginID;
     OwnedArray<PinComponent> pins;
     int numInputs = 0, numOutputs = 0;
     int pinSize = 16;
@@ -350,7 +350,7 @@ struct GraphEditorPanel::ConnectorComponent   : public Component,
         setAlwaysOnTop (true);
     }
 
-    void setInput (AudioProcessorGraph::NodeAndChannel newSource)
+    void setInput (PluginContainerProcessor::NodeAndChannel newSource)
     {
         if (connection.source != newSource)
         {
@@ -359,7 +359,7 @@ struct GraphEditorPanel::ConnectorComponent   : public Component,
         }
     }
 
-    void setOutput (AudioProcessorGraph::NodeAndChannel newDest)
+    void setOutput (PluginContainerProcessor::NodeAndChannel newDest)
     {
         if (connection.destination != newDest)
         {
@@ -463,7 +463,7 @@ struct GraphEditorPanel::ConnectorComponent   : public Component,
             getDistancesFromEnds (getPosition().toFloat() + e.position, distanceFromStart, distanceFromEnd);
             const bool isNearerSource = (distanceFromStart < distanceFromEnd);
 
-            AudioProcessorGraph::NodeAndChannel dummy { 0, 0 };
+            PluginContainerProcessor::NodeAndChannel dummy { 0, 0 };
 
             panel.beginConnectorDrag (isNearerSource ? dummy : connection.source,
                                       isNearerSource ? connection.destination : dummy,
@@ -527,7 +527,7 @@ struct GraphEditorPanel::ConnectorComponent   : public Component,
 
     GraphEditorPanel& panel;
     FilterGraph& graph;
-    AudioProcessorGraph::Connection connection { { 0, 0 }, { 0, 0 } };
+    PluginContainerProcessor::Connection connection { { 0, 0 }, { 0, 0 } };
     Point<float> lastInputPos, lastOutputPos;
     Path linePath, hitPath;
     bool dragging = false;
@@ -588,7 +588,7 @@ GraphEditorPanel::FilterComponent* GraphEditorPanel::getComponentForFilter (cons
     return nullptr;
 }
 
-GraphEditorPanel::ConnectorComponent* GraphEditorPanel::getComponentForConnection (const AudioProcessorGraph::Connection& conn) const
+GraphEditorPanel::ConnectorComponent* GraphEditorPanel::getComponentForConnection (const PluginContainerProcessor::Connection& conn) const
 {
     for (auto* cc : connectors)
         if (cc->connection == conn)
@@ -661,8 +661,8 @@ void GraphEditorPanel::updateComponents()
     }
 }
 
-void GraphEditorPanel::beginConnectorDrag (AudioProcessorGraph::NodeAndChannel source,
-                                           AudioProcessorGraph::NodeAndChannel dest,
+void GraphEditorPanel::beginConnectorDrag (PluginContainerProcessor::NodeAndChannel source,
+                                           PluginContainerProcessor::NodeAndChannel dest,
                                            const MouseEvent& e)
 {
     auto* c = dynamic_cast<ConnectorComponent*> (e.originalComponent);

@@ -27,6 +27,8 @@
 #pragma once
 
 #include "FilterIOConfiguration.h"
+#include "PluginContainerProcessor.h"
+#include "PluginContainerProcessor.h"
 class FilterGraph;
 
 //==============================================================================
@@ -45,7 +47,7 @@ public:
         numTypes
     };
 
-    PluginWindow (AudioProcessorGraph::Node* n, Type t, OwnedArray<PluginWindow>& windowList)
+    PluginWindow (PluginContainerProcessor::Node* n, Type t, OwnedArray<PluginWindow>& windowList)
        : DocumentWindow (n->getProcessor()->getName(),
                          LookAndFeel::getDefaultLookAndFeel().findColour (ResizableWindow::backgroundColourId),
                          DocumentWindow::minimiseButton | DocumentWindow::closeButton),
@@ -87,7 +89,7 @@ public:
     static String getOpenProp  (Type type)    { return "uiopen_"  + getTypeName (type); }
 
     OwnedArray<PluginWindow>& activeWindowList;
-    const AudioProcessorGraph::Node::Ptr node;
+    const PluginContainerProcessor::Node::Ptr node;
     const Type type;
 
 private:

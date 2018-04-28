@@ -49,8 +49,8 @@ public:
     void updateComponents();
 
     //==============================================================================
-    void beginConnectorDrag (AudioProcessorGraph::NodeAndChannel source,
-                             AudioProcessorGraph::NodeAndChannel dest,
+    void beginConnectorDrag (PluginContainerProcessor::NodeAndChannel source,
+                             PluginContainerProcessor::NodeAndChannel dest,
                              const MouseEvent&);
     void dragConnector (const MouseEvent&);
     void endDraggingConnector (const MouseEvent&);
@@ -67,8 +67,8 @@ private:
     OwnedArray<ConnectorComponent> connectors;
     ScopedPointer<ConnectorComponent> draggingConnector;
 
-    FilterComponent* getComponentForFilter (AudioProcessorGraph::NodeID) const;
-    ConnectorComponent* getComponentForConnection (const AudioProcessorGraph::Connection&) const;
+    FilterComponent* getComponentForFilter (PluginContainerProcessor::NodeID) const;
+    ConnectorComponent* getComponentForConnection (const PluginContainerProcessor::Connection&) const;
     PinComponent* findPinAt (Point<float>) const;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (GraphEditorPanel)

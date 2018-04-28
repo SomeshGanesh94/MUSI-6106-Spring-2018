@@ -288,6 +288,10 @@
           file="Source/PluginContainer.cpp"/>
     <FILE id="uLyu8F" name="PluginContainer.h" compile="0" resource="0"
           file="Source/PluginContainer.h"/>
+    <FILE id="lKUYLk" name="PluginContainerProcessor.cpp" compile="1" resource="0"
+          file="Source/PluginContainerProcessor.cpp"/>
+    <FILE id="phXLiK" name="PluginContainerProcessor.h" compile="0" resource="0"
+          file="Source/PluginContainerProcessor.h"/>
     <FILE id="ZwQDmm" name="PluginWindow.h" compile="0" resource="0" file="Source/PluginWindow.h"/>
   </MAINGROUP>
   <JUCEOPTIONS JUCE_WASAPI="1" JUCE_DIRECTSOUND="1" JUCE_ALSA="1" JUCE_USE_FLAC="0"
