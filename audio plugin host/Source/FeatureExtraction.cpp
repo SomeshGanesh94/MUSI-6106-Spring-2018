@@ -59,6 +59,8 @@ void CFeatureExtraction::shutDownEssentia()
 
 void CFeatureExtraction::doFeatureExtract(string sInputFilePath, string sOutputFilePath)
 {
+    
+    
     // creating algorithms
     Pool pPool;
     

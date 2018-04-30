@@ -882,7 +882,9 @@ void GraphDocumentComponent::buttonClicked(Button *button)
 {
     if (button == &m_bAudioOn)
     {
-        keyState.noteOn(1, 77, 1);
+//        keyState.noteOn(1, 77, 1);
+        graph->doFeatureExtract("/Users/agneyakerure/Desktop/Audio Software Engineering/SynthIO/audio/", "/Users/agneyakerure/Desktop/Audio Software Engineering/SynthIO/features/");
+//        graph->container->genFiles(4, 1);
     }
     if (button == &m_bAudioOff)
     {

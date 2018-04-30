@@ -819,8 +819,9 @@ struct PluginContainerProcessor::RenderSequenceFloat   : public GraphRenderSeque
 struct PluginContainerProcessor::RenderSequenceDouble  : public GraphRenderSequence<double> {};
     
 //==============================================================================
-PluginContainerProcessor::PluginContainerProcessor(): m_bRecording(false)
+PluginContainerProcessor::PluginContainerProcessor()
 {
+    m_bRecording = false;
     m_ppfStorageBuffer = nullptr;
 }
     
@@ -1208,16 +1209,16 @@ void PluginContainerProcessor::prepareToPlay (double /*sampleRate*/, int estimat
         m_ppfStorageBuffer[iChannel] = new float[(unsigned long)getSampleRate()];
     }
     m_iLastLoc = 0;
-    m_sOutputFilePath = " ";
-    m_fMyFile.open(m_sOutputFilePath);
+//    m_sOutputFilePath = " ";
+//    m_fMyFile.open(m_sOutputFilePath);
 }
     
-    bool PluginContainerProcessor::supportsDoublePrecisionProcessing() const
+bool PluginContainerProcessor::supportsDoublePrecisionProcessing() const
 {
     return true;
 }
     
-    void PluginContainerProcessor::releaseResources()
+void PluginContainerProcessor::releaseResources()
 {
     isPrepared = false;
     
@@ -1239,7 +1240,7 @@ void PluginContainerProcessor::prepareToPlay (double /*sampleRate*/, int estimat
     delete [] m_ppfStorageBuffer;
     m_ppfStorageBuffer = nullptr;
     
-    m_fMyFile.close();
+//    m_fMyFile.close();
 }
     
 void PluginContainerProcessor::reset()
@@ -1266,7 +1267,7 @@ void PluginContainerProcessor::setNonRealtime (bool isProcessingNonRealtime) noe
     void PluginContainerProcessor::getStateInformation (juce::MemoryBlock&)  {}
     void PluginContainerProcessor::setStateInformation (const void*, int)    {}
     
-    void PluginContainerProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer& midiMessages)
+void PluginContainerProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer& midiMessages)
 {
     const ScopedLock sl (getCallbackLock());
     
@@ -1280,19 +1281,15 @@ void PluginContainerProcessor::setNonRealtime (bool isProcessingNonRealtime) noe
             for (int iChannel = 0; iChannel < getTotalNumInputChannels(); iChannel++)
             {
                 m_ppfStorageBuffer[iChannel][iSample+m_iLastLoc] = buffer.getSample(iChannel, iSample);
-                m_fMyFile << m_ppfStorageBuffer[iChannel][iSample+m_iLastLoc] << "\t";
             }
-            m_fMyFile << std::endl;
         }
         m_iLastLoc += getBlockSize();
         if (m_iLastLoc > getSampleRate())
         {
             m_bRecording = false;
-            m_fMyFile.close();
+//            m_fMyFile.close();
+            m_iLastLoc = 0;
         }
-    }
-    else
-    {
     }
 }
     
@@ -1459,10 +1456,28 @@ void PluginContainerProcessor::AudioGraphIOProcessor::setParentGraph (PluginCont
         updateHostDisplay();
     }
 }
+bool PluginContainerProcessor::m_bRecording = false;
+std::ofstream PluginContainerProcessor::m_fMyFile;
+std::string PluginContainerProcessor::m_sOutputFilePath = "";
+float** PluginContainerProcessor::m_ppfStorageBuffer = nullptr;
 
-        void PluginContainerProcessor::generateAudioFile(bool bRecording, std::string sFileName)
+void PluginContainerProcessor::generateAudioFile(bool bRecording, std::string sFileName)
 {
-    m_bRecording = bRecording;
+    PluginContainerProcessor::m_bRecording = bRecording;
     m_sOutputFilePath = sFileName;
+}
+        
+void PluginContainerProcessor::writeAudioFile()
+{
     m_fMyFile.open(m_sOutputFilePath);
+    for (int iSample = 0; iSample < 44100; iSample++)
+    {
+        for (int iChannel = 0; iChannel < 2; iChannel++)
+        {
+            m_fMyFile << m_ppfStorageBuffer[iChannel][iSample] << "\t";
+//            std::cout << << std::endl;
+        }
+        m_fMyFile << std::endl;
+    }
+    m_fMyFile.close();
 }

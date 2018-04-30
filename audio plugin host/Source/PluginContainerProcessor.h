@@ -337,7 +337,9 @@ public:
     void getStateInformation (juce::MemoryBlock&) override;
     void setStateInformation (const void* data, int sizeInBytes) override;
     
-    void generateAudioFile(bool bRecording, std::string sFileName);
+    static void generateAudioFile(bool bRecording, std::string sFileName);
+    static void writeAudioFile();
+    static bool m_bRecording;
     
 private:
     //==============================================================================
@@ -373,13 +375,14 @@ private:
 //    ScopedPointer<AudioFormatWriter> m_AudioFormatWriter;
 //    ScopedPointer<AudioFormatWriter::ThreadedWriter> threaded;
     
-    std::string m_sOutputFilePath;
+    static std::string m_sOutputFilePath;
+    static std::ofstream m_fMyFile;
     
-    bool m_bRecording;
-    float** m_ppfStorageBuffer;
+    
+    static float** m_ppfStorageBuffer;
     int m_iLastLoc;
     
-    std::ofstream m_fMyFile;
+    
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (PluginContainerProcessor)
 

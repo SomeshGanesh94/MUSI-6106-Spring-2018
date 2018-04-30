@@ -28,6 +28,9 @@
 
 #include "PluginWindow.h"
 #include "PluginContainerProcessor.h"
+#include "PluginContainer.h"
+#include "FeatureExtraction.h"
+#include <dirent.h>
 
 
 //==============================================================================
@@ -81,8 +84,12 @@ public:
 
     //==============================================================================
     void generateAudioFile(bool bRecording, std::string sFileName);
+    void doFeatureExtract(string sInputFileFolder, string sOutputFileFolder);
     
     PluginContainerProcessor graph;
+    PluginContainer* container;
+    CFeatureExtraction* m_pCFeatureExtraction;
+    
 
 private:
     //==============================================================================
@@ -95,6 +102,9 @@ private:
     void createNodeFromXml (const XmlElement& xml);
     void addFilterCallback (AudioPluginInstance*, const String& error, Point<double>);
     void changeListenerCallback (ChangeBroadcaster*) override;
+    
+    DIR* m_Dir;
+    struct dirent* m_ent;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (FilterGraph)
 };

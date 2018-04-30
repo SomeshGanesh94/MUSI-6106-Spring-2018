@@ -29,7 +29,6 @@
 #include "FilterGraph.h"
 #include "InternalFilters.h"
 #include "GraphEditorPanel.h"
-#include "PluginContainer.h"
 #include "PluginContainerProcessor.h"
 //#include "HostStartup.cpp"
 
@@ -48,6 +47,7 @@ FilterGraph::FilterGraph (AudioPluginFormatManager& fm)
     graph.addChangeListener (this);
 
     setChangedFlag (false);
+    m_pCFeatureExtraction = new CFeatureExtraction();
 }
 
 FilterGraph::~FilterGraph()
@@ -55,6 +55,9 @@ FilterGraph::~FilterGraph()
     graph.addListener (this);
     graph.removeChangeListener (this);
     graph.clear();
+    
+    delete m_pCFeatureExtraction;
+    m_pCFeatureExtraction = nullptr;
 }
 
 FilterGraph::NodeID FilterGraph::getNextUID() noexcept
@@ -131,11 +134,13 @@ void FilterGraph::addFilterCallback (AudioPluginInstance* instance, const String
         if(count == 4)
         {
             auto* processor = dynamic_cast<AudioProcessor*> (instance);
-            auto* container = new PluginContainer();
+            container = new PluginContainer();
             
-            container -> setPluginInstance(*processor);
+            container->init(*processor);
             
-//            container->generateParameterTextFiles(container -> getNumberOfParameters(), 0.25, "");
+//            container->generateParameterTextFiles(container->getNumberOfParameters(), 0.25, "");
+//            container->generateAudioFiles(container->m_kiNumpParams, 0.25, NULL);
+            
             
             const unsigned int iHostMidiInputNodeID = graph.getNode(count-3)->nodeID; //1
             const unsigned int iPluginNodeID = graph.getNode(count-1)->nodeID; //3
@@ -156,9 +161,10 @@ void FilterGraph::addFilterCallback (AudioPluginInstance* instance, const String
             graph.addConnection(connection1);
             graph.addConnection(connection2);
             graph.addConnection(connection3);
-            
-            graph.generateAudioFile(true, "dummy.txt");
+//
+//            graph.generateAudioFile(true, "dummy.txt");
         }
+        
     }
 }
 
@@ -498,4 +504,22 @@ void FilterGraph::restoreFromXml (const XmlElement& xml)
 void FilterGraph::generateAudioFile(bool bRecording, std::string sFileName)
 {
     graph.generateAudioFile(bRecording, sFileName);
+}
+
+void FilterGraph::doFeatureExtract(std::string sInputFileFolder, std::string sOutputFileFolder)
+{
+    m_pCFeatureExtraction->initEssentia();
+    if ((m_Dir = opendir(sInputFileFolder.c_str())) != NULL)
+    {
+        while ((m_ent = readdir(m_Dir)) != NULL)
+        {
+//            std::cout << m_ent->d_name;
+            std::string sInputFilePath = sInputFileFolder + m_ent->d_name;
+            std::string sOutputFilePath = sOutputFileFolder + m_ent->d_name;
+            m_pCFeatureExtraction->doFeatureExtract(sInputFilePath, "/Users/agneyakerure/Desktop/Audio Software Engineering/SynthIO/");
+            
+        }
+        closedir(m_Dir);
+        m_pCFeatureExtraction->shutDownEssentia();
+    }
 }

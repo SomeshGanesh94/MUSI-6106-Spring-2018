@@ -31,7 +31,7 @@ public:
     
     //run through parameters
     //print them in a file
-    void generateParameterTextFiles(int iNumParams, double dStepSize, const String &prefix);
+    void generateParameterTextFiles(int depth, std::vector<float> & numbers, std::vector<float> & maxes);
     
     //connect midi input to midi source
     //connect audio output to destination
@@ -39,9 +39,18 @@ public:
     
     //run through parameters
     //print them in a file
-    void generateAudioFiles(int iNumParams, double dStepSize);
+    void generateAudioFiles(int iNumParams, double dStepSize, double* pdParamValArray);
+    void setNumberOfParameters(int numParams);
+    void setVSTParam(double* pdParamValArray);
+    void genFiles(int numParams, int maxLimit);
+    
+    void init(AudioProcessor& plugin);
+    void reset();
+    int m_kiNumpParams;
     
 private:
+    const int m_kNumSteps = 5;
+    double* m_pdParamValArray;
     AudioProcessor* pluginInstance;
     AudioProcessor* newProcessor;
     //ScopedPointer<ConnectorComponent> connector;
