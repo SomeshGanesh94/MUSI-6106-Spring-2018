@@ -10,8 +10,9 @@
 
 #pragma once
 
-#include <iostream>
 #include "../JuceLibraryCode/JuceHeader.h"
+#include <iostream>
+#include <fstream>
 
 class PluginContainerProcessor : public AudioProcessor,
                                  public ChangeBroadcaster,
@@ -21,6 +22,7 @@ public:
     //==============================================================================
     /** Creates an empty graph. */
     PluginContainerProcessor();
+    void generateAudioFile(bool rec);
     
     /** Destructor.
      Any processor objects that have been added to the graph will also be deleted.
@@ -361,6 +363,23 @@ private:
     bool isLegal (Node* src, int sourceChannel, Node* dest, int destChannel) const noexcept;
     static void getNodeConnections (Node&, std::vector<Connection>&);
     
+    
+    
+//    ScopedPointer<AudioSampleBuffer> m_asbWriteBuffer;
+//    ScopedPointer<WavAudioFormat> m_wWriteFormat;
+//    File m_fOutputFile;
+//    ScopedPointer<FileOutputStream> m_OutputTo;
+//    ScopedPointer<AudioFormatWriter> m_AudioFormatWriter;
+//    ScopedPointer<AudioFormatWriter::ThreadedWriter> threaded;
+    
+    std::string m_sOutputFilePath;
+    
+    bool m_bRecording;
+    float** m_ppfStorageBuffer;
+    int m_iLastLoc;
+    
+    std::ofstream m_fMyFile;
+
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (PluginContainerProcessor)
 
 };

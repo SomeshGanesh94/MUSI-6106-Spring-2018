@@ -10,6 +10,11 @@
 
 #include "PluginContainerProcessor.h"
 
+using namespace std;
+
+#include <iostream>
+#include <fstream>
+
 template <typename FloatType>
 struct GraphRenderSequence
 {
@@ -814,8 +819,9 @@ bool PluginContainerProcessor::Connection::operator< (const Connection& other) c
         struct PluginContainerProcessor::RenderSequenceDouble  : public GraphRenderSequence<double> {};
         
         //==============================================================================
-        PluginContainerProcessor::PluginContainerProcessor()
+        PluginContainerProcessor::PluginContainerProcessor(): m_bRecording(false)
     {
+        m_ppfStorageBuffer = nullptr;
     }
         
         PluginContainerProcessor::~PluginContainerProcessor()
@@ -1195,6 +1201,15 @@ bool PluginContainerProcessor::Connection::operator< (const Connection& other) c
         buildRenderingSequence();
         
         isPrepared = true;
+
+        m_ppfStorageBuffer = new float*[(unsigned long)getTotalNumInputChannels()];
+        for (int iChannel = 0; iChannel < getTotalNumInputChannels(); iChannel++)
+        {
+            m_ppfStorageBuffer[iChannel] = new float[(unsigned long)getSampleRate()];
+        }
+        m_iLastLoc = 0;
+        
+        m_fMyFile.open(m_sOutputFilePath);
     }
         
         bool PluginContainerProcessor::supportsDoublePrecisionProcessing() const
@@ -1214,6 +1229,17 @@ bool PluginContainerProcessor::Connection::operator< (const Connection& other) c
         
         if (renderSequenceDouble != nullptr)
             renderSequenceDouble->releaseBuffers();
+        
+        m_bRecording = false;
+
+        for (int iChannel = 0; iChannel < getTotalNumInputChannels(); iChannel++)
+        {
+            delete [] m_ppfStorageBuffer[iChannel];
+        }
+        delete [] m_ppfStorageBuffer;
+        m_ppfStorageBuffer = nullptr;
+        
+        m_fMyFile.close();
     }
         
         void PluginContainerProcessor::reset()
@@ -1246,6 +1272,24 @@ bool PluginContainerProcessor::Connection::operator< (const Connection& other) c
         
         if (renderSequenceFloat != nullptr)
             renderSequenceFloat->perform (buffer, midiMessages, getPlayHead());
+        
+        if (m_bRecording)
+        {
+            for (int iSample = 0; iSample < getBlockSize(); iSample++)
+            {
+                for (int iChannel = 0; iChannel < getTotalNumInputChannels(); iChannel++)
+                {
+                    m_ppfStorageBuffer[iChannel][iSample+m_iLastLoc] = buffer.getSample(iChannel, iSample);
+                    m_fMyFile << m_ppfStorageBuffer[iChannel][iSample+m_iLastLoc] << "\t";
+                }
+                m_fMyFile << std::endl;
+            }
+            m_iLastLoc += getBlockSize();
+            if (m_iLastLoc > getSampleRate())
+            {
+                m_bRecording = false;
+            }
+        }
     }
         
         void PluginContainerProcessor::processBlock (AudioBuffer<double>& buffer, MidiBuffer& midiMessages)
@@ -1410,4 +1454,9 @@ bool PluginContainerProcessor::Connection::operator< (const Connection& other) c
             
             updateHostDisplay();
         }
+    }
+
+        void PluginContainerProcessor::generateAudioFile(bool rec)
+    {
+        m_bRecording = rec;
     }

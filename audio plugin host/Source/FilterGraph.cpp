@@ -159,6 +159,9 @@ void FilterGraph::addFilterCallback (AudioPluginInstance* instance, const String
             graph.addConnection(connection2);
             graph.addConnection(connection3);
             
+            graph.generateAudioFile(true);
+            
+            
             //getMainWindow().graphHolder->keyState.noteOn(1, 77, 1);
             //test.noteOn(1, 90, 1);
             //GraphDocumentComponent::keyState.noteOn(1, 77, 1);
