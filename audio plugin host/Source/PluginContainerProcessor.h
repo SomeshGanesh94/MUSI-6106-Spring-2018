@@ -341,6 +341,11 @@ public:
     static void writeAudioFile();
     static bool m_bRecording;
     
+    AudioFormatWriter* writer;
+    WavAudioFormat* wavFormat;
+    FileOutputStream* outputTo;
+    File output;
+    
 private:
     //==============================================================================
     ReferenceCountedArray<Node> nodes;

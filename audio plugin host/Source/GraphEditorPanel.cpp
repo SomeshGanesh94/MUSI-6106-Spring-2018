@@ -882,12 +882,14 @@ void GraphDocumentComponent::buttonClicked(Button *button)
 {
     if (button == &m_bAudioOn)
     {
-//        keyState.noteOn(1, 77, 1);
-        graph->doFeatureExtract("/Users/agneyakerure/Desktop/Audio Software Engineering/SynthIO/audio/", "/Users/agneyakerure/Desktop/Audio Software Engineering/SynthIO/features/");
+        keyState.noteOn(1, 77, 1);
+        PluginContainerProcessor::m_bRecording = true;
+//        graph->doFeatureExtract("/Users/agneyakerure/Desktop/Audio Software Engineering/SynthIO/audio/", "/Users/agneyakerure/Desktop/Audio Software Engineering/SynthIO/features/");
 //        graph->container->genFiles(4, 1);
     }
     if (button == &m_bAudioOff)
     {
         keyState.noteOff(1, 77, 1);
+        PluginContainerProcessor::m_bRecording = false;
     }
 }
