@@ -135,9 +135,7 @@ void FilterGraph::addFilterCallback (AudioPluginInstance* instance, const String
             
             container -> setPluginInstance(*processor);
             
-            //int numParams = container -> getNumberOfParameters();
-            
-            //container->generateParameterTextFiles(numParams, 0.25, "");
+//            container->generateParameterTextFiles(container -> getNumberOfParameters(), 0.25, "");
             
             const unsigned int iHostMidiInputNodeID = graph.getNode(count-3)->nodeID; //1
             const unsigned int iPluginNodeID = graph.getNode(count-1)->nodeID; //3
