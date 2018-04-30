@@ -160,26 +160,7 @@ void FilterGraph::addFilterCallback (AudioPluginInstance* instance, const String
             graph.addConnection(connection3);
             
             graph.generateAudioFile(true);
-            
-            
-            //getMainWindow().graphHolder->keyState.noteOn(1, 77, 1);
-            //test.noteOn(1, 90, 1);
-            //GraphDocumentComponent::keyState.noteOn(1, 77, 1);
-            
         }
-        //this works but we dont want this to work
-//        if(count == 5)
-//        {
-//
-//            GraphDocumentComponent::keyState.noteOn(1, 77, 1);
-//            AudioBuffer<float> buffer;
-//            juce::MidiBuffer midiMessages;
-//            instance->processBlock(buffer, midiMessages);
-//            instance->getBusBuffer(buffer, 0, 0);
-//            auto **input = (float **)buffer.getArrayOfReadPointers();
-        
-            
-//        }
     }
 }
 
