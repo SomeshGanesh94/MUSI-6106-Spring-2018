@@ -769,694 +769,694 @@ bool PluginContainerProcessor::Connection::operator< (const Connection& other) c
         }
         
         //==============================================================================
-        PluginContainerProcessor::Node::Node (NodeID n, AudioProcessor* p) noexcept
-        : nodeID (n), processor (p)
+PluginContainerProcessor::Node::Node (NodeID n, AudioProcessor* p) noexcept
+    : nodeID (n), processor (p)
+{
+    jassert (processor != nullptr);
+}
+        
+    void PluginContainerProcessor::Node::prepare (double newSampleRate, int newBlockSize,
+                                             PluginContainerProcessor* graph, ProcessingPrecision precision)
+{
+    if (! isPrepared)
     {
-        jassert (processor != nullptr);
+        isPrepared = true;
+        setParentGraph (graph);
+        
+        // try to align the precision of the processor and the graph
+        processor->setProcessingPrecision (processor->supportsDoublePrecisionProcessing() ? precision
+                                           : singlePrecision);
+        
+        processor->setRateAndBufferSizeDetails (newSampleRate, newBlockSize);
+        processor->prepareToPlay (newSampleRate, newBlockSize);
     }
-        
-        void PluginContainerProcessor::Node::prepare (double newSampleRate, int newBlockSize,
-                                                 PluginContainerProcessor* graph, ProcessingPrecision precision)
+}
+    
+void PluginContainerProcessor::Node::unprepare()
+{
+    if (isPrepared)
     {
-        if (! isPrepared)
-        {
-            isPrepared = true;
-            setParentGraph (graph);
-            
-            // try to align the precision of the processor and the graph
-            processor->setProcessingPrecision (processor->supportsDoublePrecisionProcessing() ? precision
-                                               : singlePrecision);
-            
-            processor->setRateAndBufferSizeDetails (newSampleRate, newBlockSize);
-            processor->prepareToPlay (newSampleRate, newBlockSize);
-        }
+        isPrepared = false;
+        processor->releaseResources();
     }
-        
-        void PluginContainerProcessor::Node::unprepare()
+}
+    
+void PluginContainerProcessor::Node::setParentGraph (PluginContainerProcessor* const graph) const
+{
+    if (auto* ioProc = dynamic_cast<PluginContainerProcessor::AudioGraphIOProcessor*> (processor.get()))
+        ioProc->setParentGraph (graph);
+}
+    
+bool PluginContainerProcessor::Node::Connection::operator== (const Connection& other) const noexcept
+{
+    return otherNode == other.otherNode
+    && thisChannel == other.thisChannel
+    && otherChannel == other.otherChannel;
+}
+    
+//==============================================================================
+struct PluginContainerProcessor::RenderSequenceFloat   : public GraphRenderSequence<float> {};
+struct PluginContainerProcessor::RenderSequenceDouble  : public GraphRenderSequence<double> {};
+    
+//==============================================================================
+PluginContainerProcessor::PluginContainerProcessor(): m_bRecording(false)
+{
+    m_ppfStorageBuffer = nullptr;
+}
+    
+PluginContainerProcessor::~PluginContainerProcessor()
+{
+    clearRenderingSequence();
+    clear();
+}
+    
+const String PluginContainerProcessor::getName() const
+{
+    return "Audio Graph";
+}
+    
+//==============================================================================
+void PluginContainerProcessor::topologyChanged()
+{
+    sendChangeMessage();
+    
+    if (isPrepared)
+        triggerAsyncUpdate();
+}
+    
+void PluginContainerProcessor::clear()
+{
+    if (nodes.isEmpty())
+        return;
+    
+    nodes.clear();
+    topologyChanged();
+}
+    
+PluginContainerProcessor::Node* PluginContainerProcessor::getNodeForId (NodeID nodeID) const
+{
+    for (auto* n : nodes)
+        if (n->nodeID == nodeID)
+            return n;
+    
+    return {};
+}
+    
+PluginContainerProcessor::Node::Ptr PluginContainerProcessor::addNode (AudioProcessor* newProcessor, NodeID nodeID)
+{
+    if (newProcessor == nullptr || newProcessor == this)
     {
-        if (isPrepared)
-        {
-            isPrepared = false;
-            processor->releaseResources();
-        }
-    }
-        
-        void PluginContainerProcessor::Node::setParentGraph (PluginContainerProcessor* const graph) const
-    {
-        if (auto* ioProc = dynamic_cast<PluginContainerProcessor::AudioGraphIOProcessor*> (processor.get()))
-            ioProc->setParentGraph (graph);
-    }
-        
-        bool PluginContainerProcessor::Node::Connection::operator== (const Connection& other) const noexcept
-    {
-        return otherNode == other.otherNode
-        && thisChannel == other.thisChannel
-        && otherChannel == other.otherChannel;
-    }
-        
-        //==============================================================================
-        struct PluginContainerProcessor::RenderSequenceFloat   : public GraphRenderSequence<float> {};
-        struct PluginContainerProcessor::RenderSequenceDouble  : public GraphRenderSequence<double> {};
-        
-        //==============================================================================
-        PluginContainerProcessor::PluginContainerProcessor(): m_bRecording(false)
-    {
-        m_ppfStorageBuffer = nullptr;
-    }
-        
-        PluginContainerProcessor::~PluginContainerProcessor()
-    {
-        clearRenderingSequence();
-        clear();
-    }
-        
-        const String PluginContainerProcessor::getName() const
-    {
-        return "Audio Graph";
-    }
-        
-        //==============================================================================
-        void PluginContainerProcessor::topologyChanged()
-    {
-        sendChangeMessage();
-        
-        if (isPrepared)
-            triggerAsyncUpdate();
-    }
-        
-        void PluginContainerProcessor::clear()
-    {
-        if (nodes.isEmpty())
-            return;
-        
-        nodes.clear();
-        topologyChanged();
-    }
-        
-        PluginContainerProcessor::Node* PluginContainerProcessor::getNodeForId (NodeID nodeID) const
-    {
-        for (auto* n : nodes)
-            if (n->nodeID == nodeID)
-                return n;
-        
+        jassertfalse;
         return {};
     }
-        
-        PluginContainerProcessor::Node::Ptr PluginContainerProcessor::addNode (AudioProcessor* newProcessor, NodeID nodeID)
+    
+    if (nodeID == 0)
+        nodeID = ++lastNodeID;
+    
+    for (auto* n : nodes)
     {
-        if (newProcessor == nullptr || newProcessor == this)
+        if (n->getProcessor() == newProcessor || n->nodeID == nodeID)
         {
-            jassertfalse;
+            jassertfalse; // Cannot add two copies of the same processor, or duplicate node IDs!
             return {};
         }
-        
-        if (nodeID == 0)
-            nodeID = ++lastNodeID;
-        
-        for (auto* n : nodes)
-        {
-            if (n->getProcessor() == newProcessor || n->nodeID == nodeID)
-            {
-                jassertfalse; // Cannot add two copies of the same processor, or duplicate node IDs!
-                return {};
-            }
-        }
-        
-        if (nodeID > lastNodeID)
-            lastNodeID = nodeID;
-        
-        newProcessor->setPlayHead (getPlayHead());
-        
-        Node::Ptr n (new Node (nodeID, newProcessor));
-        nodes.add (n);
-        n->setParentGraph (this);
-        topologyChanged();
-        return n;
     }
-        
-        bool PluginContainerProcessor::removeNode (NodeID nodeId)
+    
+    if (nodeID > lastNodeID)
+        lastNodeID = nodeID;
+    
+    newProcessor->setPlayHead (getPlayHead());
+    
+    Node::Ptr n (new Node (nodeID, newProcessor));
+    nodes.add (n);
+    n->setParentGraph (this);
+    topologyChanged();
+    return n;
+}
+    
+bool PluginContainerProcessor::removeNode (NodeID nodeId)
+{
+    for (int i = nodes.size(); --i >= 0;)
     {
-        for (int i = nodes.size(); --i >= 0;)
+        if (nodes.getUnchecked(i)->nodeID == nodeId)
         {
-            if (nodes.getUnchecked(i)->nodeID == nodeId)
+            disconnectNode (nodeId);
+            nodes.remove (i);
+            topologyChanged();
+            return true;
+        }
+    }
+    
+    return false;
+}
+    
+bool PluginContainerProcessor::removeNode (Node* node)
+{
+    if (node != nullptr)
+        return removeNode (node->nodeID);
+    
+    jassertfalse;
+    return false;
+}
+    
+//==============================================================================
+void PluginContainerProcessor::getNodeConnections (Node& node, std::vector<Connection>& connections)
+{
+    for (auto& i : node.inputs)
+        connections.push_back ({ { i.otherNode->nodeID, i.otherChannel }, { node.nodeID, i.thisChannel } });
+    
+    for (auto& o : node.outputs)
+        connections.push_back ({ { node.nodeID, o.thisChannel }, { o.otherNode->nodeID, o.otherChannel } });
+}
+    
+std::vector<PluginContainerProcessor::Connection> PluginContainerProcessor::getConnections() const
+{
+    std::vector<Connection> connections;
+    
+    for (auto& n : nodes)
+        getNodeConnections (*n, connections);
+    
+    std::sort (connections.begin(), connections.end());
+    auto last = std::unique (connections.begin(), connections.end());
+    connections.erase (last, connections.end());
+    
+    return connections;
+}
+    
+bool PluginContainerProcessor::isConnected (Node* source, int sourceChannel, Node* dest, int destChannel) const noexcept
+{
+    for (auto& o : source->outputs)
+        if (o.otherNode == dest && o.thisChannel == sourceChannel && o.otherChannel == destChannel)
+            return true;
+    
+    return false;
+}
+    
+bool PluginContainerProcessor::isConnected (const Connection& c) const noexcept
+{
+    if (auto* source = getNodeForId (c.source.nodeID))
+        if (auto* dest = getNodeForId (c.destination.nodeID))
+            return isConnected (source, c.source.channelIndex,
+                                dest, c.destination.channelIndex);
+    
+    return false;
+}
+    
+bool PluginContainerProcessor::isConnected (NodeID srcID, NodeID destID) const noexcept
+{
+    if (auto* source = getNodeForId (srcID))
+        if (auto* dest = getNodeForId (destID))
+            for (auto& out : source->outputs)
+                if (out.otherNode == dest)
+                    return true;
+    
+    return false;
+}
+    
+bool PluginContainerProcessor::isAnInputTo (Node& src, Node& dst) const noexcept
+{
+    jassert (nodes.contains (&src));
+    jassert (nodes.contains (&dst));
+    
+    return isAnInputTo (src, dst, nodes.size());
+}
+    
+bool PluginContainerProcessor::isAnInputTo (Node& src, Node& dst, int recursionCheck) const noexcept
+{
+    for (auto&& i : dst.inputs)
+        if (i.otherNode == &src)
+            return true;
+    
+    if (recursionCheck > 0)
+        for (auto&& i : dst.inputs)
+            if (isAnInputTo (src, *i.otherNode, recursionCheck - 1))
+                return true;
+    
+    return false;
+}
+    
+    
+bool PluginContainerProcessor::canConnect (Node* source, int sourceChannel, Node* dest, int destChannel) const noexcept
+{
+    bool sourceIsMIDI = sourceChannel == midiChannelIndex;
+    bool destIsMIDI   = destChannel == midiChannelIndex;
+    
+    if (sourceChannel < 0
+        || destChannel < 0
+        || source == dest
+        || sourceIsMIDI != destIsMIDI)
+        return false;
+    
+    if (source == nullptr
+        || (! sourceIsMIDI && sourceChannel >= source->processor->getTotalNumOutputChannels())
+        || (sourceIsMIDI && ! source->processor->producesMidi()))
+        return false;
+    
+    if (dest == nullptr
+        || (! destIsMIDI && destChannel >= dest->processor->getTotalNumInputChannels())
+        || (destIsMIDI && ! dest->processor->acceptsMidi()))
+        return false;
+    
+    return ! isConnected (source, sourceChannel, dest, destChannel);
+}
+    
+bool PluginContainerProcessor::canConnect (const Connection& c) const
+{
+    if (auto* source = getNodeForId (c.source.nodeID))
+        if (auto* dest = getNodeForId (c.destination.nodeID))
+            return canConnect (source, c.source.channelIndex,
+                               dest, c.destination.channelIndex);
+    
+    return false;
+}
+    
+bool PluginContainerProcessor::addConnection (const Connection& c)
+{
+    if (auto* source = getNodeForId (c.source.nodeID))
+    {
+        if (auto* dest = getNodeForId (c.destination.nodeID))
+        {
+            auto sourceChan = c.source.channelIndex;
+            auto destChan = c.destination.channelIndex;
+            
+            if (canConnect (source, sourceChan, dest, destChan))
             {
-                disconnectNode (nodeId);
-                nodes.remove (i);
+                source->outputs.add ({ dest, destChan, sourceChan });
+                dest->inputs.add ({ source, sourceChan, destChan });
+                jassert (isConnected (c));
                 topologyChanged();
                 return true;
             }
         }
-        
-        return false;
     }
-        
-        bool PluginContainerProcessor::removeNode (Node* node)
+    
+    return false;
+}
+    
+bool PluginContainerProcessor::removeConnection (const Connection& c)
+{
+    if (auto* source = getNodeForId (c.source.nodeID))
     {
-        if (node != nullptr)
-            return removeNode (node->nodeID);
-        
-        jassertfalse;
-        return false;
+        if (auto* dest = getNodeForId (c.destination.nodeID))
+        {
+            auto sourceChan = c.source.channelIndex;
+            auto destChan = c.destination.channelIndex;
+            
+            if (isConnected (source, sourceChan, dest, destChan))
+            {
+                source->outputs.removeAllInstancesOf ({ dest, destChan, sourceChan });
+                dest->inputs.removeAllInstancesOf ({ source, sourceChan, destChan });
+                topologyChanged();
+                return true;
+            }
+        }
     }
-        
-        //==============================================================================
-        void PluginContainerProcessor::getNodeConnections (Node& node, std::vector<Connection>& connections)
-    {
-        for (auto& i : node.inputs)
-            connections.push_back ({ { i.otherNode->nodeID, i.otherChannel }, { node.nodeID, i.thisChannel } });
-        
-        for (auto& o : node.outputs)
-            connections.push_back ({ { node.nodeID, o.thisChannel }, { o.otherNode->nodeID, o.otherChannel } });
-    }
-        
-        std::vector<PluginContainerProcessor::Connection> PluginContainerProcessor::getConnections() const
+    
+    return false;
+}
+    
+bool PluginContainerProcessor::disconnectNode (NodeID nodeID)
+{
+    if (auto* node = getNodeForId (nodeID))
     {
         std::vector<Connection> connections;
+        getNodeConnections (*node, connections);
         
-        for (auto& n : nodes)
-            getNodeConnections (*n, connections);
-        
-        std::sort (connections.begin(), connections.end());
-        auto last = std::unique (connections.begin(), connections.end());
-        connections.erase (last, connections.end());
-        
-        return connections;
-    }
-        
-        bool PluginContainerProcessor::isConnected (Node* source, int sourceChannel, Node* dest, int destChannel) const noexcept
-    {
-        for (auto& o : source->outputs)
-            if (o.otherNode == dest && o.thisChannel == sourceChannel && o.otherChannel == destChannel)
-                return true;
-        
-        return false;
-    }
-        
-        bool PluginContainerProcessor::isConnected (const Connection& c) const noexcept
-    {
-        if (auto* source = getNodeForId (c.source.nodeID))
-            if (auto* dest = getNodeForId (c.destination.nodeID))
-                return isConnected (source, c.source.channelIndex,
-                                    dest, c.destination.channelIndex);
-        
-        return false;
-    }
-        
-        bool PluginContainerProcessor::isConnected (NodeID srcID, NodeID destID) const noexcept
-    {
-        if (auto* source = getNodeForId (srcID))
-            if (auto* dest = getNodeForId (destID))
-                for (auto& out : source->outputs)
-                    if (out.otherNode == dest)
-                        return true;
-        
-        return false;
-    }
-        
-        bool PluginContainerProcessor::isAnInputTo (Node& src, Node& dst) const noexcept
-    {
-        jassert (nodes.contains (&src));
-        jassert (nodes.contains (&dst));
-        
-        return isAnInputTo (src, dst, nodes.size());
-    }
-        
-        bool PluginContainerProcessor::isAnInputTo (Node& src, Node& dst, int recursionCheck) const noexcept
-    {
-        for (auto&& i : dst.inputs)
-            if (i.otherNode == &src)
-                return true;
-        
-        if (recursionCheck > 0)
-            for (auto&& i : dst.inputs)
-                if (isAnInputTo (src, *i.otherNode, recursionCheck - 1))
-                    return true;
-        
-        return false;
-    }
-        
-        
-        bool PluginContainerProcessor::canConnect (Node* source, int sourceChannel, Node* dest, int destChannel) const noexcept
-    {
-        bool sourceIsMIDI = sourceChannel == midiChannelIndex;
-        bool destIsMIDI   = destChannel == midiChannelIndex;
-        
-        if (sourceChannel < 0
-            || destChannel < 0
-            || source == dest
-            || sourceIsMIDI != destIsMIDI)
-            return false;
-        
-        if (source == nullptr
-            || (! sourceIsMIDI && sourceChannel >= source->processor->getTotalNumOutputChannels())
-            || (sourceIsMIDI && ! source->processor->producesMidi()))
-            return false;
-        
-        if (dest == nullptr
-            || (! destIsMIDI && destChannel >= dest->processor->getTotalNumInputChannels())
-            || (destIsMIDI && ! dest->processor->acceptsMidi()))
-            return false;
-        
-        return ! isConnected (source, sourceChannel, dest, destChannel);
-    }
-        
-        bool PluginContainerProcessor::canConnect (const Connection& c) const
-    {
-        if (auto* source = getNodeForId (c.source.nodeID))
-            if (auto* dest = getNodeForId (c.destination.nodeID))
-                return canConnect (source, c.source.channelIndex,
-                                   dest, c.destination.channelIndex);
-        
-        return false;
-    }
-        
-        bool PluginContainerProcessor::addConnection (const Connection& c)
-    {
-        if (auto* source = getNodeForId (c.source.nodeID))
+        if (! connections.empty())
         {
-            if (auto* dest = getNodeForId (c.destination.nodeID))
-            {
-                auto sourceChan = c.source.channelIndex;
-                auto destChan = c.destination.channelIndex;
-                
-                if (canConnect (source, sourceChan, dest, destChan))
-                {
-                    source->outputs.add ({ dest, destChan, sourceChan });
-                    dest->inputs.add ({ source, sourceChan, destChan });
-                    jassert (isConnected (c));
-                    topologyChanged();
-                    return true;
-                }
-            }
-        }
-        
-        return false;
-    }
-        
-        bool PluginContainerProcessor::removeConnection (const Connection& c)
-    {
-        if (auto* source = getNodeForId (c.source.nodeID))
-        {
-            if (auto* dest = getNodeForId (c.destination.nodeID))
-            {
-                auto sourceChan = c.source.channelIndex;
-                auto destChan = c.destination.channelIndex;
-                
-                if (isConnected (source, sourceChan, dest, destChan))
-                {
-                    source->outputs.removeAllInstancesOf ({ dest, destChan, sourceChan });
-                    dest->inputs.removeAllInstancesOf ({ source, sourceChan, destChan });
-                    topologyChanged();
-                    return true;
-                }
-            }
-        }
-        
-        return false;
-    }
-        
-        bool PluginContainerProcessor::disconnectNode (NodeID nodeID)
-    {
-        if (auto* node = getNodeForId (nodeID))
-        {
-            std::vector<Connection> connections;
-            getNodeConnections (*node, connections);
-            
-            if (! connections.empty())
-            {
-                for (auto c : connections)
-                    removeConnection (c);
-                
-                return true;
-            }
-        }
-        
-        return false;
-    }
-        
-        bool PluginContainerProcessor::isLegal (Node* source, int sourceChannel, Node* dest, int destChannel) const noexcept
-    {
-        return (sourceChannel == midiChannelIndex ? source->processor->producesMidi()
-                : isPositiveAndBelow (sourceChannel, source->processor->getTotalNumOutputChannels()))
-        && (destChannel == midiChannelIndex ? dest->processor->acceptsMidi()
-            : isPositiveAndBelow (destChannel, dest->processor->getTotalNumInputChannels()));
-    }
-        
-        bool PluginContainerProcessor::isConnectionLegal (const Connection& c) const
-    {
-        if (auto* source = getNodeForId (c.source.nodeID))
-            if (auto* dest = getNodeForId (c.destination.nodeID))
-                return isLegal (source, c.source.channelIndex, dest, c.destination.channelIndex);
-        
-        return false;
-    }
-        
-        bool PluginContainerProcessor::removeIllegalConnections()
-    {
-        bool anyRemoved = false;
-        
-        for (auto* node : nodes)
-        {
-            std::vector<Connection> connections;
-            getNodeConnections (*node, connections);
-            
             for (auto c : connections)
-                if (! isConnectionLegal (c))
-                    anyRemoved = removeConnection (c) || anyRemoved;
+                removeConnection (c);
+            
+            return true;
         }
-        
-        return anyRemoved;
     }
-        
-        //==============================================================================
-        void PluginContainerProcessor::clearRenderingSequence()
+    
+    return false;
+}
+    
+bool PluginContainerProcessor::isLegal (Node* source, int sourceChannel, Node* dest, int destChannel) const noexcept
+{
+    return (sourceChannel == midiChannelIndex ? source->processor->producesMidi()
+            : isPositiveAndBelow (sourceChannel, source->processor->getTotalNumOutputChannels()))
+    && (destChannel == midiChannelIndex ? dest->processor->acceptsMidi()
+        : isPositiveAndBelow (destChannel, dest->processor->getTotalNumInputChannels()));
+}
+    
+bool PluginContainerProcessor::isConnectionLegal (const Connection& c) const
+{
+    if (auto* source = getNodeForId (c.source.nodeID))
+        if (auto* dest = getNodeForId (c.destination.nodeID))
+            return isLegal (source, c.source.channelIndex, dest, c.destination.channelIndex);
+    
+    return false;
+}
+    
+bool PluginContainerProcessor::removeIllegalConnections()
+{
+    bool anyRemoved = false;
+    
+    for (auto* node : nodes)
     {
-        ScopedPointer<RenderSequenceFloat> oldSequenceF;
-        ScopedPointer<RenderSequenceDouble> oldSequenceD;
+        std::vector<Connection> connections;
+        getNodeConnections (*node, connections);
         
+        for (auto c : connections)
+            if (! isConnectionLegal (c))
+                anyRemoved = removeConnection (c) || anyRemoved;
+    }
+    
+    return anyRemoved;
+}
+    
+//==============================================================================
+void PluginContainerProcessor::clearRenderingSequence()
+{
+    ScopedPointer<RenderSequenceFloat> oldSequenceF;
+    ScopedPointer<RenderSequenceDouble> oldSequenceD;
+    
+    {
+        const ScopedLock sl (getCallbackLock());
+        std::swap (renderSequenceFloat, oldSequenceF);
+        std::swap (renderSequenceDouble, oldSequenceD);
+    }
+}
+    
+bool PluginContainerProcessor::anyNodesNeedPreparing() const noexcept
+{
+    for (auto* node : nodes)
+        if (! node->isPrepared)
+            return true;
+    
+    return false;
+}
+    
+void PluginContainerProcessor::buildRenderingSequence()
+{
+    ScopedPointer<RenderSequenceFloat>  newSequenceF (new RenderSequenceFloat());
+    ScopedPointer<RenderSequenceDouble> newSequenceD (new RenderSequenceDouble());
+    
+    {
+        MessageManagerLock mml;
+        
+        RenderSequenceBuilder<RenderSequenceFloat>  builderF (*this, *newSequenceF);
+        RenderSequenceBuilder<RenderSequenceDouble> builderD (*this, *newSequenceD);
+    }
+    
+    newSequenceF->prepareBuffers (getBlockSize());
+    newSequenceD->prepareBuffers (getBlockSize());
+    
+    if (anyNodesNeedPreparing())
+    {
         {
             const ScopedLock sl (getCallbackLock());
-            std::swap (renderSequenceFloat, oldSequenceF);
-            std::swap (renderSequenceDouble, oldSequenceD);
+            renderSequenceFloat.reset();
+            renderSequenceDouble.reset();
         }
-    }
         
-        bool PluginContainerProcessor::anyNodesNeedPreparing() const noexcept
-    {
         for (auto* node : nodes)
-            if (! node->isPrepared)
-                return true;
-        
-        return false;
+            node->prepare (getSampleRate(), getBlockSize(), this, getProcessingPrecision());
     }
-        
-        void PluginContainerProcessor::buildRenderingSequence()
-    {
-        ScopedPointer<RenderSequenceFloat>  newSequenceF (new RenderSequenceFloat());
-        ScopedPointer<RenderSequenceDouble> newSequenceD (new RenderSequenceDouble());
-        
-        {
-            MessageManagerLock mml;
-            
-            RenderSequenceBuilder<RenderSequenceFloat>  builderF (*this, *newSequenceF);
-            RenderSequenceBuilder<RenderSequenceDouble> builderD (*this, *newSequenceD);
-        }
-        
-        newSequenceF->prepareBuffers (getBlockSize());
-        newSequenceD->prepareBuffers (getBlockSize());
-        
-        if (anyNodesNeedPreparing())
-        {
-            {
-                const ScopedLock sl (getCallbackLock());
-                renderSequenceFloat.reset();
-                renderSequenceDouble.reset();
-            }
-            
-            for (auto* node : nodes)
-                node->prepare (getSampleRate(), getBlockSize(), this, getProcessingPrecision());
-        }
-        
-        const ScopedLock sl (getCallbackLock());
-        
-        std::swap (renderSequenceFloat, newSequenceF);
-        std::swap (renderSequenceDouble, newSequenceD);
-    }
-        
-        void PluginContainerProcessor::handleAsyncUpdate()
-    {
-        buildRenderingSequence();
-    }
-        
-        //==============================================================================
-        void PluginContainerProcessor::prepareToPlay (double /*sampleRate*/, int estimatedSamplesPerBlock)
-    {
-        if (renderSequenceFloat != nullptr)
-            renderSequenceFloat->prepareBuffers (estimatedSamplesPerBlock);
-        
-        if (renderSequenceDouble != nullptr)
-            renderSequenceDouble->prepareBuffers (estimatedSamplesPerBlock);
-        
-        clearRenderingSequence();
-        buildRenderingSequence();
-        
-        isPrepared = true;
+    
+    const ScopedLock sl (getCallbackLock());
+    
+    std::swap (renderSequenceFloat, newSequenceF);
+    std::swap (renderSequenceDouble, newSequenceD);
+}
+    
+void PluginContainerProcessor::handleAsyncUpdate()
+{
+    buildRenderingSequence();
+}
+    
+//==============================================================================
+void PluginContainerProcessor::prepareToPlay (double /*sampleRate*/, int estimatedSamplesPerBlock)
+{
+    if (renderSequenceFloat != nullptr)
+        renderSequenceFloat->prepareBuffers (estimatedSamplesPerBlock);
+    
+    if (renderSequenceDouble != nullptr)
+        renderSequenceDouble->prepareBuffers (estimatedSamplesPerBlock);
+    
+    clearRenderingSequence();
+    buildRenderingSequence();
+    
+    isPrepared = true;
 
-        m_ppfStorageBuffer = new float*[(unsigned long)getTotalNumInputChannels()];
-        for (int iChannel = 0; iChannel < getTotalNumInputChannels(); iChannel++)
-        {
-            m_ppfStorageBuffer[iChannel] = new float[(unsigned long)getSampleRate()];
-        }
-        m_iLastLoc = 0;
-        
-        m_fMyFile.open(m_sOutputFilePath);
-    }
-        
-        bool PluginContainerProcessor::supportsDoublePrecisionProcessing() const
+    m_ppfStorageBuffer = new float*[(unsigned long)getTotalNumInputChannels()];
+    for (int iChannel = 0; iChannel < getTotalNumInputChannels(); iChannel++)
     {
-        return true;
+        m_ppfStorageBuffer[iChannel] = new float[(unsigned long)getSampleRate()];
     }
-        
-        void PluginContainerProcessor::releaseResources()
-    {
-        isPrepared = false;
-        
-        for (auto* n : nodes)
-            n->unprepare();
-        
-        if (renderSequenceFloat != nullptr)
-            renderSequenceFloat->releaseBuffers();
-        
-        if (renderSequenceDouble != nullptr)
-            renderSequenceDouble->releaseBuffers();
-        
-        m_bRecording = false;
+    m_iLastLoc = 0;
+    
+    m_fMyFile.open(m_sOutputFilePath);
+}
+    
+    bool PluginContainerProcessor::supportsDoublePrecisionProcessing() const
+{
+    return true;
+}
+    
+    void PluginContainerProcessor::releaseResources()
+{
+    isPrepared = false;
+    
+    for (auto* n : nodes)
+        n->unprepare();
+    
+    if (renderSequenceFloat != nullptr)
+        renderSequenceFloat->releaseBuffers();
+    
+    if (renderSequenceDouble != nullptr)
+        renderSequenceDouble->releaseBuffers();
+    
+    m_bRecording = false;
 
-        for (int iChannel = 0; iChannel < getTotalNumInputChannels(); iChannel++)
+    for (int iChannel = 0; iChannel < getTotalNumInputChannels(); iChannel++)
+    {
+        delete [] m_ppfStorageBuffer[iChannel];
+    }
+    delete [] m_ppfStorageBuffer;
+    m_ppfStorageBuffer = nullptr;
+    
+    m_fMyFile.close();
+}
+    
+void PluginContainerProcessor::reset()
+{
+    const ScopedLock sl (getCallbackLock());
+    
+    for (auto* n : nodes)
+        n->getProcessor()->reset();
+}
+    
+void PluginContainerProcessor::setNonRealtime (bool isProcessingNonRealtime) noexcept
+{
+    const ScopedLock sl (getCallbackLock());
+    
+    AudioProcessor::setNonRealtime (isProcessingNonRealtime);
+    
+    for (auto* n : nodes)
+        n->getProcessor()->setNonRealtime (isProcessingNonRealtime);
+}
+    
+    double PluginContainerProcessor::getTailLengthSeconds() const            { return 0; }
+    bool PluginContainerProcessor::acceptsMidi() const                       { return true; }
+    bool PluginContainerProcessor::producesMidi() const                      { return true; }
+    void PluginContainerProcessor::getStateInformation (juce::MemoryBlock&)  {}
+    void PluginContainerProcessor::setStateInformation (const void*, int)    {}
+    
+    void PluginContainerProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer& midiMessages)
+{
+    const ScopedLock sl (getCallbackLock());
+    
+    if (renderSequenceFloat != nullptr)
+        renderSequenceFloat->perform (buffer, midiMessages, getPlayHead());
+    
+    if (m_bRecording)
+    {
+        for (int iSample = 0; iSample < getBlockSize(); iSample++)
         {
-            delete [] m_ppfStorageBuffer[iChannel];
+            for (int iChannel = 0; iChannel < getTotalNumInputChannels(); iChannel++)
+            {
+                m_ppfStorageBuffer[iChannel][iSample+m_iLastLoc] = buffer.getSample(iChannel, iSample);
+                m_fMyFile << m_ppfStorageBuffer[iChannel][iSample+m_iLastLoc] << "\t";
+            }
+            m_fMyFile << std::endl;
         }
-        delete [] m_ppfStorageBuffer;
-        m_ppfStorageBuffer = nullptr;
-        
-        m_fMyFile.close();
-    }
-        
-        void PluginContainerProcessor::reset()
-    {
-        const ScopedLock sl (getCallbackLock());
-        
-        for (auto* n : nodes)
-            n->getProcessor()->reset();
-    }
-        
-        void PluginContainerProcessor::setNonRealtime (bool isProcessingNonRealtime) noexcept
-    {
-        const ScopedLock sl (getCallbackLock());
-        
-        AudioProcessor::setNonRealtime (isProcessingNonRealtime);
-        
-        for (auto* n : nodes)
-            n->getProcessor()->setNonRealtime (isProcessingNonRealtime);
-    }
-        
-        double PluginContainerProcessor::getTailLengthSeconds() const            { return 0; }
-        bool PluginContainerProcessor::acceptsMidi() const                       { return true; }
-        bool PluginContainerProcessor::producesMidi() const                      { return true; }
-        void PluginContainerProcessor::getStateInformation (juce::MemoryBlock&)  {}
-        void PluginContainerProcessor::setStateInformation (const void*, int)    {}
-        
-        void PluginContainerProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer& midiMessages)
-    {
-        const ScopedLock sl (getCallbackLock());
-        
-        if (renderSequenceFloat != nullptr)
-            renderSequenceFloat->perform (buffer, midiMessages, getPlayHead());
-        
-        if (m_bRecording)
+        m_iLastLoc += getBlockSize();
+        if (m_iLastLoc > getSampleRate())
         {
-            for (int iSample = 0; iSample < getBlockSize(); iSample++)
-            {
-                for (int iChannel = 0; iChannel < getTotalNumInputChannels(); iChannel++)
-                {
-                    m_ppfStorageBuffer[iChannel][iSample+m_iLastLoc] = buffer.getSample(iChannel, iSample);
-                    m_fMyFile << m_ppfStorageBuffer[iChannel][iSample+m_iLastLoc] << "\t";
-                }
-                m_fMyFile << std::endl;
-            }
-            m_iLastLoc += getBlockSize();
-            if (m_iLastLoc > getSampleRate())
-            {
-                m_bRecording = false;
-            }
-        }
-    }
-        
-        void PluginContainerProcessor::processBlock (AudioBuffer<double>& buffer, MidiBuffer& midiMessages)
-    {
-        const ScopedLock sl (getCallbackLock());
-        
-        if (renderSequenceDouble != nullptr)
-            renderSequenceDouble->perform (buffer, midiMessages, getPlayHead());
-    }
-        
-        //==============================================================================
-        PluginContainerProcessor::AudioGraphIOProcessor::AudioGraphIOProcessor (const IODeviceType deviceType)
-        : type (deviceType)
-    {
-    }
-        
-        PluginContainerProcessor::AudioGraphIOProcessor::~AudioGraphIOProcessor()
-    {
-    }
-        
-        const String PluginContainerProcessor::AudioGraphIOProcessor::getName() const
-    {
-        switch (type)
-        {
-            case audioOutputNode:   return "Audio Output";
-            case audioInputNode:    return "Audio Input";
-            case midiOutputNode:    return "Midi Output";
-            case midiInputNode:     return "Midi Input";
-            default:                break;
-        }
-        
-        return {};
-    }
-        
-        void PluginContainerProcessor::AudioGraphIOProcessor::fillInPluginDescription (PluginDescription& d) const
-    {
-        d.name = getName();
-        d.uid = d.name.hashCode();
-        d.category = "I/O devices";
-        d.pluginFormatName = "Internal";
-        d.manufacturerName = "ROLI Ltd.";
-        d.version = "1.0";
-        d.isInstrument = false;
-        
-        d.numInputChannels = getTotalNumInputChannels();
-        
-        if (type == audioOutputNode && graph != nullptr)
-            d.numInputChannels = graph->getTotalNumInputChannels();
-        
-        d.numOutputChannels = getTotalNumOutputChannels();
-        
-        if (type == audioInputNode && graph != nullptr)
-            d.numOutputChannels = graph->getTotalNumOutputChannels();
-    }
-        
-        void PluginContainerProcessor::AudioGraphIOProcessor::prepareToPlay (double, int)
-    {
-        jassert (graph != nullptr);
-    }
-        
-        void PluginContainerProcessor::AudioGraphIOProcessor::releaseResources()
-    {
-    }
-        
-        bool PluginContainerProcessor::AudioGraphIOProcessor::supportsDoublePrecisionProcessing() const
-    {
-        return true;
-    }
-        
-        template <typename FloatType, typename SequenceType>
-        static void processIOBlock (PluginContainerProcessor::AudioGraphIOProcessor& io, SequenceType& sequence,
-                                    AudioBuffer<FloatType>& buffer, MidiBuffer& midiMessages)
-    {
-        switch (io.getType())
-        {
-            case PluginContainerProcessor::AudioGraphIOProcessor::audioOutputNode:
-            {
-                auto&& currentAudioOutputBuffer = sequence.currentAudioOutputBuffer;
-                
-                for (int i = jmin (currentAudioOutputBuffer.getNumChannels(), buffer.getNumChannels()); --i >= 0;)
-                    currentAudioOutputBuffer.addFrom (i, 0, buffer, i, 0, buffer.getNumSamples());
-                
-                break;
-            }
-                
-            case PluginContainerProcessor::AudioGraphIOProcessor::audioInputNode:
-            {
-                auto* currentInputBuffer = sequence.currentAudioInputBuffer;
-                
-                for (int i = jmin (currentInputBuffer->getNumChannels(), buffer.getNumChannels()); --i >= 0;)
-                    buffer.copyFrom (i, 0, *currentInputBuffer, i, 0, buffer.getNumSamples());
-                
-                break;
-            }
-                
-            case PluginContainerProcessor::AudioGraphIOProcessor::midiOutputNode:
-                sequence.currentMidiOutputBuffer.addEvents (midiMessages, 0, buffer.getNumSamples(), 0);
-                break;
-                
-            case PluginContainerProcessor::AudioGraphIOProcessor::midiInputNode:
-                midiMessages.addEvents (*sequence.currentMidiInputBuffer, 0, buffer.getNumSamples(), 0);
-                break;
-                
-            default:
-                break;
+            m_bRecording = false;
         }
     }
-        
-        void PluginContainerProcessor::AudioGraphIOProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer& midiMessages)
+}
+    
+void PluginContainerProcessor::processBlock (AudioBuffer<double>& buffer, MidiBuffer& midiMessages)
+{
+    const ScopedLock sl (getCallbackLock());
+    
+    if (renderSequenceDouble != nullptr)
+        renderSequenceDouble->perform (buffer, midiMessages, getPlayHead());
+}
+    
+//==============================================================================
+PluginContainerProcessor::AudioGraphIOProcessor::AudioGraphIOProcessor (const IODeviceType deviceType)
+    : type (deviceType)
+{
+}
+    
+PluginContainerProcessor::AudioGraphIOProcessor::~AudioGraphIOProcessor()
+{
+}
+    
+const String PluginContainerProcessor::AudioGraphIOProcessor::getName() const
+{
+    switch (type)
     {
-        jassert (graph != nullptr);
-        processIOBlock (*this, *graph->renderSequenceFloat, buffer, midiMessages);
+        case audioOutputNode:   return "Audio Output";
+        case audioInputNode:    return "Audio Input";
+        case midiOutputNode:    return "Midi Output";
+        case midiInputNode:     return "Midi Input";
+        default:                break;
     }
-        
-        void PluginContainerProcessor::AudioGraphIOProcessor::processBlock (AudioBuffer<double>& buffer, MidiBuffer& midiMessages)
+    
+    return {};
+}
+    
+void PluginContainerProcessor::AudioGraphIOProcessor::fillInPluginDescription (PluginDescription& d) const
+{
+    d.name = getName();
+    d.uid = d.name.hashCode();
+    d.category = "I/O devices";
+    d.pluginFormatName = "Internal";
+    d.manufacturerName = "ROLI Ltd.";
+    d.version = "1.0";
+    d.isInstrument = false;
+    
+    d.numInputChannels = getTotalNumInputChannels();
+    
+    if (type == audioOutputNode && graph != nullptr)
+        d.numInputChannels = graph->getTotalNumInputChannels();
+    
+    d.numOutputChannels = getTotalNumOutputChannels();
+    
+    if (type == audioInputNode && graph != nullptr)
+        d.numOutputChannels = graph->getTotalNumOutputChannels();
+}
+    
+void PluginContainerProcessor::AudioGraphIOProcessor::prepareToPlay (double, int)
+{
+    jassert (graph != nullptr);
+}
+    
+void PluginContainerProcessor::AudioGraphIOProcessor::releaseResources()
+{
+}
+    
+bool PluginContainerProcessor::AudioGraphIOProcessor::supportsDoublePrecisionProcessing() const
+{
+    return true;
+}
+    
+template <typename FloatType, typename SequenceType>
+static void processIOBlock (PluginContainerProcessor::AudioGraphIOProcessor& io, SequenceType& sequence,
+                                AudioBuffer<FloatType>& buffer, MidiBuffer& midiMessages)
+{
+    switch (io.getType())
     {
-        jassert (graph != nullptr);
-        processIOBlock (*this, *graph->renderSequenceDouble, buffer, midiMessages);
-    }
-        
-        double PluginContainerProcessor::AudioGraphIOProcessor::getTailLengthSeconds() const
-    {
-        return 0;
-    }
-        
-        bool PluginContainerProcessor::AudioGraphIOProcessor::acceptsMidi() const
-    {
-        return type == midiOutputNode;
-    }
-        
-        bool PluginContainerProcessor::AudioGraphIOProcessor::producesMidi() const
-    {
-        return type == midiInputNode;
-    }
-        
-        bool PluginContainerProcessor::AudioGraphIOProcessor::isInput() const noexcept           { return type == audioInputNode  || type == midiInputNode; }
-        bool PluginContainerProcessor::AudioGraphIOProcessor::isOutput() const noexcept          { return type == audioOutputNode || type == midiOutputNode; }
-        
-        bool PluginContainerProcessor::AudioGraphIOProcessor::hasEditor() const                  { return false; }
-        AudioProcessorEditor* PluginContainerProcessor::AudioGraphIOProcessor::createEditor()    { return nullptr; }
-        
-        int PluginContainerProcessor::AudioGraphIOProcessor::getNumPrograms()                    { return 0; }
-        int PluginContainerProcessor::AudioGraphIOProcessor::getCurrentProgram()                 { return 0; }
-        void PluginContainerProcessor::AudioGraphIOProcessor::setCurrentProgram (int)            { }
-        
-        const String PluginContainerProcessor::AudioGraphIOProcessor::getProgramName (int)       { return {}; }
-        void PluginContainerProcessor::AudioGraphIOProcessor::changeProgramName (int, const String&) {}
-        
-        void PluginContainerProcessor::AudioGraphIOProcessor::getStateInformation (juce::MemoryBlock&) {}
-        void PluginContainerProcessor::AudioGraphIOProcessor::setStateInformation (const void*, int) {}
-        
-        void PluginContainerProcessor::AudioGraphIOProcessor::setParentGraph (PluginContainerProcessor* const newGraph)
-    {
-        graph = newGraph;
-        
-        if (graph != nullptr)
+        case PluginContainerProcessor::AudioGraphIOProcessor::audioOutputNode:
         {
-            setPlayConfigDetails (type == audioOutputNode ? graph->getTotalNumOutputChannels() : 0,
-                                  type == audioInputNode  ? graph->getTotalNumInputChannels()  : 0,
-                                  getSampleRate(),
-                                  getBlockSize());
+            auto&& currentAudioOutputBuffer = sequence.currentAudioOutputBuffer;
             
-            updateHostDisplay();
+            for (int i = jmin (currentAudioOutputBuffer.getNumChannels(), buffer.getNumChannels()); --i >= 0;)
+                currentAudioOutputBuffer.addFrom (i, 0, buffer, i, 0, buffer.getNumSamples());
+            
+            break;
         }
+            
+        case PluginContainerProcessor::AudioGraphIOProcessor::audioInputNode:
+        {
+            auto* currentInputBuffer = sequence.currentAudioInputBuffer;
+            
+            for (int i = jmin (currentInputBuffer->getNumChannels(), buffer.getNumChannels()); --i >= 0;)
+                buffer.copyFrom (i, 0, *currentInputBuffer, i, 0, buffer.getNumSamples());
+            
+            break;
+        }
+            
+        case PluginContainerProcessor::AudioGraphIOProcessor::midiOutputNode:
+            sequence.currentMidiOutputBuffer.addEvents (midiMessages, 0, buffer.getNumSamples(), 0);
+            break;
+            
+        case PluginContainerProcessor::AudioGraphIOProcessor::midiInputNode:
+            midiMessages.addEvents (*sequence.currentMidiInputBuffer, 0, buffer.getNumSamples(), 0);
+            break;
+            
+        default:
+            break;
     }
+}
+    
+void PluginContainerProcessor::AudioGraphIOProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer& midiMessages)
+{
+    jassert (graph != nullptr);
+    processIOBlock (*this, *graph->renderSequenceFloat, buffer, midiMessages);
+}
+    
+void PluginContainerProcessor::AudioGraphIOProcessor::processBlock (AudioBuffer<double>& buffer, MidiBuffer& midiMessages)
+{
+    jassert (graph != nullptr);
+    processIOBlock (*this, *graph->renderSequenceDouble, buffer, midiMessages);
+}
+    
+double PluginContainerProcessor::AudioGraphIOProcessor::getTailLengthSeconds() const
+{
+    return 0;
+}
+    
+bool PluginContainerProcessor::AudioGraphIOProcessor::acceptsMidi() const
+{
+    return type == midiOutputNode;
+}
+    
+bool PluginContainerProcessor::AudioGraphIOProcessor::producesMidi() const
+{
+    return type == midiInputNode;
+}
+    
+bool PluginContainerProcessor::AudioGraphIOProcessor::isInput() const noexcept           { return type == audioInputNode  || type == midiInputNode; }
+bool PluginContainerProcessor::AudioGraphIOProcessor::isOutput() const noexcept          { return type == audioOutputNode || type == midiOutputNode; }
 
-        void PluginContainerProcessor::generateAudioFile(bool rec)
+bool PluginContainerProcessor::AudioGraphIOProcessor::hasEditor() const                  { return false; }
+AudioProcessorEditor* PluginContainerProcessor::AudioGraphIOProcessor::createEditor()    { return nullptr; }
+
+int PluginContainerProcessor::AudioGraphIOProcessor::getNumPrograms()                    { return 0; }
+int PluginContainerProcessor::AudioGraphIOProcessor::getCurrentProgram()                 { return 0; }
+void PluginContainerProcessor::AudioGraphIOProcessor::setCurrentProgram (int)            { }
+
+const String PluginContainerProcessor::AudioGraphIOProcessor::getProgramName (int)       { return {}; }
+void PluginContainerProcessor::AudioGraphIOProcessor::changeProgramName (int, const String&) {}
+
+void PluginContainerProcessor::AudioGraphIOProcessor::getStateInformation (juce::MemoryBlock&) {}
+void PluginContainerProcessor::AudioGraphIOProcessor::setStateInformation (const void*, int) {}
+
+void PluginContainerProcessor::AudioGraphIOProcessor::setParentGraph (PluginContainerProcessor* const newGraph)
+{
+    graph = newGraph;
+    
+    if (graph != nullptr)
     {
-        m_bRecording = rec;
+        setPlayConfigDetails (type == audioOutputNode ? graph->getTotalNumOutputChannels() : 0,
+                              type == audioInputNode  ? graph->getTotalNumInputChannels()  : 0,
+                              getSampleRate(),
+                              getBlockSize());
+        
+        updateHostDisplay();
     }
+}
+
+void PluginContainerProcessor::generateAudioFile(bool rec)
+{
+    m_bRecording = rec;
+}
