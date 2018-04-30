@@ -80,6 +80,8 @@ public:
     void setLastDocumentOpened (const File& file) override;
 
     //==============================================================================
+    void generateAudioFile(bool bRecording, std::string sFileName);
+    
     PluginContainerProcessor graph;
 
 private:

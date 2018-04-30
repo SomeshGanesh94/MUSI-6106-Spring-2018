@@ -159,7 +159,7 @@ void FilterGraph::addFilterCallback (AudioPluginInstance* instance, const String
             graph.addConnection(connection2);
             graph.addConnection(connection3);
             
-            graph.generateAudioFile(true);
+            graph.generateAudioFile(true, "dummy.txt");
         }
     }
 }
@@ -495,4 +495,9 @@ void FilterGraph::restoreFromXml (const XmlElement& xml)
     }
 
     graph.removeIllegalConnections();
+}
+
+void FilterGraph::generateAudioFile(bool bRecording, std::string sFileName)
+{
+    graph.generateAudioFile(bRecording, sFileName);
 }

@@ -337,7 +337,7 @@ public:
     void getStateInformation (juce::MemoryBlock&) override;
     void setStateInformation (const void* data, int sizeInBytes) override;
     
-    void generateAudioFile(bool bRecording);
+    void generateAudioFile(bool bRecording, std::string sFileName);
     
 private:
     //==============================================================================

@@ -1208,7 +1208,7 @@ void PluginContainerProcessor::prepareToPlay (double /*sampleRate*/, int estimat
         m_ppfStorageBuffer[iChannel] = new float[(unsigned long)getSampleRate()];
     }
     m_iLastLoc = 0;
-    
+    m_sOutputFilePath = " ";
     m_fMyFile.open(m_sOutputFilePath);
 }
     
@@ -1288,6 +1288,7 @@ void PluginContainerProcessor::setNonRealtime (bool isProcessingNonRealtime) noe
         if (m_iLastLoc > getSampleRate())
         {
             m_bRecording = false;
+            m_fMyFile.close();
         }
     }
     else
@@ -1459,7 +1460,9 @@ void PluginContainerProcessor::AudioGraphIOProcessor::setParentGraph (PluginCont
     }
 }
 
-void PluginContainerProcessor::generateAudioFile(bool bRecording)
+        void PluginContainerProcessor::generateAudioFile(bool bRecording, std::string sFileName)
 {
     m_bRecording = bRecording;
+    m_sOutputFilePath = sFileName;
+    m_fMyFile.open(m_sOutputFilePath);
 }
