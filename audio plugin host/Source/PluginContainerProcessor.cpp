@@ -1290,6 +1290,9 @@ void PluginContainerProcessor::setNonRealtime (bool isProcessingNonRealtime) noe
             m_bRecording = false;
         }
     }
+    else
+    {
+    }
 }
     
 void PluginContainerProcessor::processBlock (AudioBuffer<double>& buffer, MidiBuffer& midiMessages)
@@ -1456,7 +1459,7 @@ void PluginContainerProcessor::AudioGraphIOProcessor::setParentGraph (PluginCont
     }
 }
 
-void PluginContainerProcessor::generateAudioFile(bool rec)
+void PluginContainerProcessor::generateAudioFile(bool bRecording)
 {
-    m_bRecording = rec;
+    m_bRecording = bRecording;
 }

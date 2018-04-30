@@ -22,7 +22,6 @@ public:
     //==============================================================================
     /** Creates an empty graph. */
     PluginContainerProcessor();
-    void generateAudioFile(bool rec);
     
     /** Destructor.
      Any processor objects that have been added to the graph will also be deleted.
@@ -337,6 +336,8 @@ public:
     void changeProgramName (int, const String&) override    { }
     void getStateInformation (juce::MemoryBlock&) override;
     void setStateInformation (const void* data, int sizeInBytes) override;
+    
+    void generateAudioFile(bool bRecording);
     
 private:
     //==============================================================================
