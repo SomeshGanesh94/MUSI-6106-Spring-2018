@@ -5,6 +5,10 @@
     Created: 27 Apr 2018 10:53:23pm
     Author:  Agneya Kerure
 
+    This class was created to expose the internal processBlock which enables the application to read and write audio files.
+    This class basically consists of a modified juce_filterGraph class with custom functions.
+    The functions and data members defined by us are form line 345-356.
+ 
   ==============================================================================
 */
 
@@ -337,10 +341,20 @@ public:
     void getStateInformation (juce::MemoryBlock&) override;
     void setStateInformation (const void* data, int sizeInBytes) override;
     
+    // Start definitions by Agneya and Somesh
     static void generateAudioFile(bool bRecording, std::string sFileName);
     static void writeAudioFile();
     static bool m_bRecording;
     
+    static AudioFormatWriter* writer;
+    static WavAudioFormat* wavFormat;
+    static FileOutputStream* outputTo;
+    static File output;
+    
+    static std::string m_sOutputFilePath;
+    static float** m_ppfStorageBuffer;
+    int m_iLastLoc;
+    // End definitions by Agneya and Somesh
 private:
     //==============================================================================
     ReferenceCountedArray<Node> nodes;
@@ -352,6 +366,7 @@ private:
     ScopedPointer<RenderSequenceDouble> renderSequenceDouble;
     
     friend class AudioGraphIOProcessor;
+    
     
     bool isPrepared = false;
     
@@ -367,23 +382,6 @@ private:
     static void getNodeConnections (Node&, std::vector<Connection>&);
     
     
-    
-//    ScopedPointer<AudioSampleBuffer> m_asbWriteBuffer;
-//    ScopedPointer<WavAudioFormat> m_wWriteFormat;
-//    File m_fOutputFile;
-//    ScopedPointer<FileOutputStream> m_OutputTo;
-//    ScopedPointer<AudioFormatWriter> m_AudioFormatWriter;
-//    ScopedPointer<AudioFormatWriter::ThreadedWriter> threaded;
-    
-    static std::string m_sOutputFilePath;
-    static std::ofstream m_fMyFile;
-    
-    
-    static float** m_ppfStorageBuffer;
-    int m_iLastLoc;
-    
-    
-
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (PluginContainerProcessor)
 
 };

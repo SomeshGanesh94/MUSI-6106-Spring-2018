@@ -14,8 +14,6 @@
 #include "../dlib-19.10/dlib/svm.h"
 #include <map>
 
-//using namespace dlib;
-
 class Regression
 {
 public:

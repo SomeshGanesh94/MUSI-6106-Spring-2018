@@ -809,13 +809,25 @@ GraphDocumentComponent::GraphDocumentComponent (AudioPluginFormatManager& fm, Au
     deviceManager.addAudioCallback (&graphPlayer);
     deviceManager.addMidiInputCallback (String(), &graphPlayer.getMidiMessageCollector());
     
-    m_bAudioOn.setButtonText("Start MIDI audio");
+    m_bAudioOn.setButtonText("Start MIDI Audio");
     addAndMakeVisible(m_bAudioOn);
     m_bAudioOn.addListener(this);
     
-    m_bAudioOff.setButtonText("Stop MIDI audio");
+    m_bAudioOff.setButtonText("Stop MIDI Audio");
     addAndMakeVisible(m_bAudioOff);
     m_bAudioOff.addListener(this);
+    
+    m_bGenerateAudio.setButtonText("Generate Audio Data");
+    addAndMakeVisible(m_bGenerateAudio);
+    m_bGenerateAudio.addListener(this);
+    
+    m_bExtractFeatures.setButtonText("Extract Features from Data");
+    addAndMakeVisible(m_bExtractFeatures);
+    m_bExtractFeatures.addListener(this);
+    
+    m_bTrainModel.setButtonText("Train Model");
+    addAndMakeVisible(m_bTrainModel);
+    m_bTrainModel.addListener(this);
 
     graphPanel->updateComponents();
 }
@@ -838,6 +850,10 @@ void GraphDocumentComponent::resized()
     
     m_bAudioOn.setBounds(10, 10, getWidth()/10, getHeight()/10);
     m_bAudioOff.setBounds(10, 90, getWidth()/10, getHeight()/10);
+    m_bGenerateAudio.setBounds(10, 170, getWidth()/10, getHeight()/10);
+    m_bExtractFeatures.setBounds(10, 250, getWidth()/10, getHeight()/10);
+    m_bTrainModel.setBounds(10, 330, getWidth()/10, getHeight()/10);
+
 }
 
 void GraphDocumentComponent::createNewPlugin (const PluginDescription& desc, Point<int> pos)
@@ -882,14 +898,28 @@ void GraphDocumentComponent::buttonClicked(Button *button)
 {
     if (button == &m_bAudioOn)
     {
-//        keyState.noteOn(1, 77, 1);
-//        graph->doFeatureExtract("/Users/someshganesh/Documents/GitHub/SynthIO/audio plugin host/audioFiles/", "/Users/someshganesh/Documents/GitHub/SynthIO/audio plugin host/features/");
-//        graph->m_pCRegression->init("/Users/someshganesh/Documents/GitHub/SynthIO/audio plugin host/features/", "/Users/someshganesh/Documents/GitHub/SynthIO/audio plugin host/parameterFiles/");
-        graph->m_pCRegression->trainModel("/Users/someshganesh/Documents/GitHub/SynthIO/audio plugin host/features/", "/Users/someshganesh/Documents/GitHub/SynthIO/audio plugin host/parameterFiles/");
-//        graph->container->genFiles(4, 1);
+        keyState.noteOn(1, 77, 1);
+        PluginContainerProcessor::m_bRecording = true;
+        graph->container->genFiles(4, 1); //THIS CHANGE THIS PLEASE
     }
     if (button == &m_bAudioOff)
     {
         keyState.noteOff(1, 77, 1);
+        PluginContainerProcessor::m_bRecording = false;
+    }
+    if (button == &m_bGenerateAudio)
+    {
+//        keyState.noteOff(1, 77, 1);
+        PluginContainerProcessor::m_bRecording = false;
+    }
+    if (button == &m_bExtractFeatures)
+    {
+//        keyState.noteOff(1, 77, 1);
+        PluginContainerProcessor::m_bRecording = false;
+    }
+    if (button == &m_bTrainModel)
+    {
+//        keyState.noteOff(1, 77, 1);
+        PluginContainerProcessor::m_bRecording = false;
     }
 }

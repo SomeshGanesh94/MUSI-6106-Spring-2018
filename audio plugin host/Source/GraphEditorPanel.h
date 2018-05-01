@@ -96,7 +96,7 @@ public:
     //==============================================================================
     ScopedPointer<FilterGraph> graph;
 
-    void resized();
+    void resized() override;
     void unfocusKeyboardComponent();
     void releaseGraph();
 
@@ -106,6 +106,9 @@ public:
     
     TextButton m_bAudioOn;
     TextButton m_bAudioOff;
+    TextButton m_bGenerateAudio;
+    TextButton m_bExtractFeatures;
+    TextButton m_bTrainModel;
     
     void buttonClicked(Button* button) override;
     
@@ -114,7 +117,6 @@ private:
     AudioDeviceManager& deviceManager;
     AudioProcessorPlayer graphPlayer;
     
-
     struct TooltipBar;
     ScopedPointer<TooltipBar> statusBar;
 

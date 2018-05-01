@@ -19,7 +19,6 @@
 using namespace essentia;
 using namespace essentia::standard;
 using namespace std;
-//using namespace dlib;
 
 Regression::Regression()
 {
@@ -40,13 +39,8 @@ void Regression::trainModel(std::string sInputTrainingData, std::string sInputTr
     essentia::init();
     m_Samples.clear();
     
-//    for (int iCount = 0; iCount < 4; iCount++)
-//    {
-//        m_Targets[iCount].clear();
-//    }
-    
-    m_DTrainingIter = new DirectoryIterator(File (sInputTrainingData), true, "*.txt");
-    m_DLabelIter = new DirectoryIterator(File (sInputTrainingLabels), true, "*.txt");
+    m_DTrainingIter = new DirectoryIterator(File (sInputTrainingData), true, "*.txt"); //feature folder
+    m_DLabelIter = new DirectoryIterator(File (sInputTrainingLabels), true, "*.txt");  //parameter file folder
     
     while (m_DTrainingIter->next())
     {
@@ -63,10 +57,6 @@ void Regression::trainModel(std::string sInputTrainingData, std::string sInputTr
                 m_DummySample(iFeature) = vrFeatures[iFeature];
             }
             m_Samples.push_back(m_DummySample);
-            
-            
-            
-//            std::cout << File(sInputLabelFile).loadFileAsString().toStdString() << std::endl;
             std::string sLabels = File(sInputLabelFile).loadFileAsString().toStdString();
             
             std::istringstream iss(sLabels);
@@ -77,7 +67,6 @@ void Regression::trainModel(std::string sInputTrainingData, std::string sInputTr
             {
                 m_DummyLabel = std::stod(vLabels[iCount]);
                 m_Targets[iCount].push_back(m_DummyLabel);
-//                m_Targets[iCount].push_back()
             }
         }
         
@@ -101,7 +90,7 @@ void Regression::trainModel(std::string sInputTrainingData, std::string sInputTr
     {
         vDecisionFunctions.push_back(SVRtrainer.train(m_Samples, m_Targets[iLabel]));
         dlib::randomize_samples(m_Samples, m_Targets[iLabel]);
-        std::cout << "MSE and R-Squared: " << dlib::cross_validate_regression_trainer(SVRtrainer, m_Samples, m_Targets[iLabel], 5) << endl;
+//        std::cout << "MSE and R-Squared: " << dlib::cross_validate_regression_trainer(SVRtrainer, m_Samples, m_Targets[iLabel], 5) << endl;
     }
     
     essentia::shutdown();
@@ -131,8 +120,6 @@ std::vector<float> Regression::extractDataFromYAML(std::string sInputTrainingDat
         for (int iStat = 0; iStat < 11; iStat++)
         {
             string sInputFeature = sSingleFeatures[iFeature] + "." + sStats[iStat];
-            //            std::cout << mSingleFeatures[sInputFeature] << std::endl;
-            //                pInputPCAPool.add("features", (float)mSingleFeatures[sInputFeature]);
             float val = float(mSingleFeatures[sInputFeature]);
             vrSingleFileFeatures.insert(vrSingleFileFeatures.end(), val);
         }
@@ -143,28 +130,14 @@ std::vector<float> Regression::extractDataFromYAML(std::string sInputTrainingDat
         for (int iStat = 0; iStat < 11; iStat++)
         {
             string sInputFeature = sVecFeatures[iFeature] + "." + sStats[iStat];
-            //            std::cout << mVecFeatures[sInputFeature] << std::endl;
             for (int iIdx = 0; iIdx < sizeof(mVecFeatures[sInputFeature]) / sizeof(mVecFeatures[sInputFeature][0]); iIdx++)
             {
-                //                    pInputPCAPool.add("features", (float)mVecFeatures[sInputFeature][iIdx]);
                 float val = float(mVecFeatures[sInputFeature][iIdx]);
                 vrSingleFileFeatures.insert(vrSingleFileFeatures.end(), val);
             }
         }
-//        Ainput.add("features", vrSingleFileFeatures);
     }
     
     return vrSingleFileFeatures;
-        
-//        std::string sInputFilePath = sInputTrainingLabels + m_ent->d_name;
 }
 
-void Regression::init(std::string sInputTrainingData, std::string sInputTrainingLabels)
-{
-    
-}
-
-void Regression::reset()
-{
-    
-}
