@@ -823,6 +823,7 @@ PluginContainerProcessor::PluginContainerProcessor()
 {
     m_bRecording = false;
     m_ppfStorageBuffer = nullptr;
+
 }
     
 PluginContainerProcessor::~PluginContainerProcessor()
@@ -1208,12 +1209,8 @@ void PluginContainerProcessor::prepareToPlay (double /*sampleRate*/, int estimat
     {
         m_ppfStorageBuffer[iChannel] = new float[(unsigned long)getSampleRate()];
     }
+
     m_iLastLoc = 0;
-    
-    wavFormat = new WavAudioFormat();
-    output = File("/Users/agneyakerure/Desktop/test/test.wav");
-    outputTo = output.createOutputStream();
-    writer = wavFormat->createWriterFor(outputTo, 44100, 1, 16, StringPairArray(), 0);
 }
     
 bool PluginContainerProcessor::supportsDoublePrecisionProcessing() const
@@ -1277,10 +1274,6 @@ void PluginContainerProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuf
     
     if (m_bRecording)
     {
-        if(writer)
-        {
-            writer->writeFromAudioSampleBuffer(buffer, 0, buffer.getNumSamples());
-        }
         
         for (int iSample = 0; iSample < getBlockSize(); iSample++)
         {
@@ -1289,13 +1282,10 @@ void PluginContainerProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuf
                 m_ppfStorageBuffer[iChannel][iSample+m_iLastLoc] = buffer.getSample(iChannel, iSample);
             }
         }
+        
         m_iLastLoc += getBlockSize();
         if (m_iLastLoc > getSampleRate())
         {
-            delete writer;
-            delete wavFormat;
-            writer = nullptr;
-            
             m_bRecording = false;
             m_iLastLoc = 0;
         }
@@ -1466,10 +1456,15 @@ void PluginContainerProcessor::AudioGraphIOProcessor::setParentGraph (PluginCont
     }
 }
 bool PluginContainerProcessor::m_bRecording = false;
-std::ofstream PluginContainerProcessor::m_fMyFile;
 std::string PluginContainerProcessor::m_sOutputFilePath = "";
 float** PluginContainerProcessor::m_ppfStorageBuffer = nullptr;
 
+
+AudioFormatWriter* PluginContainerProcessor::writer = nullptr;
+WavAudioFormat* PluginContainerProcessor::wavFormat = nullptr;
+FileOutputStream* PluginContainerProcessor::outputTo = nullptr;
+File PluginContainerProcessor::output;
+        
 void PluginContainerProcessor::generateAudioFile(bool bRecording, std::string sFileName)
 {
     PluginContainerProcessor::m_bRecording = bRecording;
@@ -1478,14 +1473,18 @@ void PluginContainerProcessor::generateAudioFile(bool bRecording, std::string sF
         
 void PluginContainerProcessor::writeAudioFile()
 {
-    m_fMyFile.open(m_sOutputFilePath);
-    for (int iSample = 0; iSample < 44100; iSample++)
+    wavFormat = new WavAudioFormat();
+    output = File(m_sOutputFilePath);
+    outputTo = output.createOutputStream();
+    writer = wavFormat->createWriterFor(outputTo, 44100, 2, 16, StringPairArray(), 0);
+    
+    //copy to new audio buffer which will write to file
+    if(writer)
     {
-        for (int iChannel = 0; iChannel < 2; iChannel++)
-        {
-            m_fMyFile << m_ppfStorageBuffer[iChannel][iSample] << "\t";
-        }
-        m_fMyFile << std::endl;
+        writer->writeFromFloatArrays(m_ppfStorageBuffer, 2, 44100);
     }
-    m_fMyFile.close();
+    
+    delete writer;
+    delete wavFormat;
+    writer = nullptr;
 }

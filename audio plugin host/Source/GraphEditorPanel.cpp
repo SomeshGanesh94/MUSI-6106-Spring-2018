@@ -809,7 +809,7 @@ GraphDocumentComponent::GraphDocumentComponent (AudioPluginFormatManager& fm, Au
     deviceManager.addAudioCallback (&graphPlayer);
     deviceManager.addMidiInputCallback (String(), &graphPlayer.getMidiMessageCollector());
     
-    m_bAudioOn.setButtonText("Start MIDI audio");
+    m_bAudioOn.setButtonText("Generate Model");
     addAndMakeVisible(m_bAudioOn);
     m_bAudioOn.addListener(this);
     
@@ -884,8 +884,7 @@ void GraphDocumentComponent::buttonClicked(Button *button)
     {
         keyState.noteOn(1, 77, 1);
         PluginContainerProcessor::m_bRecording = true;
-//        graph->doFeatureExtract("/Users/agneyakerure/Desktop/Audio Software Engineering/SynthIO/audio/", "/Users/agneyakerure/Desktop/Audio Software Engineering/SynthIO/features/");
-//        graph->container->genFiles(4, 1);
+        graph->container->genFiles(4, 1); //THIS CHANGE THIS PLEASE
     }
     if (button == &m_bAudioOff)
     {

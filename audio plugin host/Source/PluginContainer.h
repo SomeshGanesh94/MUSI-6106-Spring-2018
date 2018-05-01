@@ -5,6 +5,9 @@
  Created: 9 Feb 2018 11:32:26am
  Author:  Agneya Kerure
  
+ This class acts as a container for the instantiated plugin providing interfaceto other classes.
+ 
+ 
  ==============================================================================
  */
 
@@ -41,7 +44,6 @@ public:
     //print them in a file
     void generateAudioFiles(int iNumParams, double dStepSize, double* pdParamValArray);
     void setNumberOfParameters(int numParams);
-    void setVSTParam(double* pdParamValArray);
     void genFiles(int numParams, int maxLimit);
     
     void init(AudioProcessor& plugin);
@@ -53,7 +55,6 @@ private:
     double* m_pdParamValArray;
     AudioProcessor* pluginInstance;
     AudioProcessor* newProcessor;
-    //ScopedPointer<ConnectorComponent> connector;
     std::ofstream file;
     int fileNum;
     Time t;

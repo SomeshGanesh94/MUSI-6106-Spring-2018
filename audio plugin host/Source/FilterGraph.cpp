@@ -30,7 +30,6 @@
 #include "InternalFilters.h"
 #include "GraphEditorPanel.h"
 #include "PluginContainerProcessor.h"
-//#include "HostStartup.cpp"
 
 
 //==============================================================================
@@ -135,21 +134,13 @@ void FilterGraph::addFilterCallback (AudioPluginInstance* instance, const String
         {
             auto* processor = dynamic_cast<AudioProcessor*> (instance);
             container = new PluginContainer();
-            
             container->init(*processor);
-            
-//            container->generateParameterTextFiles(container->getNumberOfParameters(), 0.25, "");
-//            container->generateAudioFiles(container->m_kiNumpParams, 0.25, NULL);
-            
-            
             const unsigned int iHostMidiInputNodeID = graph.getNode(count-3)->nodeID; //1
             const unsigned int iPluginNodeID = graph.getNode(count-1)->nodeID; //3
             //const unsigned int iHostAudioOutputNodeID = graph.getNode(count-2)->nodeID; //2
             const int iMidiChannelNumber = 4096;
             //const int iLeftAudioChannelNumber = 0;
             //const int iRightAudioChannelNumber = 1;
-            
-            //std::cout<<"Processor Name: "<<graph.getNode(2)->getProcessor()->getName()<<std::endl;
             
             //connect midi output of host to midi input of synth
             PluginContainerProcessor::Connection connection1 { { iHostMidiInputNodeID, iMidiChannelNumber }, { iPluginNodeID, iMidiChannelNumber } };
@@ -161,8 +152,7 @@ void FilterGraph::addFilterCallback (AudioPluginInstance* instance, const String
             graph.addConnection(connection1);
             graph.addConnection(connection2);
             graph.addConnection(connection3);
-//
-//            graph.generateAudioFile(true, "dummy.txt");
+
         }
         
     }

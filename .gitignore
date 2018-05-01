@@ -7,6 +7,8 @@ testProjectsAndCode
 pythonFiles/featureExtraction\.py
 
 test/
+audioFiles/
+parameterFiles/
 
 # extra libraries
 armadillo-8.500.0/
