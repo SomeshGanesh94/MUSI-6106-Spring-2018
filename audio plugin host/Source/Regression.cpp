@@ -50,9 +50,9 @@ void Regression::trainModel(std::string sInputTrainingData, std::string sInputTr
         string sInputLabelFile = sInputTrainingLabels + m_DTrainingIter->getFile().getFileNameWithoutExtension().toStdString() + ".txt";
         
         
-        if (vrFeatures.size() == 319)
+        if (vrFeatures.size() == 55)
         {
-            for (int iFeature = 0; iFeature < 319; iFeature++)
+            for (int iFeature = 0; iFeature < 55; iFeature++)
             {
                 m_DummySample(iFeature) = vrFeatures[iFeature];
             }
@@ -75,11 +75,11 @@ void Regression::trainModel(std::string sInputTrainingData, std::string sInputTr
     }
     
     dlib::svr_trainer<kernelType> SVRtrainer;
-    SVRtrainer.set_kernel(kernelType(0.1));
+    SVRtrainer.set_kernel(kernelType(0.01));
     
-    SVRtrainer.set_c(100);
+    SVRtrainer.set_c(10);
     
-    SVRtrainer.set_epsilon_insensitivity(0.1);
+    SVRtrainer.set_epsilon_insensitivity(0.001);
     
     dlib::decision_function<kernelType> dfs;
     
@@ -90,7 +90,7 @@ void Regression::trainModel(std::string sInputTrainingData, std::string sInputTr
     {
         vDecisionFunctions.push_back(SVRtrainer.train(m_Samples, m_Targets[iLabel]));
         dlib::randomize_samples(m_Samples, m_Targets[iLabel]);
-//        std::cout << "MSE and R-Squared: " << dlib::cross_validate_regression_trainer(SVRtrainer, m_Samples, m_Targets[iLabel], 5) << endl;
+        std::cout << "MSE and R-Squared: " << dlib::cross_validate_regression_trainer(SVRtrainer, m_Samples, m_Targets[iLabel], 5) << endl;
     }
     
     essentia::shutdown();
@@ -125,18 +125,18 @@ std::vector<float> Regression::extractDataFromYAML(std::string sInputTrainingDat
         }
     }
     
-    for (int iFeature = 0; iFeature < 4; iFeature++)
-    {
-        for (int iStat = 0; iStat < 11; iStat++)
-        {
-            string sInputFeature = sVecFeatures[iFeature] + "." + sStats[iStat];
-            for (int iIdx = 0; iIdx < sizeof(mVecFeatures[sInputFeature]) / sizeof(mVecFeatures[sInputFeature][0]); iIdx++)
-            {
-                float val = float(mVecFeatures[sInputFeature][iIdx]);
-                vrSingleFileFeatures.insert(vrSingleFileFeatures.end(), val);
-            }
-        }
-    }
+//    for (int iFeature = 0; iFeature < 4; iFeature++)
+//    {
+//        for (int iStat = 0; iStat < 11; iStat++)
+//        {
+//            string sInputFeature = sVecFeatures[iFeature] + "." + sStats[iStat];
+//            for (int iIdx = 0; iIdx < sizeof(mVecFeatures[sInputFeature]) / sizeof(mVecFeatures[sInputFeature][0]); iIdx++)
+//            {
+//                float val = float(mVecFeatures[sInputFeature][iIdx]);
+//                vrSingleFileFeatures.insert(vrSingleFileFeatures.end(), val);
+//            }
+//        }
+//    }
     
     return vrSingleFileFeatures;
 }

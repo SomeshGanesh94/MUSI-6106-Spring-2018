@@ -900,7 +900,6 @@ void GraphDocumentComponent::buttonClicked(Button *button)
     {
         keyState.noteOn(1, 77, 1);
         PluginContainerProcessor::m_bRecording = true;
-        graph->container->genFiles(4, 1); //THIS CHANGE THIS PLEASE
     }
     if (button == &m_bAudioOff)
     {
@@ -911,15 +910,29 @@ void GraphDocumentComponent::buttonClicked(Button *button)
     {
 //        keyState.noteOff(1, 77, 1);
         PluginContainerProcessor::m_bRecording = false;
+        const int kiNumParams = 4;
+        keyState.noteOn(1, 77, 1);
+        graph->container->genFiles(kiNumParams, 1);
+        keyState.noteOff(1, 77, 1);
     }
     if (button == &m_bExtractFeatures)
     {
 //        keyState.noteOff(1, 77, 1);
         PluginContainerProcessor::m_bRecording = false;
+        String filePath = File::getCurrentWorkingDirectory().getFullPathName();
+        std::string sAudioFilePath = filePath.toStdString() + "/audioFiles/";
+        std::string sFeatureFilePath = filePath.toStdString() + "/featureFiles/";
+        graph->m_pCFeatureExtraction->initEssentia();
+        graph->m_pCFeatureExtraction->doFeatureExtract(sAudioFilePath, sFeatureFilePath);
+        graph->m_pCFeatureExtraction->shutDownEssentia();
     }
     if (button == &m_bTrainModel)
     {
 //        keyState.noteOff(1, 77, 1);
         PluginContainerProcessor::m_bRecording = false;
+        String filePath = File::getCurrentWorkingDirectory().getFullPathName();
+        std::string sTestFilePath = filePath.toStdString() + "/parameterFiles/";
+        std::string sFeatureFilePath = filePath.toStdString() + "/featureFiles/";
+        graph->m_pCRegression->trainModel(sFeatureFilePath, sTestFilePath);
     }
 }

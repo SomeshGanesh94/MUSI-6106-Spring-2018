@@ -26,7 +26,7 @@ public:
     void reset();
     
 private:
-    typedef dlib::matrix<double, 319, 1> sampleType;
+    typedef dlib::matrix<double, 55, 1> sampleType;
     typedef dlib::matrix<double> labelType;
     typedef dlib::radial_basis_kernel<sampleType> kernelType;
     sampleType m_DummySample;
