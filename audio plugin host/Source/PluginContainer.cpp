@@ -27,7 +27,7 @@ void PluginContainer::init(AudioProcessor& plugin)
 {
     pluginInstance = &plugin;
     m_kiNumpParams = pluginInstance->getNumParameters();
-    m_pdParamValArray = new double[m_kiNumpParams];
+    m_pdParamValArray = new double[(unsigned long)m_kiNumpParams];
 }
 
 void PluginContainer::reset()
@@ -60,38 +60,34 @@ int PluginContainer::getNumberOfParameters()
 
 void PluginContainer::generateParameterTextFiles(int depth, std::vector<float> & numbers, std::vector<float> & maxes)
 {
-    std::string sTestFilePath = "/Users/agneyakerure/Desktop/Audio Software Engineering/SynthIO/test/parameterFile";
-    std::string sAudioFilePath = "/Users/agneyakerure/Desktop/Audio Software Engineering/SynthIO/audio/audioFile";
+    String filePath = File::getCurrentWorkingDirectory().getFullPathName() + "/../../../../../";
+    std::string sTestFilePath = filePath.toStdString() + "parameterFiles/";
+    std::string sAudioFilePath = filePath.toStdString() + "audioFiles/";
+    std::string sFeatureFilePath = filePath.toStdString() + "featureFiles/";
+    
 
     static int num = 0;
     if (depth>0)
     {
-        for(double i=0;i<=1;i = i + 0.25){
-            numbers[depth-1]=i;
+        for(double i = 0; i <= 1; i = i + 0.25)
+        {
+            numbers[depth - 1] = i;
             generateParameterTextFiles(depth-1, numbers,maxes) ;
         }
     }
     else
     {
         num = num + 1;
-        std::cout << "values are ";
-        //file open
         file.open(sTestFilePath + std::to_string(num) + ".txt");
-        for(int i=0; i<numbers.size(); i++)
+        for(int i = 0; i < numbers.size(); i++)
         {
-            std::cout << numbers[i] <<" ";
             file << numbers[i] << std::endl;
             this->setParameter(i, numbers[i]);
         }
-        
-        PluginContainerProcessor::generateAudioFile(true, sAudioFilePath + std::to_string(num) + ".txt");
-        while(PluginContainerProcessor::m_bRecording)
-        {
-            
-        }
+        PluginContainerProcessor::generateAudioFile(true, sAudioFilePath + std::to_string(num) + ".wav");
+        while(PluginContainerProcessor::m_bRecording) {}
         PluginContainerProcessor::writeAudioFile();
         file.close();
-        //file close
     }
 }
 
@@ -99,22 +95,11 @@ void PluginContainer::generateParameterTextFiles(int depth, std::vector<float> &
 void PluginContainer::genFiles(int numParams, int maxLimit)
 {
     std::vector<float> numbers;
-    numbers.resize(numParams);
+    numbers.resize( numParams );
     std::vector<float> maxes;
     for(int i = 0; i < numParams; i++)
     {
         maxes.push_back(maxLimit);
     }
-    this->generateParameterTextFiles(numbers.size(), numbers, maxes);
-}
-
-//generateAudioFiles
-void PluginContainer::generateAudioFiles(int iNumParams, double dStepSize, double* pdParamValArray)
-{
-    
-}
-
-void PluginContainer::setVSTParam(double* pdParamValArray)
-{
-    std::cout << pdParamValArray << std::endl;
+    this->generateParameterTextFiles( numbers.size(), numbers, maxes );
 }
