@@ -6,8 +6,6 @@
  Author:  Agneya Kerure
  
  This class acts as a container for the instantiated plugin providing interfaceto other classes.
- 
- 
  ==============================================================================
  */
 

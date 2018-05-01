@@ -106,6 +106,9 @@ public:
     
     TextButton m_bAudioOn;
     TextButton m_bAudioOff;
+    TextButton m_bGenerateAudio;
+    TextButton m_bExtractFeatures;
+    TextButton m_bTrainModel;
     
     void buttonClicked(Button* button) override;
     

@@ -30,7 +30,6 @@
 #include "InternalFilters.h"
 #include "GraphEditorPanel.h"
 #include "PluginContainerProcessor.h"
-//#include "HostStartup.cpp"
 
 
 //==============================================================================

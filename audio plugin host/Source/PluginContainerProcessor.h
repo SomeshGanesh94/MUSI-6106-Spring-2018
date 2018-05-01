@@ -7,6 +7,7 @@
 
     This class was created to expose the internal processBlock which enables the application to read and write audio files.
     This class basically consists of a modified juce_filterGraph class with custom functions.
+    The functions and data members defined by us are form line 345-356.
  
   ==============================================================================
 */
@@ -340,6 +341,7 @@ public:
     void getStateInformation (juce::MemoryBlock&) override;
     void setStateInformation (const void* data, int sizeInBytes) override;
     
+    // Start definitions by Agneya and Somesh
     static void generateAudioFile(bool bRecording, std::string sFileName);
     static void writeAudioFile();
     static bool m_bRecording;
@@ -349,6 +351,10 @@ public:
     static FileOutputStream* outputTo;
     static File output;
     
+    static std::string m_sOutputFilePath;
+    static float** m_ppfStorageBuffer;
+    int m_iLastLoc;
+    // End definitions by Agneya and Somesh
 private:
     //==============================================================================
     ReferenceCountedArray<Node> nodes;
@@ -360,6 +366,7 @@ private:
     ScopedPointer<RenderSequenceDouble> renderSequenceDouble;
     
     friend class AudioGraphIOProcessor;
+    
     
     bool isPrepared = false;
     
@@ -373,9 +380,7 @@ private:
     bool canConnect (Node* src, int sourceChannel, Node* dest, int destChannel) const noexcept;
     bool isLegal (Node* src, int sourceChannel, Node* dest, int destChannel) const noexcept;
     static void getNodeConnections (Node&, std::vector<Connection>&);
-    static std::string m_sOutputFilePath;
-    static float** m_ppfStorageBuffer;
-    int m_iLastLoc;
+    
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (PluginContainerProcessor)
 
