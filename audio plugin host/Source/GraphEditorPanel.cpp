@@ -923,7 +923,7 @@ void GraphDocumentComponent::buttonClicked(Button *button)
         std::string sAudioFilePath = filePath.toStdString() + "/audioFiles/";
         std::string sFeatureFilePath = filePath.toStdString() + "/featureFiles/";
         graph->m_pCFeatureExtraction->initEssentia();
-        graph->m_pCFeatureExtraction->doFeatureExtract(sAudioFilePath, sFeatureFilePath);
+        graph->doFeatureExtract(sAudioFilePath, sFeatureFilePath);
         graph->m_pCFeatureExtraction->shutDownEssentia();
     }
     if (button == &m_bTrainModel)
