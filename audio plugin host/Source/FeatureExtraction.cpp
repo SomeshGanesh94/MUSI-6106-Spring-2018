@@ -50,6 +50,8 @@ int CFeatureExtraction::getHopSize()
 void CFeatureExtraction::initEssentia()
 {
     essentia::init();
+    m_iFrameSize = 2048;
+    m_iHopSize = 1024;
 }
 
 void CFeatureExtraction::shutDownEssentia()
@@ -66,7 +68,8 @@ void CFeatureExtraction::doFeatureExtract(string sInputFilePath, string sOutputF
     
     AlgorithmFactory& factory = standard::AlgorithmFactory::instance();
     
-    Algorithm* Aaudio = factory.create("MonoLoader", "filename", sInputFilePath, "sampleRate", m_iSampleRate);
+    Algorithm* Aaudio = factory.create("MonoLoader", "filename", sInputFilePath);
+    m_iSampleRate = 44100;
     
     Algorithm* AframeCutter = factory.create("FrameCutter",
                                              "frameSize", m_iFrameSize,
