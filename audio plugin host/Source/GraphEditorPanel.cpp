@@ -883,7 +883,9 @@ void GraphDocumentComponent::buttonClicked(Button *button)
     if (button == &m_bAudioOn)
     {
 //        keyState.noteOn(1, 77, 1);
-        graph->doFeatureExtract("/Users/agneyakerure/Desktop/Audio Software Engineering/SynthIO/audio/", "/Users/agneyakerure/Desktop/Audio Software Engineering/SynthIO/features/");
+//        graph->doFeatureExtract("/Users/someshganesh/Documents/GitHub/SynthIO/audio plugin host/audioFiles/", "/Users/someshganesh/Documents/GitHub/SynthIO/audio plugin host/features/");
+//        graph->m_pCRegression->init("/Users/someshganesh/Documents/GitHub/SynthIO/audio plugin host/features/", "/Users/someshganesh/Documents/GitHub/SynthIO/audio plugin host/parameterFiles/");
+        graph->m_pCRegression->trainModel("/Users/someshganesh/Documents/GitHub/SynthIO/audio plugin host/features/", "/Users/someshganesh/Documents/GitHub/SynthIO/audio plugin host/parameterFiles/");
 //        graph->container->genFiles(4, 1);
     }
     if (button == &m_bAudioOff)

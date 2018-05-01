@@ -26,10 +26,12 @@
 
 #pragma once
 
+#include "../JuceLibraryCode/JuceHeader.h"
 #include "PluginWindow.h"
 #include "PluginContainerProcessor.h"
 #include "PluginContainer.h"
 #include "FeatureExtraction.h"
+#include "Regression.h"
 #include <dirent.h>
 
 
@@ -89,6 +91,7 @@ public:
     PluginContainerProcessor graph;
     PluginContainer* container;
     CFeatureExtraction* m_pCFeatureExtraction;
+    Regression* m_pCRegression;
     
 
 private:
@@ -105,6 +108,8 @@ private:
     
     DIR* m_Dir;
     struct dirent* m_ent;
+    
+    DirectoryIterator* m_DFeatureIter;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (FilterGraph)
 };

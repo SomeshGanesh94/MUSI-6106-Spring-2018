@@ -2,7 +2,7 @@
 
 <JUCERPROJECT id="NTe0XB0ij" name="Plugin Host" projectType="guiapp" version="1.0.0"
               juceFolder="../../../juce" vstFolderMac="~/SDKs/vstsdk2.4" vstFolderPC="c:\SDKs\vstsdk2.4"
-              bundleIdentifier="com.roli.pluginhost" jucerVersion="5.3.1" companyName="ROLI Ltd."
+              bundleIdentifier="com.roli.pluginhost" jucerVersion="5.3.0" companyName="ROLI Ltd."
               displaySplashScreen="0" reportAppUsage="0" companyCopyright="ROLI Ltd.">
   <EXPORTFORMATS>
     <XCODE_MAC targetFolder="Builds/MacOSX" vstFolder="" rtasFolder="~/SDKs/PT_80_SDK"
@@ -293,6 +293,8 @@
     <FILE id="phXLiK" name="PluginContainerProcessor.h" compile="0" resource="0"
           file="Source/PluginContainerProcessor.h"/>
     <FILE id="ZwQDmm" name="PluginWindow.h" compile="0" resource="0" file="Source/PluginWindow.h"/>
+    <FILE id="RreznB" name="Regression.cpp" compile="1" resource="0" file="Source/Regression.cpp"/>
+    <FILE id="FbRQMj" name="Regression.h" compile="0" resource="0" file="Source/Regression.h"/>
   </MAINGROUP>
   <JUCEOPTIONS JUCE_WASAPI="1" JUCE_DIRECTSOUND="1" JUCE_ALSA="1" JUCE_USE_FLAC="0"
                JUCE_USE_OGGVORBIS="0" JUCE_USE_CDBURNER="0" JUCE_USE_CDREADER="0"

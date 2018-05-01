@@ -48,6 +48,9 @@ FilterGraph::FilterGraph (AudioPluginFormatManager& fm)
 
     setChangedFlag (false);
     m_pCFeatureExtraction = new CFeatureExtraction();
+    
+    m_pCRegression = new Regression();
+    m_DFeatureIter = nullptr;
 }
 
 FilterGraph::~FilterGraph()
@@ -58,6 +61,11 @@ FilterGraph::~FilterGraph()
     
     delete m_pCFeatureExtraction;
     m_pCFeatureExtraction = nullptr;
+    
+    delete m_pCRegression;
+    m_pCRegression = nullptr;
+    
+    m_DFeatureIter = nullptr;
 }
 
 FilterGraph::NodeID FilterGraph::getNextUID() noexcept
@@ -508,18 +516,14 @@ void FilterGraph::generateAudioFile(bool bRecording, std::string sFileName)
 
 void FilterGraph::doFeatureExtract(std::string sInputFileFolder, std::string sOutputFileFolder)
 {
+    m_DFeatureIter = new DirectoryIterator(File (sInputFileFolder), true, "*.wav");
+    
     m_pCFeatureExtraction->initEssentia();
-    if ((m_Dir = opendir(sInputFileFolder.c_str())) != NULL)
+    
+    while (m_DFeatureIter->next())
     {
-        while ((m_ent = readdir(m_Dir)) != NULL)
-        {
-//            std::cout << m_ent->d_name;
-            std::string sInputFilePath = sInputFileFolder + m_ent->d_name;
-            std::string sOutputFilePath = sOutputFileFolder + m_ent->d_name;
-            m_pCFeatureExtraction->doFeatureExtract(sInputFilePath, "/Users/agneyakerure/Desktop/Audio Software Engineering/SynthIO/");
-            
-        }
-        closedir(m_Dir);
-        m_pCFeatureExtraction->shutDownEssentia();
+        string sInputAudioFile = m_DFeatureIter->getFile().getFullPathName().toStdString();
+        m_pCFeatureExtraction->doFeatureExtract(sInputAudioFile, sOutputFileFolder + m_DFeatureIter->getFile().getFileNameWithoutExtension().toStdString() + ".txt");
     }
+    m_pCFeatureExtraction->shutDownEssentia();
 }
