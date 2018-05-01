@@ -20,6 +20,8 @@ Install the required packages from the above websites. You do not need to link t
 * Run!
 
 Once you build the project, add a VST instrument to the host (preferably one with less number of parameters). You can then click the different buttons to
-* Generate the audio dataset for this VST instrument
-* Extract features for all these audio files
-* Train a regression model for the different parameters in the VST instrument
+* Generate the audio dataset for this VST instrument (~10 mins)
+* Extract features for all these audio files (~10 mins)
+* Train a regression model for the different parameters in the VST instrument (~3 mins)
+
+Please use a synth with number of parameters < 5 as the project is still under development and will take a long time to generate the dataset. The times mentioned above are based on testing on AUMidiSynth by Apple where number of parameters = 4.
