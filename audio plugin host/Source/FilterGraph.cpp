@@ -30,6 +30,7 @@
 #include "InternalFilters.h"
 #include "GraphEditorPanel.h"
 #include "PluginContainerProcessor.h"
+//#include "HostStartup.cpp"
 
 
 //==============================================================================
@@ -47,6 +48,9 @@ FilterGraph::FilterGraph (AudioPluginFormatManager& fm)
 
     setChangedFlag (false);
     m_pCFeatureExtraction = new CFeatureExtraction();
+    
+    m_pCRegression = new Regression();
+    m_DFeatureIter = nullptr;
 }
 
 FilterGraph::~FilterGraph()
@@ -57,6 +61,11 @@ FilterGraph::~FilterGraph()
     
     delete m_pCFeatureExtraction;
     m_pCFeatureExtraction = nullptr;
+    
+    delete m_pCRegression;
+    m_pCRegression = nullptr;
+    
+    m_DFeatureIter = nullptr;
 }
 
 FilterGraph::NodeID FilterGraph::getNextUID() noexcept
@@ -135,12 +144,15 @@ void FilterGraph::addFilterCallback (AudioPluginInstance* instance, const String
             auto* processor = dynamic_cast<AudioProcessor*> (instance);
             container = new PluginContainer();
             container->init(*processor);
+            
             const unsigned int iHostMidiInputNodeID = graph.getNode(count-3)->nodeID; //1
             const unsigned int iPluginNodeID = graph.getNode(count-1)->nodeID; //3
             //const unsigned int iHostAudioOutputNodeID = graph.getNode(count-2)->nodeID; //2
             const int iMidiChannelNumber = 4096;
             //const int iLeftAudioChannelNumber = 0;
             //const int iRightAudioChannelNumber = 1;
+            
+            //std::cout<<"Processor Name: "<<graph.getNode(2)->getProcessor()->getName()<<std::endl;
             
             //connect midi output of host to midi input of synth
             PluginContainerProcessor::Connection connection1 { { iHostMidiInputNodeID, iMidiChannelNumber }, { iPluginNodeID, iMidiChannelNumber } };
@@ -152,7 +164,6 @@ void FilterGraph::addFilterCallback (AudioPluginInstance* instance, const String
             graph.addConnection(connection1);
             graph.addConnection(connection2);
             graph.addConnection(connection3);
-
         }
         
     }
@@ -498,18 +509,14 @@ void FilterGraph::generateAudioFile(bool bRecording, std::string sFileName)
 
 void FilterGraph::doFeatureExtract(std::string sInputFileFolder, std::string sOutputFileFolder)
 {
+    m_DFeatureIter = new DirectoryIterator(File (sInputFileFolder), true, "*.wav");
+    
     m_pCFeatureExtraction->initEssentia();
-    if ((m_Dir = opendir(sInputFileFolder.c_str())) != NULL)
+    
+    while (m_DFeatureIter->next())
     {
-        while ((m_ent = readdir(m_Dir)) != NULL)
-        {
-//            std::cout << m_ent->d_name;
-            std::string sInputFilePath = sInputFileFolder + m_ent->d_name;
-            std::string sOutputFilePath = sOutputFileFolder + m_ent->d_name;
-            m_pCFeatureExtraction->doFeatureExtract(sInputFilePath, "/Users/agneyakerure/Desktop/Audio Software Engineering/SynthIO/");
-            
-        }
-        closedir(m_Dir);
-        m_pCFeatureExtraction->shutDownEssentia();
+        string sInputAudioFile = m_DFeatureIter->getFile().getFullPathName().toStdString();
+        m_pCFeatureExtraction->doFeatureExtract(sInputAudioFile, sOutputFileFolder + m_DFeatureIter->getFile().getFileNameWithoutExtension().toStdString() + ".txt");
     }
+    m_pCFeatureExtraction->shutDownEssentia();
 }
