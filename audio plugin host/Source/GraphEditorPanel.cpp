@@ -908,7 +908,6 @@ void GraphDocumentComponent::buttonClicked(Button *button)
     }
     if (button == &m_bGenerateAudio)
     {
-//        keyState.noteOff(1, 77, 1);
         PluginContainerProcessor::m_bRecording = false;
         const int kiNumParams = 4;
         keyState.noteOn(1, 77, 1);
@@ -917,7 +916,6 @@ void GraphDocumentComponent::buttonClicked(Button *button)
     }
     if (button == &m_bExtractFeatures)
     {
-//        keyState.noteOff(1, 77, 1);
         PluginContainerProcessor::m_bRecording = false;
         String filePath = File::getCurrentWorkingDirectory().getFullPathName();
         std::string sAudioFilePath = filePath.toStdString() + "/audioFiles/";
@@ -928,7 +926,6 @@ void GraphDocumentComponent::buttonClicked(Button *button)
     }
     if (button == &m_bTrainModel)
     {
-//        keyState.noteOff(1, 77, 1);
         PluginContainerProcessor::m_bRecording = false;
         String filePath = File::getCurrentWorkingDirectory().getFullPathName();
         std::string sTestFilePath = filePath.toStdString() + "/parameterFiles/";

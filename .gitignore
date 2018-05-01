@@ -7,8 +7,6 @@ testProjectsAndCode
 pythonFiles/featureExtraction\.py
 
 test/
-audioFiles/
-parameterFiles/
 features/
 
 # extra libraries
