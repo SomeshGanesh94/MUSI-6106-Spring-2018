@@ -90,7 +90,7 @@ void Regression::trainModel(std::string sInputTrainingData, std::string sInputTr
     {
         vDecisionFunctions.push_back(SVRtrainer.train(m_Samples, m_Targets[iLabel]));
         dlib::randomize_samples(m_Samples, m_Targets[iLabel]);
-        std::cout << "MSE and R-Squared: " << dlib::cross_validate_regression_trainer(SVRtrainer, m_Samples, m_Targets[iLabel], 5) << endl;
+//        std::cout << "MSE and R-Squared: " << dlib::cross_validate_regression_trainer(SVRtrainer, m_Samples, m_Targets[iLabel], 5) << endl;
     }
     
     essentia::shutdown();
@@ -152,7 +152,7 @@ std::vector<float> Regression::predictOutput(std::string sFeatureFile)
     
     for (int iLabel = 0; iLabel < vDecisionFunctions.size(); iLabel++)
     {
-        std::cout << vDecisionFunctions[iLabel](m_DummySample) << std::endl;
+//        std::cout << vDecisionFunctions[iLabel](m_DummySample) << std::endl;
         vfFinalOutput.push_back((float)vDecisionFunctions[iLabel](m_DummySample));
     }
     return vfFinalOutput;

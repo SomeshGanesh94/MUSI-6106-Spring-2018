@@ -836,8 +836,8 @@ GraphDocumentComponent::GraphDocumentComponent (AudioPluginFormatManager& fm, Au
     m_bExtractFeatures.setButtonText("Extract\nFeatures");
     addAndMakeVisible(m_bExtractFeatures);
     m_bExtractFeatures.addListener(this);
-    File tempFile(filePath + String("/audioFiles/"));
-    if (tempFile.getNumberOfChildFiles(2) != 0)
+    File tempaFile(filePath + String("/audioFiles/"));
+    if (tempaFile.getNumberOfChildFiles(2) != 0)
                   {
                         m_bExtractFeatures.setEnabled(true);
                   }
@@ -849,7 +849,15 @@ GraphDocumentComponent::GraphDocumentComponent (AudioPluginFormatManager& fm, Au
     m_bTrainModel.setButtonText("Train Model");
     addAndMakeVisible(m_bTrainModel);
     m_bTrainModel.addListener(this);
-    m_bTrainModel.setEnabled(false);
+    File tempfFile(filePath + String("/featureFiles/"));
+    if (tempfFile.getNumberOfChildFiles(2) != 0)
+    {
+        m_bTrainModel.setEnabled(true);;
+    }
+    else
+    {
+        m_bTrainModel.setEnabled(false);;
+    }
     
     m_bInputAudioFile.setButtonText("Input Sample");
     addAndMakeVisible(m_bInputAudioFile);
@@ -1013,9 +1021,15 @@ void GraphDocumentComponent::buttonClicked(Button *button)
         m_lTextBox.setText("Status: Running regressor", sendNotification);
         PluginContainerProcessor::m_bRecording = false;
         std::string sInputAudioFeatureFilePath = filePath.toStdString() + "/inputAudioFeatures/";
+        File tempInputAudioFeatureFile(sInputAudioFeatureFilePath);
+        if (!tempInputAudioFeatureFile.isDirectory())
+        {
+            tempInputAudioFeatureFile.createDirectory();
+        }
+        
         graph->m_pCFeatureExtraction->initEssentia();
-        graph->m_pCFeatureExtraction->doFeatureExtract(m_inputAudio.getAddress(), sInputAudioFeatureFilePath);
-        vfFinalOutput = graph->m_pCRegression->predictOutput(sInputAudioFeatureFilePath);
+        graph->m_pCFeatureExtraction->doFeatureExtract(m_inputAudio.getAddress(), sInputAudioFeatureFilePath+"input.txt");
+        vfFinalOutput = graph->m_pCRegression->predictOutput(sInputAudioFeatureFilePath+"input.txt");
         graph->m_pCFeatureExtraction->shutDownEssentia();
         m_lTextBox.setText("Status: Predictions ready", sendNotification);
         for (int iParam = 0; iParam < vfFinalOutput.size(); iParam++)

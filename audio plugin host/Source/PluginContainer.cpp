@@ -64,9 +64,13 @@ void PluginContainer::generateParameterTextFiles(int depth, std::vector<float> &
     String sTestFilePath = filePath.toStdString() + String("/parameterFiles/");
     String sAudioFilePath = filePath.toStdString() + String("/audioFiles/");
     String sFeatureFilePath = filePath.toStdString() + String("/featureFiles/");
+    String sInputAudioFeatureFilePath = filePath.toStdString() + String("/inputAudioFeatures/");
+    
     File tempParamFile(sTestFilePath);
     File tempAudioFile(sAudioFilePath);
     File tempFeatureFile(sFeatureFilePath);
+    File tempInputAudioFeatureFile(sInputAudioFeatureFilePath);
+    
     if (!tempParamFile.isDirectory())
     {
         tempParamFile.createDirectory();
@@ -78,6 +82,10 @@ void PluginContainer::generateParameterTextFiles(int depth, std::vector<float> &
     if (!tempFeatureFile.isDirectory())
     {
         tempFeatureFile.createDirectory();
+    }
+    if (!tempInputAudioFeatureFile.isDirectory())
+    {
+        tempInputAudioFeatureFile.createDirectory();
     }
     
     static int num = 0;
