@@ -908,7 +908,6 @@ bool PluginContainerProcessor::removeNode (NodeID nodeId)
             return true;
         }
     }
-    
     return false;
 }
     

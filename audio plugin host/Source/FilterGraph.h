@@ -90,6 +90,7 @@ public:
     std::vector<float> predictOutput(std::string sFeatureFile);
     
     bool m_bPluginDetect;
+    int m_iPluginCount;
     
     PluginContainerProcessor graph;
     PluginContainer* container;

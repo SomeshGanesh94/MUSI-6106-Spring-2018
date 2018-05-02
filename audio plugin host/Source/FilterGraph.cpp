@@ -51,6 +51,7 @@ FilterGraph::FilterGraph (AudioPluginFormatManager& fm)
     m_pCRegression = new Regression();
     m_DFeatureIter = nullptr;
     m_bPluginDetect = false;
+    m_iPluginCount = 0;
 }
 
 FilterGraph::~FilterGraph()
@@ -135,20 +136,19 @@ void FilterGraph::addFilterCallback (AudioPluginInstance* instance, const String
             changed();
         }
         
-        static int count = 0;
-        count++;
+        m_iPluginCount++;
 
         //This is to manipulate parameters of the plugin - the first three inputs are MIDI and Audio input and Audio Output already present in the plugin host
-        if(count == 4)
+        if(m_iPluginCount == 4)
         {
             m_bPluginDetect = true;
             auto* processor = dynamic_cast<AudioProcessor*> (instance);
             container = new PluginContainer();
             container->init(*processor);
             
-            const unsigned int iHostMidiInputNodeID = graph.getNode(count-3)->nodeID; //1
-            const unsigned int iPluginNodeID = graph.getNode(count-1)->nodeID; //3
-            const unsigned int iHostAudioOutputNodeID = graph.getNode(count-2)->nodeID; //2
+            const unsigned int iHostMidiInputNodeID = graph.getNode(m_iPluginCount-3)->nodeID; //1
+            const unsigned int iPluginNodeID = graph.getNode(m_iPluginCount-1)->nodeID; //3
+            const unsigned int iHostAudioOutputNodeID = graph.getNode(m_iPluginCount-2)->nodeID; //2
             const int iMidiChannelNumber = 4096;
             const int iLeftAudioChannelNumber = 0;
             const int iRightAudioChannelNumber = 1;

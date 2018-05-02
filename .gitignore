@@ -14,5 +14,7 @@ dlib-19.10/
 
 testWav/
 
+generatedDatasetFiles/
+
 *.txt
 *.wav
