@@ -60,7 +60,7 @@ int PluginContainer::getNumberOfParameters()
 
 void PluginContainer::generateParameterTextFiles(int depth, std::vector<float> & numbers, std::vector<float> & maxes)
 {
-    String filePath = File::getCurrentWorkingDirectory().getFullPathName() + "/../../../../generatedDatasetFiles/";
+    String filePath = File::getCurrentWorkingDirectory().getFullPathName() + "/generatedDatasetFiles";
     std::string sTestFilePath = filePath.toStdString() + "/parameterFiles/";
     std::string sAudioFilePath = filePath.toStdString() + "/audioFiles/";
     std::string sFeatureFilePath = filePath.toStdString() + "/featureFiles/";

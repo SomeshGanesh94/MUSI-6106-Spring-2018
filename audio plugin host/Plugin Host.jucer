@@ -123,6 +123,10 @@
     </VS2017>
   </EXPORTFORMATS>
   <MAINGROUP id="YdWL7hi7p" name="Plugin Host">
+    <FILE id="fCt1QS" name="AudioFileInput.cpp" compile="1" resource="0"
+          file="Source/AudioFileInput.cpp"/>
+    <FILE id="yChZ19" name="AudioFileInput.h" compile="0" resource="0"
+          file="Source/AudioFileInput.h"/>
     <GROUP id="{B74A44C7-EC52-17AC-00CB-0FC322ED95BA}" name="essentia">
       <GROUP id="{F7659D29-CE37-C572-4C99-F0A17FDED96F}" name="scheduler">
         <FILE id="jODj5S" name="graphutils.h" compile="0" resource="0" file="Source/essentia/scheduler/graphutils.h"/>

@@ -6,7 +6,7 @@
     Author:  Agneya Kerure
 
     This class was created to expose the internal processBlock which enables the application to read and write audio files.
-    This class basically consists of a modified juce_filterGraph class with custom functions.
+    This class basically consists of a modified juce_audioProcessorGraph class with custom functions.
     The functions and data members defined by us are form line 345-356.
  
   ==============================================================================

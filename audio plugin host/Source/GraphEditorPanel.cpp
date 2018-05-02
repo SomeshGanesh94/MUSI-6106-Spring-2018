@@ -29,7 +29,6 @@
 #include "InternalFilters.h"
 #include "MainHostWindow.h"
 
-
 //==============================================================================
 struct GraphEditorPanel::PinComponent   : public Component,
                                           public SettableTooltipClient
@@ -828,6 +827,14 @@ GraphDocumentComponent::GraphDocumentComponent (AudioPluginFormatManager& fm, Au
     m_bTrainModel.setButtonText("Train Model");
     addAndMakeVisible(m_bTrainModel);
     m_bTrainModel.addListener(this);
+    
+    m_bInputAudioFile.setButtonText("Input Audio File");
+    addAndMakeVisible(m_bInputAudioFile);
+    m_bInputAudioFile.addListener(this);
+    
+    m_bGetResult.setButtonText("Get Result");
+    addAndMakeVisible(m_bGetResult);
+    m_bGetResult.addListener(this);
 
     graphPanel->updateComponents();
 }
@@ -853,6 +860,8 @@ void GraphDocumentComponent::resized()
     m_bGenerateAudio.setBounds(10, 170, getWidth()/10, getHeight()/10);
     m_bExtractFeatures.setBounds(10, 250, getWidth()/10, getHeight()/10);
     m_bTrainModel.setBounds(10, 330, getWidth()/10, getHeight()/10);
+    m_bInputAudioFile.setBounds(10, 410, getWidth()/10, getHeight()/10);
+    m_bGetResult.setBounds(10, 490, getWidth()/10, getHeight()/10);
 
 }
 
@@ -909,15 +918,15 @@ void GraphDocumentComponent::buttonClicked(Button *button)
     if (button == &m_bGenerateAudio)
     {
         PluginContainerProcessor::m_bRecording = false;
-        const int kiNumParams = 4;
+        int iNumParams = graph->container->getNumberOfParameters();
         keyState.noteOn(1, 77, 1);
-        graph->container->genFiles(kiNumParams, 1);
+        graph->container->genFiles(iNumParams, 1);
         keyState.noteOff(1, 77, 1);
     }
     if (button == &m_bExtractFeatures)
     {
         PluginContainerProcessor::m_bRecording = false;
-        String filePath = File::getCurrentWorkingDirectory().getFullPathName();
+        String filePath = File::getCurrentWorkingDirectory().getFullPathName() + "/generatedDatasetFiles";
         std::string sAudioFilePath = filePath.toStdString() + "/audioFiles/";
         std::string sFeatureFilePath = filePath.toStdString() + "/featureFiles/";
         graph->m_pCFeatureExtraction->initEssentia();
@@ -927,9 +936,23 @@ void GraphDocumentComponent::buttonClicked(Button *button)
     if (button == &m_bTrainModel)
     {
         PluginContainerProcessor::m_bRecording = false;
-        String filePath = File::getCurrentWorkingDirectory().getFullPathName();
+        String filePath = File::getCurrentWorkingDirectory().getFullPathName() + "/generatedDatasetFiles";
         std::string sTestFilePath = filePath.toStdString() + "/parameterFiles/";
         std::string sFeatureFilePath = filePath.toStdString() + "/featureFiles/";
         graph->m_pCRegression->trainModel(sFeatureFilePath, sTestFilePath);
+    }
+    if (button == &m_bInputAudioFile)
+    {
+        PluginContainerProcessor::m_bRecording = false;
+        m_inputAudio.selectAudioFile();
+    }
+    if (button == &m_bGetResult)
+    {
+        PluginContainerProcessor::m_bRecording = false;
+        String filePath = File::getCurrentWorkingDirectory().getFullPathName() + "/generatedDatasetFiles";
+        std::string sInputAudioFeatureFilePath = filePath.toStdString() + "/inputAudioFeatures/";
+        m_featreExtractor.initEssentia();
+        m_featreExtractor.doFeatureExtract(m_inputAudio.getAddress(), sInputAudioFeatureFilePath);
+        m_featreExtractor.shutDownEssentia();
     }
 }

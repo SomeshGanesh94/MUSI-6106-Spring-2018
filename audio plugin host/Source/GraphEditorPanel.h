@@ -27,6 +27,8 @@
 #pragma once
 
 #include "FilterGraph.h"
+#include "AudioFileInput.h"
+#include "FeatureExtraction.h"
 
 
 //==============================================================================
@@ -109,7 +111,11 @@ public:
     TextButton m_bGenerateAudio;
     TextButton m_bExtractFeatures;
     TextButton m_bTrainModel;
-    
+    TextButton m_bInputAudioFile;
+    TextButton m_bGetResult;
+//    TextButton m_bPlayAudioFile;
+//    TextButton m_bStopAudioFile;
+
     void buttonClicked(Button* button) override;
     
 private:
@@ -119,6 +125,8 @@ private:
     
     struct TooltipBar;
     ScopedPointer<TooltipBar> statusBar;
+    AudioFileInput m_inputAudio;
+    CFeatureExtraction m_featreExtractor;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (GraphDocumentComponent)
 };
