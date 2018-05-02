@@ -87,12 +87,14 @@ public:
     //==============================================================================
     void generateAudioFile(bool bRecording, std::string sFileName);
     void doFeatureExtract(string sInputFileFolder, string sOutputFileFolder);
+    std::vector<float> predictOutput(std::string sFeatureFile);
+    
+    bool m_bPluginDetect;
     
     PluginContainerProcessor graph;
     PluginContainer* container;
     CFeatureExtraction* m_pCFeatureExtraction;
     Regression* m_pCRegression;
-    
 
 private:
     //==============================================================================
@@ -105,9 +107,6 @@ private:
     void createNodeFromXml (const XmlElement& xml);
     void addFilterCallback (AudioPluginInstance*, const String& error, Point<double>);
     void changeListenerCallback (ChangeBroadcaster*) override;
-    
-    DIR* m_Dir;
-    struct dirent* m_ent;
     
     DirectoryIterator* m_DFeatureIter;
 

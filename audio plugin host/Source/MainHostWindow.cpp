@@ -222,10 +222,10 @@ void MainHostWindow::changeListenerCallback (ChangeBroadcaster* changed)
 StringArray MainHostWindow::getMenuBarNames()
 {
     StringArray names;
-    names.add ("File");
+//    names.add ("File");
     names.add ("Plugins");
     names.add ("Options");
-    names.add ("Windows");
+//    names.add ("Windows");
     return names;
 }
 
@@ -235,33 +235,12 @@ PopupMenu MainHostWindow::getMenuForIndex (int topLevelMenuIndex, const String& 
 
     if (topLevelMenuIndex == 0)
     {
-        // "File" menu
-        menu.addCommandItem (&getCommandManager(), CommandIDs::newFile);
-        menu.addCommandItem (&getCommandManager(), CommandIDs::open);
-
-        RecentlyOpenedFilesList recentFiles;
-        recentFiles.restoreFromString (getAppProperties().getUserSettings()
-                                            ->getValue ("recentFilterGraphFiles"));
-
-        PopupMenu recentFilesMenu;
-        recentFiles.createPopupMenuItems (recentFilesMenu, 100, true, true);
-        menu.addSubMenu ("Open recent file", recentFilesMenu);
-
-        menu.addCommandItem (&getCommandManager(), CommandIDs::save);
-        menu.addCommandItem (&getCommandManager(), CommandIDs::saveAs);
-        menu.addSeparator();
-        menu.addCommandItem (&getCommandManager(), StandardApplicationCommandIDs::quit);
-    }
-    else if (topLevelMenuIndex == 1)
-    {
         // "Plugins" menu
         PopupMenu pluginsMenu;
         addPluginsToMenu (pluginsMenu);
         menu.addSubMenu ("Create plugin", pluginsMenu);
-        menu.addSeparator();
-        menu.addItem (250, "Delete all plugins");
     }
-    else if (topLevelMenuIndex == 2)
+    else if (topLevelMenuIndex == 1)
     {
         // "Options" menu
 
@@ -277,14 +256,6 @@ PopupMenu MainHostWindow::getMenuForIndex (int topLevelMenuIndex, const String& 
 
         menu.addSeparator();
         menu.addCommandItem (&getCommandManager(), CommandIDs::showAudioSettings);
-        menu.addCommandItem (&getCommandManager(), CommandIDs::toggleDoublePrecision);
-
-        menu.addSeparator();
-        menu.addCommandItem (&getCommandManager(), CommandIDs::aboutBox);
-    }
-    else if (topLevelMenuIndex == 3)
-    {
-        menu.addCommandItem (&getCommandManager(), CommandIDs::allWindowsForward);
     }
 
     return menu;

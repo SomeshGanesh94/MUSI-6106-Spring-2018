@@ -24,6 +24,9 @@ Regression::Regression()
 {
     m_DTrainingIter = 0;
     m_DLabelIter = 0;
+    m_Samples.clear();
+    vDecisionFunctions.clear();
+    m_iNumLabels = 0;
 }
 
 Regression::~Regression()
@@ -32,6 +35,9 @@ Regression::~Regression()
     m_DTrainingIter = nullptr;
     delete m_DLabelIter;
     m_DLabelIter = 0;
+    m_Samples.clear();
+    vDecisionFunctions.clear();
+    m_iNumLabels = 0;
 }
 
 void Regression::trainModel(std::string sInputTrainingData, std::string sInputTrainingLabels)
@@ -45,14 +51,14 @@ void Regression::trainModel(std::string sInputTrainingData, std::string sInputTr
     while (m_DTrainingIter->next())
     {
         string sInputTrainingFile = m_DTrainingIter->getFile().getFullPathName().toStdString();
-        vector<float> vrFeatures = extractDataFromYAML(sInputTrainingFile, "");
+        vector<float> vrFeatures = extractDataFromYAML(sInputTrainingFile);
         
         string sInputLabelFile = sInputTrainingLabels + m_DTrainingIter->getFile().getFileNameWithoutExtension().toStdString() + ".txt";
         
         
-        if (vrFeatures.size() == 55)
+        if (vrFeatures.size() == m_kiFeatureSize)
         {
-            for (int iFeature = 0; iFeature < 55; iFeature++)
+            for (int iFeature = 0; iFeature < m_kiFeatureSize; iFeature++)
             {
                 m_DummySample(iFeature) = vrFeatures[iFeature];
             }
@@ -62,7 +68,7 @@ void Regression::trainModel(std::string sInputTrainingData, std::string sInputTr
             std::istringstream iss(sLabels);
             std::vector<std::string> vLabels((std::istream_iterator<std::string>(iss)),
                                              std::istream_iterator<std::string>());
-            
+            m_iNumLabels = vLabels.size();
             for (int iCount = 0; iCount < vLabels.size(); iCount++)
             {
                 m_DummyLabel = std::stod(vLabels[iCount]);
@@ -74,17 +80,11 @@ void Regression::trainModel(std::string sInputTrainingData, std::string sInputTr
         
     }
     
-    dlib::svr_trainer<kernelType> SVRtrainer;
     SVRtrainer.set_kernel(kernelType(0.01));
     
     SVRtrainer.set_c(10);
     
     SVRtrainer.set_epsilon_insensitivity(0.001);
-    
-    dlib::decision_function<kernelType> dfs;
-    
-    std::vector<dlib::decision_function<kernelType>> vDecisionFunctions;
-    
     
     for (int iLabel = 0; iLabel < m_Targets.size(); iLabel++)
     {
@@ -96,14 +96,14 @@ void Regression::trainModel(std::string sInputTrainingData, std::string sInputTr
     essentia::shutdown();
 }
 
-std::vector<float> Regression::extractDataFromYAML(std::string sInputTrainingData, std::string sInputTrainingLabels)
+std::vector<float> Regression::extractDataFromYAML(std::string sInputTrainingData)
 {
     Pool pFeaturePool;
     map<string,Real> mSingleFeatures;
     map<string,vector<Real>> mVecFeatures;
     string sStats[] = {"mean", "var", "min", "max", "median", "skew", "kurt", "dmean", "dvar", "dmean2", "dvar2"};
-    string sSingleFeatures[] = {"Flux", "Rms", "RollOff", "SpecCent", "Zcr"};
-    string sVecFeatures[] = {"HarmonicAmpFreq", "HarmonicAmpMag", "MfccCoeff", "SpecContrastCoeff"};
+    string sSingleFeatures[] = {"Flux", "Rms", "RollOff", "SpecCent", "Zcr", "HarmonicAmpFreq", "HarmonicAmpMag"};
+    string sVecFeatures[] = {"MfccCoeff", "SpecContrastCoeff"};
     
     
     Algorithm* Ainput = AlgorithmFactory::create("YamlInput", "filename", sInputTrainingData);
@@ -115,7 +115,7 @@ std::vector<float> Regression::extractDataFromYAML(std::string sInputTrainingDat
     
     vector<float> vrSingleFileFeatures;
     vrSingleFileFeatures.clear();
-    for (int iFeature = 0; iFeature < 5; iFeature++)
+    for (int iFeature = 0; iFeature < 7; iFeature++)
     {
         for (int iStat = 0; iStat < 11; iStat++)
         {
@@ -125,19 +125,35 @@ std::vector<float> Regression::extractDataFromYAML(std::string sInputTrainingDat
         }
     }
     
-//    for (int iFeature = 0; iFeature < 4; iFeature++)
-//    {
-//        for (int iStat = 0; iStat < 11; iStat++)
-//        {
-//            string sInputFeature = sVecFeatures[iFeature] + "." + sStats[iStat];
-//            for (int iIdx = 0; iIdx < sizeof(mVecFeatures[sInputFeature]) / sizeof(mVecFeatures[sInputFeature][0]); iIdx++)
-//            {
-//                float val = float(mVecFeatures[sInputFeature][iIdx]);
-//                vrSingleFileFeatures.insert(vrSingleFileFeatures.end(), val);
-//            }
-//        }
-//    }
+    for (int iFeature = 0; iFeature < 2; iFeature++)
+    {
+        for (int iStat = 0; iStat < 11; iStat++)
+        {
+            string sInputFeature = sVecFeatures[iFeature] + "." + sStats[iStat];
+            for (int iIdx = 0; iIdx < sizeof(mVecFeatures[sInputFeature]) / sizeof(mVecFeatures[sInputFeature][0]); iIdx++)
+            {
+                float val = float(mVecFeatures[sInputFeature][iIdx] / std::abs(mVecFeatures[sVecFeatures[iFeature]+".max"][0]));
+                vrSingleFileFeatures.insert(vrSingleFileFeatures.end(), val);
+            }
+        }
+    }
     
     return vrSingleFileFeatures;
 }
 
+std::vector<float> Regression::predictOutput(std::string sFeatureFile)
+{
+    std::vector<float> vfFinalOutput;
+    std::vector<float> vfFeatures = extractDataFromYAML(sFeatureFile);
+    for (int iFeature = 0; iFeature < m_kiFeatureSize; iFeature++)
+    {
+        m_DummySample(iFeature) = vfFeatures[iFeature];
+    }
+    
+    for (int iLabel = 0; iLabel < vDecisionFunctions.size(); iLabel++)
+    {
+        std::cout << vDecisionFunctions[iLabel](m_DummySample) << std::endl;
+        vfFinalOutput.push_back((float)vDecisionFunctions[iLabel](m_DummySample));
+    }
+    return vfFinalOutput;
+}

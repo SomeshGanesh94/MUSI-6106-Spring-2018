@@ -60,12 +60,26 @@ int PluginContainer::getNumberOfParameters()
 
 void PluginContainer::generateParameterTextFiles(int depth, std::vector<float> & numbers, std::vector<float> & maxes)
 {
-    String filePath = File::getCurrentWorkingDirectory().getFullPathName() + "/generatedDatasetFiles";
-    std::string sTestFilePath = filePath.toStdString() + "/parameterFiles/";
-    std::string sAudioFilePath = filePath.toStdString() + "/audioFiles/";
-    std::string sFeatureFilePath = filePath.toStdString() + "/featureFiles/";
+    String filePath = File::getCurrentWorkingDirectory().getFullPathName() + "/../../../../generatedDatasetFiles";
+    String sTestFilePath = filePath.toStdString() + String("/parameterFiles/");
+    String sAudioFilePath = filePath.toStdString() + String("/audioFiles/");
+    String sFeatureFilePath = filePath.toStdString() + String("/featureFiles/");
+    File tempParamFile(sTestFilePath);
+    File tempAudioFile(sAudioFilePath);
+    File tempFeatureFile(sFeatureFilePath);
+    if (!tempParamFile.isDirectory())
+    {
+        tempParamFile.createDirectory();
+    }
+    if (!tempAudioFile.isDirectory())
+    {
+        tempAudioFile.createDirectory();
+    }
+    if (!tempFeatureFile.isDirectory())
+    {
+        tempFeatureFile.createDirectory();
+    }
     
-
     static int num = 0;
     if (depth>0)
     {
@@ -78,13 +92,13 @@ void PluginContainer::generateParameterTextFiles(int depth, std::vector<float> &
     else
     {
         num = num + 1;
-        file.open(sTestFilePath + std::to_string(num) + ".txt");
+        file.open(sTestFilePath.toStdString() + std::to_string(num) + ".txt");
         for(int i = 0; i < numbers.size(); i++)
         {
             file << numbers[i] << std::endl;
             this->setParameter(i, numbers[i]);
         }
-        PluginContainerProcessor::generateAudioFile(true, sAudioFilePath + std::to_string(num) + ".wav");
+        PluginContainerProcessor::generateAudioFile(true, sAudioFilePath.toStdString() + std::to_string(num) + ".wav");
         while(PluginContainerProcessor::m_bRecording) {}
         PluginContainerProcessor::writeAudioFile();
         file.close();

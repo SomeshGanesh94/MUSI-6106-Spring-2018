@@ -260,9 +260,9 @@
       <FILE id="I1JbyP" name="types.h" compile="0" resource="0" file="Source/essentia/types.h"/>
       <FILE id="q6ROmI" name="version.h" compile="0" resource="0" file="Source/essentia/version.h"/>
     </GROUP>
-    <FILE id="rIGIYr" name="FeatureExtraction.cpp" compile="1" resource="0"
+    <FILE id="lT37Es" name="FeatureExtraction.cpp" compile="1" resource="0"
           file="Source/FeatureExtraction.cpp"/>
-    <FILE id="tfwDEn" name="FeatureExtraction.h" compile="0" resource="0"
+    <FILE id="NJ9qAf" name="FeatureExtraction.h" compile="0" resource="0"
           file="Source/FeatureExtraction.h"/>
     <FILE id="8tLeuntR4" name="FilterGraph.cpp" compile="1" resource="0"
           file="Source/FilterGraph.cpp"/>
@@ -290,13 +290,13 @@
           file="Source/PluginContainer.cpp"/>
     <FILE id="uLyu8F" name="PluginContainer.h" compile="0" resource="0"
           file="Source/PluginContainer.h"/>
-    <FILE id="rQcqI5" name="Regression.cpp" compile="1" resource="0" file="Source/Regression.cpp"/>
-    <FILE id="po6AdS" name="Regression.h" compile="0" resource="0" file="Source/Regression.h"/>
     <FILE id="lKUYLk" name="PluginContainerProcessor.cpp" compile="1" resource="0"
           file="Source/PluginContainerProcessor.cpp"/>
     <FILE id="phXLiK" name="PluginContainerProcessor.h" compile="0" resource="0"
           file="Source/PluginContainerProcessor.h"/>
     <FILE id="ZwQDmm" name="PluginWindow.h" compile="0" resource="0" file="Source/PluginWindow.h"/>
+    <FILE id="zxyau8" name="Regression.cpp" compile="1" resource="0" file="Source/Regression.cpp"/>
+    <FILE id="V5NrRT" name="Regression.h" compile="0" resource="0" file="Source/Regression.h"/>
   </MAINGROUP>
   <JUCEOPTIONS JUCE_WASAPI="1" JUCE_DIRECTSOUND="1" JUCE_ALSA="1" JUCE_USE_FLAC="0"
                JUCE_USE_OGGVORBIS="0" JUCE_USE_CDBURNER="0" JUCE_USE_CDREADER="0"

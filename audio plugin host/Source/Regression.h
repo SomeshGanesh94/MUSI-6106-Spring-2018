@@ -22,20 +22,27 @@ public:
     ~Regression();
     
     void trainModel(std::string sInputTrainingData, std::string sInputTrainingLabels);
+    std::vector<float> predictOutput(std::string sFeatureFile);
     void init(std::string sInputTrainingData, std::string sInputTrainingLabels);
     void reset();
     
 private:
-    typedef dlib::matrix<double, 55, 1> sampleType;
+    const int m_kiFeatureSize = 209;
+    
+    typedef dlib::matrix<double, 209, 1> sampleType;
     typedef dlib::matrix<double> labelType;
     typedef dlib::radial_basis_kernel<sampleType> kernelType;
+    dlib::svr_trainer<kernelType> SVRtrainer;
+    std::vector<dlib::decision_function<kernelType>> vDecisionFunctions;
+    
+    int m_iNumLabels;
     sampleType m_DummySample;
     double m_DummyLabel;
     
     std::vector<sampleType> m_Samples;
     std::map<int, std::vector<double>> m_Targets;
     
-    std::vector<float> extractDataFromYAML(std::string sInputTrainingData, std::string sInputTrainingLabels);
+    std::vector<float> extractDataFromYAML(std::string sInputTrainingData);
     void getTrainingData(std::string sInputFileFolder);
     void getLabels(std::string sInputFileFolder);
     

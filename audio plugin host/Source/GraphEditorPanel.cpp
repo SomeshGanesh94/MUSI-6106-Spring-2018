@@ -553,6 +553,16 @@ GraphEditorPanel::~GraphEditorPanel()
 void GraphEditorPanel::paint (Graphics& g)
 {
     g.fillAll (getLookAndFeel().findColour (ResizableWindow::backgroundColourId));
+    g.setColour (Colours::green);
+    
+    Line<float> l1(200, 230, 200, 250);
+    Line<float> l2(200, 310, 200, 330);
+    
+    Line<float> l3(600, 230, 600, 330);
+    
+    g.drawArrow(l1, 4.0f, 10.0f, 10.0f);
+    g.drawArrow(l2, 4.0f, 10.0f, 10.0f);
+    g.drawArrow(l3, 4.0f, 10.0f, 10.0f);
 }
 
 void GraphEditorPanel::mouseDown (const MouseEvent& e)
@@ -794,6 +804,7 @@ GraphDocumentComponent::GraphDocumentComponent (AudioPluginFormatManager& fm, Au
     : graph (new FilterGraph (fm)), deviceManager (dm),
       graphPlayer (getAppProperties().getUserSettings()->getBoolValue ("doublePrecisionProcessing", false))
 {
+
     addAndMakeVisible (graphPanel = new GraphEditorPanel (*graph));
 
     deviceManager.addChangeListener (graphPanel);
@@ -808,34 +819,50 @@ GraphDocumentComponent::GraphDocumentComponent (AudioPluginFormatManager& fm, Au
     deviceManager.addAudioCallback (&graphPlayer);
     deviceManager.addMidiInputCallback (String(), &graphPlayer.getMidiMessageCollector());
     
-    m_bAudioOn.setButtonText("Start MIDI Audio");
+    m_bAudioOn.setButtonText("MIDI On");
     addAndMakeVisible(m_bAudioOn);
     m_bAudioOn.addListener(this);
     
-    m_bAudioOff.setButtonText("Stop MIDI Audio");
+    m_bAudioOff.setButtonText("MIDI Off");
     addAndMakeVisible(m_bAudioOff);
     m_bAudioOff.addListener(this);
     
-    m_bGenerateAudio.setButtonText("Generate Audio Data");
+    m_bGenerateAudio.setButtonText("Generate\nDataset");
     addAndMakeVisible(m_bGenerateAudio);
     m_bGenerateAudio.addListener(this);
     
-    m_bExtractFeatures.setButtonText("Extract Features from Data");
+    m_bExtractFeatures.setButtonText("Extract\nFeatures");
     addAndMakeVisible(m_bExtractFeatures);
     m_bExtractFeatures.addListener(this);
+    m_bExtractFeatures.setEnabled(false);
     
     m_bTrainModel.setButtonText("Train Model");
     addAndMakeVisible(m_bTrainModel);
     m_bTrainModel.addListener(this);
+    m_bTrainModel.setEnabled(false);
     
-    m_bInputAudioFile.setButtonText("Input Audio File");
+    m_bInputAudioFile.setButtonText("Input Sample");
     addAndMakeVisible(m_bInputAudioFile);
     m_bInputAudioFile.addListener(this);
+    m_bInputAudioFile.setEnabled(false);
     
-    m_bGetResult.setButtonText("Get Result");
+    m_bGetResult.setButtonText("Predict\nParameters");
     addAndMakeVisible(m_bGetResult);
     m_bGetResult.addListener(this);
+    m_bGetResult.setEnabled(false);
+    
+    m_lHeading.setText("SynthIO", dontSendNotification);
+    m_lHeading.setFont(30);
+    addAndMakeVisible(m_lHeading);
 
+    m_lCreatorNames.setText("Agneya Kerure & Somesh Ganesh", dontSendNotification);
+    m_lCreatorNames.setFont(10);
+    addAndMakeVisible(m_lCreatorNames);
+    
+    m_lTextBox.setText("Status: Plugin required", sendNotification);
+    m_lTextBox.setFont(10);
+    addAndMakeVisible(m_lTextBox);
+    
     graphPanel->updateComponents();
 }
 
@@ -855,20 +882,29 @@ void GraphDocumentComponent::resized()
     statusBar->setBounds (0, getHeight() - keysHeight - statusHeight, getWidth(), statusHeight);
     keyboardComp->setBounds (0, getHeight() - keysHeight, getWidth(), keysHeight);
     
-    m_bAudioOn.setBounds(10, 10, getWidth()/10, getHeight()/10);
-    m_bAudioOff.setBounds(10, 90, getWidth()/10, getHeight()/10);
-    m_bGenerateAudio.setBounds(10, 170, getWidth()/10, getHeight()/10);
-    m_bExtractFeatures.setBounds(10, 250, getWidth()/10, getHeight()/10);
-    m_bTrainModel.setBounds(10, 330, getWidth()/10, getHeight()/10);
-    m_bInputAudioFile.setBounds(10, 410, getWidth()/10, getHeight()/10);
-    m_bGetResult.setBounds(10, 490, getWidth()/10, getHeight()/10);
-
+    m_lHeading.setBounds(350, 20, 100, 40);
+    m_lCreatorNames.setBounds(325, 70, 200, 40);
+    m_lTextBox.setBounds(0, 520, 100, 10);
+    
+    m_bAudioOn.setBounds(290, 450, 80, 50);
+    m_bAudioOff.setBounds(430, 450, 80, 50);
+    
+    
+    m_bGenerateAudio.setBounds(150, 170, 100, getHeight()/10);
+    m_bExtractFeatures.setBounds(150, 250, 100, getHeight()/10);
+    m_bTrainModel.setBounds(150, 330, 100, getHeight()/10);
+    
+    m_bInputAudioFile.setBounds(550, 170, 100, getHeight()/10);
+    m_bGetResult.setBounds(550, 330, 100, getHeight()/10);
+    
+    
 }
 
 void GraphDocumentComponent::createNewPlugin (const PluginDescription& desc, Point<int> pos)
 {
     graphPanel->createNewPlugin (desc, pos);
 }
+
 
 void GraphDocumentComponent::unfocusKeyboardComponent()
 {
@@ -917,14 +953,25 @@ void GraphDocumentComponent::buttonClicked(Button *button)
     }
     if (button == &m_bGenerateAudio)
     {
-        PluginContainerProcessor::m_bRecording = false;
-        int iNumParams = graph->container->getNumberOfParameters();
-        keyState.noteOn(1, 77, 1);
-        graph->container->genFiles(iNumParams, 1);
-        keyState.noteOff(1, 77, 1);
+        if (graph->m_bPluginDetect)
+        {
+            m_lTextBox.setText("Status: Generating audio dataset", sendNotification);
+            PluginContainerProcessor::m_bRecording = false;
+            int iNumParams = graph->container->getNumberOfParameters();
+            keyState.noteOn(1, 77, 1);
+            graph->container->genFiles(iNumParams, 1);
+            keyState.noteOff(1, 77, 1);
+            m_lTextBox.setText("Status: Generated audio dataset", sendNotification);
+            m_bExtractFeatures.setEnabled(true);
+        }
+        else
+        {
+            m_lTextBox.setText("Status: No plugin detected", sendNotification);
+        }
     }
     if (button == &m_bExtractFeatures)
     {
+        m_lTextBox.setText("Status: Extracting features", sendNotification);
         PluginContainerProcessor::m_bRecording = false;
         String filePath = File::getCurrentWorkingDirectory().getFullPathName() + "/generatedDatasetFiles";
         std::string sAudioFilePath = filePath.toStdString() + "/audioFiles/";
@@ -932,27 +979,41 @@ void GraphDocumentComponent::buttonClicked(Button *button)
         graph->m_pCFeatureExtraction->initEssentia();
         graph->doFeatureExtract(sAudioFilePath, sFeatureFilePath);
         graph->m_pCFeatureExtraction->shutDownEssentia();
+        m_lTextBox.setText("Status: Features extracted", sendNotification);
+        m_bTrainModel.setEnabled(true);
     }
     if (button == &m_bTrainModel)
     {
+        m_lTextBox.setText("Status: Training model", sendNotification);
         PluginContainerProcessor::m_bRecording = false;
         String filePath = File::getCurrentWorkingDirectory().getFullPathName() + "/generatedDatasetFiles";
         std::string sTestFilePath = filePath.toStdString() + "/parameterFiles/";
         std::string sFeatureFilePath = filePath.toStdString() + "/featureFiles/";
         graph->m_pCRegression->trainModel(sFeatureFilePath, sTestFilePath);
+        m_lTextBox.setText("Status: Model trained", sendNotification);
+        m_bInputAudioFile.setEnabled(true);
     }
     if (button == &m_bInputAudioFile)
     {
         PluginContainerProcessor::m_bRecording = false;
         m_inputAudio.selectAudioFile();
+        m_lTextBox.setText("Status: Input audio sample stored", sendNotification);
+        m_bGetResult.setEnabled(true);
     }
     if (button == &m_bGetResult)
     {
+        m_lTextBox.setText("Status: Running regressor", sendNotification);
         PluginContainerProcessor::m_bRecording = false;
         String filePath = File::getCurrentWorkingDirectory().getFullPathName() + "/generatedDatasetFiles";
         std::string sInputAudioFeatureFilePath = filePath.toStdString() + "/inputAudioFeatures/";
-        m_featreExtractor.initEssentia();
-        m_featreExtractor.doFeatureExtract(m_inputAudio.getAddress(), sInputAudioFeatureFilePath);
-        m_featreExtractor.shutDownEssentia();
+        graph->m_pCFeatureExtraction->initEssentia();
+        graph->m_pCFeatureExtraction->doFeatureExtract(m_inputAudio.getAddress(), sInputAudioFeatureFilePath);
+        vfFinalOutput = graph->m_pCRegression->predictOutput(sInputAudioFeatureFilePath);
+        graph->m_pCFeatureExtraction->shutDownEssentia();
+        m_lTextBox.setText("Status: Predictions ready", sendNotification);
+        for (int iParam = 0; iParam < vfFinalOutput.size(); iParam++)
+        {
+            graph->container->setParameter(iParam, vfFinalOutput[iParam]);
+        }
     }
 }

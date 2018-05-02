@@ -115,6 +115,10 @@ public:
     TextButton m_bGetResult;
 //    TextButton m_bPlayAudioFile;
 //    TextButton m_bStopAudioFile;
+    
+    Label m_lTextBox;
+    
+    std::vector<float> vfFinalOutput;
 
     void buttonClicked(Button* button) override;
     
@@ -127,6 +131,9 @@ private:
     ScopedPointer<TooltipBar> statusBar;
     AudioFileInput m_inputAudio;
     CFeatureExtraction m_featreExtractor;
-
+    
+    Label m_lHeading;
+    Label m_lCreatorNames;
+    
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (GraphDocumentComponent)
 };

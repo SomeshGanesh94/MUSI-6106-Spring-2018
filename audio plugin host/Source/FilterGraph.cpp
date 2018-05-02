@@ -50,6 +50,7 @@ FilterGraph::FilterGraph (AudioPluginFormatManager& fm)
     
     m_pCRegression = new Regression();
     m_DFeatureIter = nullptr;
+    m_bPluginDetect = false;
 }
 
 FilterGraph::~FilterGraph()
@@ -140,25 +141,24 @@ void FilterGraph::addFilterCallback (AudioPluginInstance* instance, const String
         //This is to manipulate parameters of the plugin - the first three inputs are MIDI and Audio input and Audio Output already present in the plugin host
         if(count == 4)
         {
+            m_bPluginDetect = true;
             auto* processor = dynamic_cast<AudioProcessor*> (instance);
             container = new PluginContainer();
             container->init(*processor);
             
             const unsigned int iHostMidiInputNodeID = graph.getNode(count-3)->nodeID; //1
             const unsigned int iPluginNodeID = graph.getNode(count-1)->nodeID; //3
-            //const unsigned int iHostAudioOutputNodeID = graph.getNode(count-2)->nodeID; //2
+            const unsigned int iHostAudioOutputNodeID = graph.getNode(count-2)->nodeID; //2
             const int iMidiChannelNumber = 4096;
-            //const int iLeftAudioChannelNumber = 0;
-            //const int iRightAudioChannelNumber = 1;
-            
-            //std::cout<<"Processor Name: "<<graph.getNode(2)->getProcessor()->getName()<<std::endl;
+            const int iLeftAudioChannelNumber = 0;
+            const int iRightAudioChannelNumber = 1;
             
             //connect midi output of host to midi input of synth
             PluginContainerProcessor::Connection connection1 { { iHostMidiInputNodeID, iMidiChannelNumber }, { iPluginNodeID, iMidiChannelNumber } };
             
             //connect audio output of host to plugin audio output
-            PluginContainerProcessor::Connection connection2 { { 4, 0 }, { 3, 0 } };
-            PluginContainerProcessor::Connection connection3 { { 4, 1 }, { 3, 1 } };
+            PluginContainerProcessor::Connection connection2 { { iPluginNodeID, iLeftAudioChannelNumber }, { iHostAudioOutputNodeID, iLeftAudioChannelNumber } };
+            PluginContainerProcessor::Connection connection3 { { iPluginNodeID, iRightAudioChannelNumber }, { iHostAudioOutputNodeID, iRightAudioChannelNumber } };
             
             graph.addConnection(connection1);
             graph.addConnection(connection2);
@@ -244,9 +244,9 @@ void FilterGraph::newDocument()
 
     InternalPluginFormat internalFormat;
 
-    addPlugin (internalFormat.audioInDesc,  { 0.5,  0.1 });
-    addPlugin (internalFormat.midiInDesc,   { 0.25, 0.1 });
-    addPlugin (internalFormat.audioOutDesc, { 0.5,  0.9 });
+    addPlugin (internalFormat.audioInDesc,  { 1.5,  1.1 });
+    addPlugin (internalFormat.midiInDesc,   { 0.5, 0.35 });
+    addPlugin (internalFormat.audioOutDesc, { 0.5, 0.65 });
 
     setChangedFlag (false);
 }
@@ -518,4 +518,10 @@ void FilterGraph::doFeatureExtract(std::string sInputFileFolder, std::string sOu
         m_pCFeatureExtraction->doFeatureExtract(sInputAudioFile, sOutputFileFolder + m_DFeatureIter->getFile().getFileNameWithoutExtension().toStdString() + ".txt");
     }
     m_pCFeatureExtraction->shutDownEssentia();
+}
+
+std::vector<float> FilterGraph::predictOutput(std::string sFeatureFile)
+{
+    std::vector<float> vfFinalOutput;
+    vfFinalOutput = m_pCRegression->predictOutput(sFeatureFile);
 }
