@@ -63,3 +63,8 @@ void AudioFileInput::getState()
 {
     
 }
+
+void AudioFileInput::doFeatureExtract(std::string sAudioFeatureFilePath)
+{
+    graph->doFeatureExtract(m_audioFileAddress.toStdString(), sAudioFeatureFilePath);
+}

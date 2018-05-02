@@ -11,6 +11,7 @@
 #pragma once
 
 #include "../JuceLibraryCode/JuceHeader.h"
+#include "FilterGraph.h"
 
 class AudioFileInput
 {
@@ -23,6 +24,9 @@ public:
     void stopAudioFile();
     std::string getAddress();
     void getState();
+    void doFeatureExtract(std::string sAudioFeatureFilePath);
+    
+    ScopedPointer<FilterGraph> graph;
     
 private:
     enum TransportState

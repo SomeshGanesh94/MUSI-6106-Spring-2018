@@ -44,7 +44,7 @@ void PluginContainer::setProcessor(AudioProcessor& processor)
 
 void PluginContainer::setParameter(int index, float value)
 {
-    pluginInstance -> setParameter(index, value);
+    pluginInstance -> setParameterNotifyingHost(index, value);
 }
 
 //Getters
