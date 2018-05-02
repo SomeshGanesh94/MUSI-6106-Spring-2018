@@ -119,6 +119,8 @@ public:
     Label m_lTextBox;
     
     std::vector<float> vfFinalOutput;
+    
+    String filePath = File::getSpecialLocation(File::SpecialLocationType::currentApplicationFile).getFullPathName() + "/../../../../../generatedDatasetFiles";
 
     void buttonClicked(Button* button) override;
     

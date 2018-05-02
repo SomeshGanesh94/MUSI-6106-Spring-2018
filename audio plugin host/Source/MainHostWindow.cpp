@@ -86,7 +86,7 @@ MainHostWindow::MainHostWindow()
 
     deviceManager.initialise (256, 256, savedAudioState, true);
 
-    setResizable (true, false);
+    setResizable (false, false);
     setResizeLimits (500, 400, 10000, 10000);
     centreWithSize (800, 600);
 

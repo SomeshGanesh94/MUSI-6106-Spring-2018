@@ -836,7 +836,15 @@ GraphDocumentComponent::GraphDocumentComponent (AudioPluginFormatManager& fm, Au
     m_bExtractFeatures.setButtonText("Extract\nFeatures");
     addAndMakeVisible(m_bExtractFeatures);
     m_bExtractFeatures.addListener(this);
-    m_bExtractFeatures.setEnabled(false);
+    File tempFile(filePath + String("/audioFiles/"));
+    if (tempFile.getNumberOfChildFiles(2) != 0)
+                  {
+                        m_bExtractFeatures.setEnabled(true);
+                  }
+                  else
+                  {
+                      m_bExtractFeatures.setEnabled(false);
+                  }
     
     m_bTrainModel.setButtonText("Train Model");
     addAndMakeVisible(m_bTrainModel);
@@ -975,7 +983,6 @@ void GraphDocumentComponent::buttonClicked(Button *button)
     {
         m_lTextBox.setText("Status: Extracting features", sendNotification);
         PluginContainerProcessor::m_bRecording = false;
-        String filePath = File::getSpecialLocation(File::SpecialLocationType::currentExecutableFile).getFullPathName() + "/../../../../../generatedDatasetFiles";
         std::string sAudioFilePath = filePath.toStdString() + "/audioFiles/";
         std::string sFeatureFilePath = filePath.toStdString() + "/featureFiles/";
         graph->m_pCFeatureExtraction->initEssentia();
@@ -988,7 +995,6 @@ void GraphDocumentComponent::buttonClicked(Button *button)
     {
         m_lTextBox.setText("Status: Training model", sendNotification);
         PluginContainerProcessor::m_bRecording = false;
-        String filePath = File::getSpecialLocation(File::SpecialLocationType::currentExecutableFile).getFullPathName() + "/../../../../../generatedDatasetFiles";
         std::string sTestFilePath = filePath.toStdString() + "/parameterFiles/";
         std::string sFeatureFilePath = filePath.toStdString() + "/featureFiles/";
         graph->m_pCRegression->trainModel(sFeatureFilePath, sTestFilePath);
@@ -1006,7 +1012,6 @@ void GraphDocumentComponent::buttonClicked(Button *button)
     {
         m_lTextBox.setText("Status: Running regressor", sendNotification);
         PluginContainerProcessor::m_bRecording = false;
-        String filePath = File::getSpecialLocation(File::SpecialLocationType::currentExecutableFile).getFullPathName() + "/../../../../../generatedDatasetFiles";
         std::string sInputAudioFeatureFilePath = filePath.toStdString() + "/inputAudioFeatures/";
         graph->m_pCFeatureExtraction->initEssentia();
         graph->m_pCFeatureExtraction->doFeatureExtract(m_inputAudio.getAddress(), sInputAudioFeatureFilePath);
